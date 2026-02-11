@@ -1,0 +1,14 @@
+{
+  "name": "agentic-rn-demo",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -C apps/mobile start",
+    "lint": "pnpm -r run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
+    "typecheck": "pnpm -r run typecheck"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.0",
+    "typescript": "^5.6.0"
+  }
+}

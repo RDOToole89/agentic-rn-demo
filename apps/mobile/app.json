@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "agentic-rn-demo",
+    "slug": "agentic-rn-demo",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "agentic-rn-demo",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "plugins": ["expo-router"],
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "bundleIdentifier": "com.demo.agenticrn",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.demo.agenticrn",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
