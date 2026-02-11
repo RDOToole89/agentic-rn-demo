@@ -1,3 +1,11 @@
+---
+id: STORY-01
+title: Bootstrap Monorepo
+status: done
+labels: [type:feat, scope:mono]
+issue: 3
+---
+
 # STORY-01: Bootstrap Monorepo
 
 ## Summary

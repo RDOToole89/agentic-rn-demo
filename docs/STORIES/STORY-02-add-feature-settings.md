@@ -1,3 +1,11 @@
+---
+id: STORY-02
+title: Add Settings Feature
+status: done
+labels: [type:feat, scope:mobile]
+issue: 4
+---
+
 # STORY-02: Add Settings Feature
 
 ## Summary
