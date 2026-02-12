@@ -30,7 +30,7 @@ to GitHub Issues and a Project Board via a CLI script.
 id: STORY-03
 title: Add Notifications Feature
 status: backlog        # backlog | ready | in-progress | done
-labels: [type:feat, scope:mobile]
+labels: [type:feat, scope:client]
 issue: null            # becomes issue number after sync
 ---
 ```

@@ -1,11 +1,11 @@
-# AGENTS.md — App Level (Mobile)
+# AGENTS.md — App Level (Client)
 
-> You are inside `apps/mobile/`. This is the Expo React Native app.
+> You are inside `apps/client/`. This is the Expo app (iOS, Android, Web).
 > For monorepo-wide rules, see the root `AGENTS.md`.
 
 ## Stack
 
-- **Expo SDK 54** / React Native 0.81 / React 19
+- **Expo SDK 54** / React Native 0.81 / React 19 / react-native-web
 - **Expo Router 6** (file-based routing)
 - **Zustand 5** (state management)
 - **AsyncStorage** (local persistence)

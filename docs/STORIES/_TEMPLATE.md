@@ -2,7 +2,7 @@
 id: STORY-XX
 title: <Short title>
 status: backlog
-labels: [type:feat, scope:mobile]
+labels: [type:feat, scope:client]
 issue: null
 ---
 

@@ -53,7 +53,7 @@ Story Spec (docs/STORIES/)
 | `type:fix`      | Bug fix                              |
 | `type:refactor` | Code improvement, no behavior change |
 | `type:docs`     | Documentation only                   |
-| `scope:mobile`  | Changes in `apps/mobile/`            |
+| `scope:client`  | Changes in `apps/client/`            |
 | `scope:ui`      | Changes in `packages/ui/`            |
 | `scope:core`    | Changes in `packages/core/`          |
 

@@ -29,7 +29,7 @@ Total context for any task: **~1,100 tokens** across 3 files.
 - Navigation table ("I need to... → go to...")
 - Commit conventions
 
-### App (`/apps/mobile/AGENTS.md`)
+### App (`/apps/client/AGENTS.md`)
 - Tech stack versions
 - Architecture layers with dependency rules
 - Decision tree: "Where does new code go?"

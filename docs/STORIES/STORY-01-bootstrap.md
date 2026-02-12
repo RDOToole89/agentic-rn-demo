@@ -9,7 +9,7 @@ issue: 3
 # STORY-01: Bootstrap Monorepo
 
 ## Summary
-Set up the initial monorepo structure with a working Expo React Native app,
+Set up the initial monorepo structure with a working cross-platform Expo app,
 shared packages, layered architecture, and documentation.
 
 ## Context
@@ -19,8 +19,8 @@ minimal but realistic — not a toy, not overengineered.
 
 ## Acceptance Criteria
 
-- [ ] pnpm monorepo with `apps/mobile`, `packages/ui`, `packages/core`
-- [ ] Expo app runs with `pnpm dev` (or `pnpm -C apps/mobile start`)
+- [ ] pnpm monorepo with `apps/client`, `packages/ui`, `packages/core`
+- [ ] Expo app runs with `pnpm dev` (or `pnpm -C apps/client start`)
 - [ ] Home screen displays a greeting and theme mode
 - [ ] Navigation from Home to Settings works
 - [ ] TypeScript strict mode enabled
@@ -45,7 +45,7 @@ Root:        package.json, pnpm-workspace.yaml, .gitignore, .editorconfig,
              .prettierrc, .npmrc, AGENTS.md, README.md
 Config:      .vscode/extensions.json, .vscode/settings.json
 Docs:        docs/ARCHITECTURE.md, docs/WORKFLOW.md, docs/STORIES/STORY-01-*.md
-Mobile:      apps/mobile/ (full app with all layers)
+Client:      apps/client/ (full app with all layers)
 Packages:    packages/core/, packages/ui/
 ```
 

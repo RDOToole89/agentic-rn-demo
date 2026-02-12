@@ -34,7 +34,7 @@
 - **GitHub**: https://github.com/RDOToole89/agentic-rn-demo
 - **Local path**: `/Users/rootoole/Desktop/gh-project/agentic-rn-demo`
 - **Project Board**: https://github.com/users/RDOToole89/projects/5
-- **Status**: 2 commits on main, app runs on iOS simulator, board synced
+- **Status**: Commits on main, app runs on iOS simulator, Android emulator, and web browser, board synced
 
 ### Tech Stack (Latest Stable, Feb 2026)
 
@@ -89,7 +89,7 @@ agentic-rn-demo/
 │   └── guides/
 │       └── DEVELOPER-GUIDE.md         ← Setup, conventions, troubleshooting
 │
-├── apps/mobile/
+├── apps/client/
 │   ├── AGENTS.md                      ← APP-LEVEL agent guide
 │   ├── app/                           ← Expo Router 6 (thin route wrappers)
 │   │   ├── _layout.tsx                ← Providers + hydration + Stack nav
@@ -135,7 +135,7 @@ Every layer only imports from the layer below. Domain has zero framework deps.
 | Level   | File                               | Purpose                                     |
 | ------- | ---------------------------------- | ------------------------------------------- |
 | Root    | `/AGENTS.md`                       | "What is this repo? Where do I go?"         |
-| App     | `/apps/mobile/AGENTS.md`           | "What are the layers? Decision tree"        |
+| App     | `/apps/client/AGENTS.md`           | "What are the layers? Decision tree"        |
 | Feature | `/src/features/settings/AGENTS.md` | "What does this feature do? How to extend?" |
 
 Total context per task: ~1,100 tokens across 3 files.
@@ -159,8 +159,8 @@ Board columns: **Backlog → Ready → In progress → In review → Done**
 
 ## What's Done
 
-- [x] pnpm monorepo (apps/mobile, packages/ui, packages/core)
-- [x] Expo SDK 54 app running on iOS simulator (verified)
+- [x] pnpm monorepo (apps/client, packages/ui, packages/core)
+- [x] Expo SDK 54 app running on iOS simulator, Android emulator, and web (verified)
 - [x] Home screen: greeting, theme display, navigate to Settings
 - [x] Settings screen: username edit (debounced), dark mode toggle
 - [x] Full data flow through all architecture layers
@@ -199,6 +199,7 @@ Board columns: **Backlog → Ready → In progress → In review → Done**
 | 006 | Persistence   | AsyncStorage behind IStorageService interface |
 | 007 | Agent context | Layered AGENTS.md progressive disclosure      |
 | 008 | Workflow      | Story-driven development with board sync      |
+| 009 | Rename        | `apps/mobile` → `apps/client` (multi-platform) |
 
 ---
 
@@ -207,7 +208,7 @@ Board columns: **Backlog → Ready → In progress → In review → Done**
 ```bash
 cd /Users/rootoole/Desktop/gh-project/agentic-rn-demo
 pnpm dev        # Start Expo dev server
-# Press 'i' for iOS simulator
+# Press 'i' for iOS simulator, 'a' for Android, 'w' for web
 ```
 
 Git is clean, on `main`, tracking `origin/main`.

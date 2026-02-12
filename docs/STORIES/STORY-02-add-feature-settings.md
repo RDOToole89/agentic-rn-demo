@@ -2,7 +2,7 @@
 id: STORY-02
 title: Add Settings Feature
 status: done
-labels: [type:feat, scope:mobile]
+labels: [type:feat, scope:client]
 issue: 4
 ---
 

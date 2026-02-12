@@ -15,6 +15,7 @@ context, alternatives considered, and rationale.
 | [ADR-006](./ADR-006-service-interface.md) | AsyncStorage Behind Service Interface | Accepted |
 | [ADR-007](./ADR-007-layered-agents-md.md) | Layered AGENTS.md Progressive Disclosure | Accepted |
 | [ADR-008](./ADR-008-story-driven-development.md) | Story-Driven Development with Board Sync | Accepted |
+| [ADR-009](./ADR-009-rename-mobile-to-client.md) | Rename `apps/mobile` to `apps/client` | Accepted |
 
 ## Format
 

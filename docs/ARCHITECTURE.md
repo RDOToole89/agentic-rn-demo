@@ -3,6 +3,7 @@
 ## Overview
 
 This app follows a **layered architecture** with strict dependency rules.
+It targets iOS, Android, and Web from a single codebase using Expo.
 The goal is clear boundaries, testable logic, and a codebase that both humans
 and AI agents can navigate predictably.
 
@@ -15,7 +16,7 @@ and AI agents can navigate predictably.
 ```mermaid
 graph TB
     subgraph Monorepo["agentic-rn-demo (pnpm workspaces)"]
-        subgraph Mobile["apps/mobile — Expo SDK 54"]
+        subgraph Client["apps/client — Expo SDK 54 (iOS · Android · Web)"]
             Router["app/<br/>Expo Router 6<br/><i>thin route wrappers</i>"]
             Features["src/features/<br/>Feature Modules<br/><i>screens + hooks + components</i>"]
             Shared["src/shared/<br/>Cross-Feature State<br/><i>Zustand stores</i>"]
@@ -146,7 +147,7 @@ flowchart TD
 ## Folder Structure
 
 ```
-apps/mobile/
+apps/client/
 ├── app/                          # Route definitions (Expo Router)
 │   ├── _layout.tsx               # Root layout + providers
 │   ├── index.tsx                 # → HomeScreen

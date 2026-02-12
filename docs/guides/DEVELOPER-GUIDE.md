@@ -39,6 +39,7 @@ pnpm dev
 This starts the Expo dev server. Then:
 - Press **i** to open in iOS Simulator
 - Press **a** to open in Android Emulator
+- Press **w** to open in web browser
 - Scan QR code with Expo Go on your phone
 
 ---
@@ -54,7 +55,7 @@ Run from the monorepo root:
 | `pnpm format` | Format with Prettier |
 | `pnpm typecheck` | TypeScript check all packages |
 
-Run from `apps/mobile/`:
+Run from `apps/client/`:
 
 | Command | What it does |
 |---------|-------------|
@@ -85,7 +86,7 @@ Run from `apps/mobile/`:
 ```
 agentic-rn-demo/
 ├── AGENTS.md              ← Start here (AI agent entry point)
-├── apps/mobile/           ← The Expo app
+├── apps/client/           ← Expo app (iOS, Android, Web)
 │   ├── AGENTS.md          ← App-level agent guide
 │   ├── app/               ← Routes (Expo Router)
 │   └── src/
@@ -123,7 +124,7 @@ Screen → Hook → Zustand Store → Domain Use-Case → Service → AsyncStora
 - `app/` contains **thin wrappers** that re-export from `features/`
 
 **Why?** So AI agents know exactly where to put new code. See the decision
-tree in `apps/mobile/AGENTS.md`.
+tree in `apps/client/AGENTS.md`.
 
 ---
 
@@ -167,7 +168,7 @@ This repo is designed for AI-assisted development. The key files:
 | File | When to Read |
 |------|-------------|
 | `AGENTS.md` (root) | Before any work — understand the repo |
-| `apps/mobile/AGENTS.md` | Before app changes — know the layers |
+| `apps/client/AGENTS.md` | Before app changes — know the layers |
 | `src/features/*/AGENTS.md` | Before feature changes — know the constraints |
 | `docs/STORIES/STORY-XX.md` | Before implementing — know the acceptance criteria |
 | `docs/ADR/` | When questioning a decision — understand the rationale |
@@ -193,12 +194,12 @@ type(scope): description
 | Part | Values |
 |------|--------|
 | **type** | `feat`, `fix`, `refactor`, `docs`, `test`, `chore` |
-| **scope** | `mobile`, `ui`, `core`, `mono` |
+| **scope** | `client`, `ui`, `core`, `mono` |
 
 Examples:
 ```
-feat(mobile): add notifications feature
-fix(mobile): debounce username persistence
+feat(client): add notifications feature
+fix(client): debounce username persistence
 docs(mono): update ARCHITECTURE.md with new diagrams
 chore(mono): configure lefthook pre-commit hooks
 ```
@@ -214,7 +215,7 @@ chore(mono): configure lefthook pre-commit hooks
 | `type:refactor` | Yellow | Code improvement |
 | `type:docs` | Blue | Documentation |
 | `type:chore` | Purple | Maintenance |
-| `scope:mobile` | Light blue | Changes in apps/mobile |
+| `scope:client` | Light blue | Changes in apps/client |
 | `scope:ui` | Light blue | Changes in packages/ui |
 | `scope:core` | Light blue | Changes in packages/core |
 | `scope:mono` | Light blue | Monorepo-level changes |
@@ -226,7 +227,7 @@ chore(mono): configure lefthook pre-commit hooks
 ### Expo Doctor
 
 ```bash
-cd apps/mobile && npx expo-doctor
+cd apps/client && npx expo-doctor
 ```
 
 All 17 checks should pass. If not, run:
@@ -246,7 +247,7 @@ npx expo start -c
 
 ```bash
 # Clean install
-rm -rf node_modules apps/mobile/node_modules pnpm-lock.yaml
+rm -rf node_modules apps/client/node_modules pnpm-lock.yaml
 pnpm install
 ```
 

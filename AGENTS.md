@@ -5,15 +5,15 @@
 
 ## Repository Overview
 
-**agentic-rn-demo** is a pnpm monorepo containing a React Native (Expo) app
-and shared packages. It demonstrates architecture-first development with
-AI-assisted workflows.
+**agentic-rn-demo** is a pnpm monorepo containing a cross-platform Expo app
+(iOS, Android, Web) and shared packages. It demonstrates architecture-first
+development with AI-assisted workflows.
 
 ## Structure
 
 ```
 agentic-rn-demo/
-├── apps/mobile/       → Expo React Native app (has its own AGENTS.md)
+├── apps/client/       → Expo app — iOS, Android, Web (has its own AGENTS.md)
 ├── packages/ui/       → Shared UI components
 ├── packages/core/     → Shared types and utilities
 └── docs/              → Architecture docs, workflow guides, story specs
@@ -32,8 +32,8 @@ agentic-rn-demo/
 |------------------------------------|----------------------------------------------|
 | Understand the architecture        | `docs/ARCHITECTURE.md`                       |
 | Understand the workflow            | `docs/WORKFLOW.md`                           |
-| Work on the mobile app             | `apps/mobile/AGENTS.md`                      |
-| See a feature-level example        | `apps/mobile/src/features/settings/AGENTS.md`|
+| Work on the client app             | `apps/client/AGENTS.md`                      |
+| See a feature-level example        | `apps/client/src/features/settings/AGENTS.md`|
 | Find a story spec                  | `docs/STORIES/STORY-*.md`                    |
 
 ## Commit Conventions
@@ -41,12 +41,12 @@ agentic-rn-demo/
 Format: `type(scope): description`
 
 - **type**: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`
-- **scope**: `mobile`, `ui`, `core`, `mono`, or feature name
+- **scope**: `client`, `ui`, `core`, `mono`, or feature name
 - **description**: imperative mood, lowercase, max 72 chars
 
 Examples:
 ```
-feat(mobile): add dark mode toggle to settings
+feat(client): add dark mode toggle to settings
 fix(core): handle null in Result type
 docs(mono): update ARCHITECTURE.md with data flow
 ```

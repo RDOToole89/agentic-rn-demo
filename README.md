@@ -1,7 +1,7 @@
 # agentic-rn-demo
 
 A demonstration monorepo for **architecture-first development with AI-assisted
-workflows** in React Native.
+workflows** using Expo (iOS, Android, Web).
 
 Built for a developer meetup talk: *"Architecture-First Development in the Age
 of Agents — Practical React Native workflows with AI"*
@@ -16,14 +16,14 @@ pnpm install
 pnpm dev
 
 # Or run directly
-pnpm -C apps/mobile start
+pnpm -C apps/client start
 ```
 
 ## Structure
 
 ```
 agentic-rn-demo/
-├── apps/mobile/       Expo React Native app
+├── apps/client/       Expo app (iOS, Android, Web)
 ├── packages/ui/       Shared UI components
 ├── packages/core/     Shared types & utilities
 └── docs/              Architecture, workflow, story specs
@@ -41,7 +41,7 @@ agentic-rn-demo/
 | Document                  | Purpose                                    |
 |---------------------------|--------------------------------------------|
 | `AGENTS.md`               | AI agent entry point (root level)          |
-| `apps/mobile/AGENTS.md`   | App-level architecture guide               |
+| `apps/client/AGENTS.md`   | App-level architecture guide               |
 | `docs/ARCHITECTURE.md`    | Folder structure and data flow             |
 | `docs/WORKFLOW.md`        | Development process and PR checklist       |
 | `docs/STORIES/`           | Feature specs with acceptance criteria     |

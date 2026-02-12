@@ -4,9 +4,10 @@
 
 ## Context
 
-We need a cross-platform React Native framework. Expo provides managed
-workflows, OTA updates, and a large plugin ecosystem. We initially scaffolded
-with SDK 52 but upgraded to SDK 54 (latest stable, Feb 2026).
+We need a cross-platform framework targeting iOS, Android, and Web. Expo
+provides managed workflows, OTA updates, and a large plugin ecosystem. We
+initially scaffolded with SDK 52 but upgraded to SDK 54 (latest stable,
+Feb 2026).
 
 ## Decision
 

@@ -30,7 +30,7 @@ extract_body() {
   awk 'BEGIN{n=0} /^---$/{n++; next} n>=2{print}' "$file"
 }
 
-# Parse labels from frontmatter: [type:feat, scope:mobile] -> array
+# Parse labels from frontmatter: [type:feat, scope:client] -> array
 parse_labels() {
   local raw="$1"
   echo "$raw" | tr -d '[]' | tr ',' '\n' | sed 's/^ *//' | sed 's/ *$//'

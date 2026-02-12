@@ -4,7 +4,7 @@
 
 ## Context
 
-We need a monorepo structure to co-locate the mobile app and shared packages.
+We need a monorepo structure to co-locate the client app and shared packages.
 The industry standard tools are pnpm workspaces, Nx, Turborepo, and Yarn
 workspaces.
 
