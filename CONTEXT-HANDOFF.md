@@ -9,8 +9,8 @@
 
 ### Presentation
 
-- **Title**: "Architecture-First Development in the Age of Agents"
-- **Subtitle**: "Practical React Native workflows with AI"
+- **Title**: "Architecture-First Development with Agentic Workflows"
+- **Subtitle**: "Practical patterns for AI-assisted engineering"
 - **Audience**: Developers (internal meetup)
 - **Format**: Markdown outline (to port to slides)
 - **Duration**: TBD (not yet decided)
@@ -38,17 +38,17 @@
 
 ### Tech Stack (Latest Stable, Feb 2026)
 
-| Package                    | Version     |
-|----------------------------|-------------|
-| Expo SDK                   | **54.0.33** |
-| Expo Router                | **6.0.23**  |
-| React                      | **19.1.0**  |
-| React Native               | **0.81.5**  |
-| React Native Reanimated    | **4.1.6**   |
-| React Native Screens       | **4.16.0**  |
-| Zustand                    | **5.x**     |
-| AsyncStorage               | **2.2.0**   |
-| TypeScript                 | **5.9.2**   |
+| Package                 | Version     |
+| ----------------------- | ----------- |
+| Expo SDK                | **54.0.33** |
+| Expo Router             | **6.0.23**  |
+| React                   | **19.1.0**  |
+| React Native            | **0.81.5**  |
+| React Native Reanimated | **4.1.6**   |
+| React Native Screens    | **4.16.0**  |
+| Zustand                 | **5.x**     |
+| AsyncStorage            | **2.2.0**   |
+| TypeScript              | **5.9.2**   |
 
 **Expo Doctor**: 17/17 checks passed.
 
@@ -132,11 +132,11 @@ Every layer only imports from the layer below. Domain has zero framework deps.
 
 ### Layered AGENTS.md System
 
-| Level   | File                                    | Purpose                                    |
-|---------|-----------------------------------------|--------------------------------------------|
-| Root    | `/AGENTS.md`                            | "What is this repo? Where do I go?"        |
-| App     | `/apps/mobile/AGENTS.md`                | "What are the layers? Decision tree"        |
-| Feature | `/src/features/settings/AGENTS.md`      | "What does this feature do? How to extend?" |
+| Level   | File                               | Purpose                                     |
+| ------- | ---------------------------------- | ------------------------------------------- |
+| Root    | `/AGENTS.md`                       | "What is this repo? Where do I go?"         |
+| App     | `/apps/mobile/AGENTS.md`           | "What are the layers? Decision tree"        |
+| Feature | `/src/features/settings/AGENTS.md` | "What does this feature do? How to extend?" |
 
 Total context per task: ~1,100 tokens across 3 files.
 
@@ -189,16 +189,16 @@ Board columns: **Backlog → Ready → In progress → In review → Done**
 
 ## Decisions Made (see docs/ADR/ for full rationale)
 
-| # | Decision | Choice |
-|---|----------|--------|
-| 001 | Monorepo tool | pnpm workspaces (no Nx/Turborepo) |
-| 002 | SDK | Expo SDK 54, React 19, RN 0.81 |
-| 003 | Architecture | 4-layer with strict boundaries |
-| 004 | State | Zustand 5 (thin wrapper over use-cases) |
-| 005 | Navigation | Expo Router 6 (file-based) |
-| 006 | Persistence | AsyncStorage behind IStorageService interface |
-| 007 | Agent context | Layered AGENTS.md progressive disclosure |
-| 008 | Workflow | Story-driven development with board sync |
+| #   | Decision      | Choice                                        |
+| --- | ------------- | --------------------------------------------- |
+| 001 | Monorepo tool | pnpm workspaces (no Nx/Turborepo)             |
+| 002 | SDK           | Expo SDK 54, React 19, RN 0.81                |
+| 003 | Architecture  | 4-layer with strict boundaries                |
+| 004 | State         | Zustand 5 (thin wrapper over use-cases)       |
+| 005 | Navigation    | Expo Router 6 (file-based)                    |
+| 006 | Persistence   | AsyncStorage behind IStorageService interface |
+| 007 | Agent context | Layered AGENTS.md progressive disclosure      |
+| 008 | Workflow      | Story-driven development with board sync      |
 
 ---
 
