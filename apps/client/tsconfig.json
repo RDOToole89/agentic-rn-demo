@@ -18,6 +18,12 @@
       ],
       "@/theme/*": [
         "./src/theme/*"
+      ],
+      "@/tw": [
+        "./src/tw/index"
+      ],
+      "@/tw/*": [
+        "./src/tw/*"
       ]
     }
   },
