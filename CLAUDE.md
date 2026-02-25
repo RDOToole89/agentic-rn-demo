@@ -10,7 +10,7 @@ Read these before making changes — they are the architecture prompt:
 1. `AGENTS.md` — repo overview, boundaries, commit conventions
 2. `apps/client/AGENTS.md` — app layers, decision tree, naming
 3. `apps/client/src/features/*/AGENTS.md` — feature-specific context
-4. `CONTEXT-HANDOFF.md` — session continuity, what's done / not done
+4. `.context/` — session continuity, handoff notes, temporary agent files
 
 ## Commit Conventions
 
@@ -65,7 +65,7 @@ when making UI changes.
 Documentation rot is a first-class concern. After completing a story, feature,
 or long session, always ask whether any of the following need updating:
 
-- **CONTEXT-HANDOFF.md** — update "What's Done", file tree, tech stack table
+- **`.context/`** — update handoff notes, session state, "What's Done" list
 - **AGENTS.md** (any level) — new features may need navigation table entries,
   boundary rule updates, or new feature-level AGENTS.md files
 - **docs/ADR/** — if a technical decision was made, write an ADR
@@ -76,3 +76,9 @@ or long session, always ask whether any of the following need updating:
 **Rule**: If you changed the code, check if the docs still match. Ask the user
 before the session ends: *"Should I update any documentation to reflect what
 we changed?"*
+
+## Temporary Agent Files
+
+Use `.context/` for session handoff notes, scratchpads, and temporary agent
+files. This directory is gitignored — it is local-only and never committed.
+Do not store permanent documentation here; use `docs/` for that.
