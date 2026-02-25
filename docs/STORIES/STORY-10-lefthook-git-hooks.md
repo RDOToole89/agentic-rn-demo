@@ -9,11 +9,13 @@ issue: 12
 # STORY-10: Add Lefthook Git Hooks for Commit & Branch Enforcement
 
 ## Summary
+
 Install and configure Lefthook to enforce commit message conventions, branch
 naming rules, and pre-commit quality checks — ensuring both humans and AI agents
 follow the project's standards.
 
 ## Context
+
 AI agents (Claude Code, Copilot, etc.) can create commits and branches that
 drift from project conventions. The CLAUDE.md and AGENTS.md files document the
 rules, but nothing enforces them at the git level. Lefthook is a fast,
@@ -91,14 +93,14 @@ Invalid:
 
 ## Files Touched
 
-| File | Action | Layer |
-|------|--------|-------|
-| `package.json` | Modify | Config |
-| `lefthook.yml` | Create | Config |
-| `.github/scripts/validate-commit-msg.sh` | Create | Scripts |
+| File                                      | Action | Layer   |
+| ----------------------------------------- | ------ | ------- |
+| `package.json`                            | Modify | Config  |
+| `lefthook.yml`                            | Create | Config  |
+| `.github/scripts/validate-commit-msg.sh`  | Create | Scripts |
 | `.github/scripts/validate-branch-name.sh` | Create | Scripts |
-| `AGENTS.md` | Modify | Docs |
-| `pnpm-lock.yaml` | Modify | Config |
+| `AGENTS.md`                               | Modify | Docs    |
+| `pnpm-lock.yaml`                          | Modify | Config  |
 
 ## Out of Scope
 

@@ -29,12 +29,12 @@ User Action → Screen → Hook → Zustand Store → Use-Case → Service → S
 
 ## Boundary Enforcement
 
-| Layer | May Import | Must NOT Import |
-|-------|-----------|-----------------|
-| `app/` | `features/` | `domain/`, `services/`, `shared/` |
-| `features/` | `domain/`, `services/`, `shared/`, `theme/` | Other features |
-| `domain/` | `services/interfaces/` (types only) | React, Expo, AsyncStorage |
-| `services/` | External libraries | `features/`, `domain/entities/` |
+| Layer       | May Import                                  | Must NOT Import                   |
+| ----------- | ------------------------------------------- | --------------------------------- |
+| `app/`      | `features/`                                 | `domain/`, `services/`, `shared/` |
+| `features/` | `domain/`, `services/`, `shared/`, `theme/` | Other features                    |
+| `domain/`   | `services/interfaces/` (types only)         | React, Expo, AsyncStorage         |
+| `services/` | External libraries                          | `features/`, `domain/entities/`   |
 
 ## Consequences
 

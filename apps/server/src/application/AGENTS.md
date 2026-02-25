@@ -27,11 +27,11 @@ application/
 
 ## PreferencesService
 
-| Method               | Flow                                                   |
-|----------------------|--------------------------------------------------------|
-| `get_preferences`    | validate user_id → repo.get → if None, create default → repo.save |
+| Method               | Flow                                                                     |
+| -------------------- | ------------------------------------------------------------------------ |
+| `get_preferences`    | validate user_id → repo.get → if None, create default → repo.save        |
 | `update_preferences` | get current → validate changed fields → build updated entity → repo.save |
-| `delete_preferences` | validate user_id → repo.delete                         |
+| `delete_preferences` | validate user_id → repo.delete                                           |
 
 ### Dependencies
 

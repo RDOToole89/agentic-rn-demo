@@ -9,11 +9,13 @@ issue: 6
 # STORY-04: Add NativeWind v5 + Design System
 
 ## Summary
+
 Replace `StyleSheet.create()` with NativeWind v5 (Tailwind CSS v4) and establish
 a Deloitte-branded design token system with dark mode support across iOS, Android,
 and Web.
 
 ## Context
+
 The app currently uses `StyleSheet.create()` with inline style arrays for theming.
 Every component needs `useTheme()` and `[styles.text, { color: colors.text }]`.
 This doesn't scale and is verbose. NativeWind v5 brings `className` props with
@@ -57,56 +59,56 @@ light/dark scales for UI use.
 
 ### Brand Colors (source of truth)
 
-| Name | Hex | Usage |
-|------|-----|-------|
+| Name           | Hex       | Usage                                                        |
+| -------------- | --------- | ------------------------------------------------------------ |
 | Deloitte Green | `#86BC25` | Primary actions, CTAs, active states, "Green Dot" brand mark |
-| Deloitte Black | `#000000` | Text, headings, high-contrast backgrounds |
-| Deloitte Blue | `#002776` | Secondary actions, links, info states |
-| Deloitte Cyan | `#00A1DE` | Accents, highlights, interactive elements |
-| Deloitte White | `#FFFFFF` | Backgrounds, cards, inverse text |
+| Deloitte Black | `#000000` | Text, headings, high-contrast backgrounds                    |
+| Deloitte Blue  | `#002776` | Secondary actions, links, info states                        |
+| Deloitte Cyan  | `#00A1DE` | Accents, highlights, interactive elements                    |
+| Deloitte White | `#FFFFFF` | Backgrounds, cards, inverse text                             |
 
 ### Extended Token Scales
 
-| Category | Tokens |
-|----------|--------|
-| Primary (green) | 50-900 scale derived from `#86BC25` — light tints to deep shades |
-| Secondary (blue) | 50-900 scale derived from `#002776` — used for links, info badges |
-| Accent (cyan) | 50-900 scale derived from `#00A1DE` — highlights, focus rings |
-| Neutral | 50-900 grayscale with slight warm tint toward Deloitte Black |
-| Surface | `surface`, `surface-elevated`, `surface-sunken` (light & dark variants) |
-| Semantic | `success` (green), `error` (red), `warning` (amber) — functional only |
-| Border radius | xs (2) → full (9999) |
-| Font size | xs (12px) → 3xl (28px) with line heights |
-| Shadows | sm, md, lg elevation levels |
-| Spacing | Tailwind defaults (no override) |
+| Category         | Tokens                                                                  |
+| ---------------- | ----------------------------------------------------------------------- |
+| Primary (green)  | 50-900 scale derived from `#86BC25` — light tints to deep shades        |
+| Secondary (blue) | 50-900 scale derived from `#002776` — used for links, info badges       |
+| Accent (cyan)    | 50-900 scale derived from `#00A1DE` — highlights, focus rings           |
+| Neutral          | 50-900 grayscale with slight warm tint toward Deloitte Black            |
+| Surface          | `surface`, `surface-elevated`, `surface-sunken` (light & dark variants) |
+| Semantic         | `success` (green), `error` (red), `warning` (amber) — functional only   |
+| Border radius    | xs (2) → full (9999)                                                    |
+| Font size        | xs (12px) → 3xl (28px) with line heights                                |
+| Shadows          | sm, md, lg elevation levels                                             |
+| Spacing          | Tailwind defaults (no override)                                         |
 
 ### Dark Mode Mapping
 
-| Token | Light | Dark |
-|-------|-------|------|
-| `bg-surface` | White `#FFFFFF` | Near-black `#1A1A1A` |
-| `text-primary` | Black `#000000` | White `#FFFFFF` |
-| `accent` | Green `#86BC25` | Green `#9BD636` (lighter for contrast) |
-| `accent-secondary` | Blue `#002776` | Cyan `#00A1DE` (more visible on dark) |
+| Token              | Light           | Dark                                   |
+| ------------------ | --------------- | -------------------------------------- |
+| `bg-surface`       | White `#FFFFFF` | Near-black `#1A1A1A`                   |
+| `text-primary`     | Black `#000000` | White `#FFFFFF`                        |
+| `accent`           | Green `#86BC25` | Green `#9BD636` (lighter for contrast) |
+| `accent-secondary` | Blue `#002776`  | Cyan `#00A1DE` (more visible on dark)  |
 
 ## Files Touched
 
-| File | Action | Layer |
-|------|--------|-------|
-| `package.json` | Modify | Config |
-| `tailwind.config.ts` | Create | Config |
-| `global.css` | Create | Config |
-| `postcss.config.mjs` | Create | Config |
-| `babel.config.js` | Create | Config |
-| `nativewind-env.d.ts` | Create | Config |
-| `metro.config.js` | Modify | Config |
-| `src/theme/tokens.ts` | Create | Theme |
-| `src/theme/colors.ts` | Delete | Theme |
-| `src/theme/ThemeContext.tsx` | Rewrite | Theme |
-| `app/_layout.tsx` | Modify | Routing |
-| `src/features/home/HomeScreen.tsx` | Rewrite | Feature |
+| File                                       | Action  | Layer   |
+| ------------------------------------------ | ------- | ------- |
+| `package.json`                             | Modify  | Config  |
+| `tailwind.config.ts`                       | Create  | Config  |
+| `global.css`                               | Create  | Config  |
+| `postcss.config.mjs`                       | Create  | Config  |
+| `babel.config.js`                          | Create  | Config  |
+| `nativewind-env.d.ts`                      | Create  | Config  |
+| `metro.config.js`                          | Modify  | Config  |
+| `src/theme/tokens.ts`                      | Create  | Theme   |
+| `src/theme/colors.ts`                      | Delete  | Theme   |
+| `src/theme/ThemeContext.tsx`               | Rewrite | Theme   |
+| `app/_layout.tsx`                          | Modify  | Routing |
+| `src/features/home/HomeScreen.tsx`         | Rewrite | Feature |
 | `src/features/settings/SettingsScreen.tsx` | Rewrite | Feature |
-| `AGENTS.md` | Modify | Docs |
+| `AGENTS.md`                                | Modify  | Docs    |
 
 ## Out of Scope
 

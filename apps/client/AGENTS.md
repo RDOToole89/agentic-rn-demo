@@ -39,12 +39,12 @@ No `StyleSheet.create()` in new code.
 
 ### Key files
 
-| File | Role |
-|------|------|
-| `src/global.css` | Design system: color scales, semantic tokens via `light-dark()`, `@theme` registration |
-| `src/theme/tokens.ts` | Brand hex constants for JS access (Switch trackColor, StatusBar) |
-| `src/theme/ThemeContext.tsx` | `useThemeSync()` — syncs Zustand darkMode → NativeWind colorScheme |
-| `src/tw/index.tsx` | Re-exports RN components + `cn()` utility for class merging |
+| File                         | Role                                                                                   |
+| ---------------------------- | -------------------------------------------------------------------------------------- |
+| `src/global.css`             | Design system: color scales, semantic tokens via `light-dark()`, `@theme` registration |
+| `src/theme/tokens.ts`        | Brand hex constants for JS access (Switch trackColor, StatusBar)                       |
+| `src/theme/ThemeContext.tsx` | `useThemeSync()` — syncs Zustand darkMode → NativeWind colorScheme                     |
+| `src/tw/index.tsx`           | Re-exports RN components + `cn()` utility for class merging                            |
 
 ### How to style a component
 
@@ -55,20 +55,20 @@ import { View, Text, cn } from '@/tw';
 <View className="flex-1 bg-surface p-4">
   <Text className="text-lg text-text-primary">Hello</Text>
   <Text className={cn('text-sm', isActive && 'text-accent')}>Status</Text>
-</View>
+</View>;
 ```
 
 ### Design token classes
 
-| Class prefix | What it styles | Examples |
-|-------------|----------------|----------|
-| `bg-surface*` | Backgrounds | `bg-surface`, `bg-surface-elevated`, `bg-surface-sunken` |
-| `text-text-*` | Text colors | `text-text-primary`, `text-text-secondary` |
-| `bg-accent` | Brand green CTA | `bg-accent` |
-| `bg-primary-*` | Green scale | `bg-primary-500`, `bg-primary-100` |
-| `bg-secondary-*` | Blue scale | `bg-secondary-500` |
-| `border-border` | Borders | `border-border` |
-| `bg-card` | Card backgrounds | `bg-card` |
+| Class prefix     | What it styles   | Examples                                                 |
+| ---------------- | ---------------- | -------------------------------------------------------- |
+| `bg-surface*`    | Backgrounds      | `bg-surface`, `bg-surface-elevated`, `bg-surface-sunken` |
+| `text-text-*`    | Text colors      | `text-text-primary`, `text-text-secondary`               |
+| `bg-accent`      | Brand green CTA  | `bg-accent`                                              |
+| `bg-primary-*`   | Green scale      | `bg-primary-500`, `bg-primary-100`                       |
+| `bg-secondary-*` | Blue scale       | `bg-secondary-500`                                       |
+| `border-border`  | Borders          | `border-border`                                          |
+| `bg-card`        | Card backgrounds | `bg-card`                                                |
 
 ### Dark mode
 
@@ -82,7 +82,7 @@ Some RN components (Switch, StatusBar) need raw color values:
 ```tsx
 import { useRawColors } from '@/theme/ThemeContext';
 const colors = useRawColors();
-<Switch trackColor={{ false: colors.border, true: colors.accent }} />
+<Switch trackColor={{ false: colors.border, true: colors.accent }} />;
 ```
 
 ## Routing / Feature Boundary
@@ -102,15 +102,15 @@ the implementation in `src/`.
 
 ## Folder Responsibilities
 
-| Folder            | Contains                        | May Import From                    |
-|-------------------|---------------------------------|------------------------------------|
-| `app/`            | Route files (thin wrappers)     | `src/features/`                    |
-| `src/features/`   | Screens, hooks, components      | `store/`, `api/`, `lib/`, `theme/`, `tw/`, `@agentic-rn/core` |
-| `src/store/`      | Zustand stores                  | `lib/`                             |
-| `src/api/`        | QueryClient config              | `lib/`                             |
-| `src/lib/`        | Types, utils, shared hooks      | `@agentic-rn/core`, external libs  |
-| `src/theme/`      | Design tokens, theme sync       | `store/`, `nativewind`             |
-| `src/tw/`         | NativeWind re-exports, cn()     | `react-native`, `nativewind`, `clsx`, `tailwind-merge` |
+| Folder          | Contains                    | May Import From                                               |
+| --------------- | --------------------------- | ------------------------------------------------------------- |
+| `app/`          | Route files (thin wrappers) | `src/features/`                                               |
+| `src/features/` | Screens, hooks, components  | `store/`, `api/`, `lib/`, `theme/`, `tw/`, `@agentic-rn/core` |
+| `src/store/`    | Zustand stores              | `lib/`                                                        |
+| `src/api/`      | QueryClient config          | `lib/`                                                        |
+| `src/lib/`      | Types, utils, shared hooks  | `@agentic-rn/core`, external libs                             |
+| `src/theme/`    | Design tokens, theme sync   | `store/`, `nativewind`                                        |
+| `src/tw/`       | NativeWind re-exports, cn() | `react-native`, `nativewind`, `clsx`, `tailwind-merge`        |
 
 ## Decision Tree: Where Does New Code Go?
 
@@ -145,16 +145,16 @@ Is it a new reusable UI primitive?
 
 ## Naming Conventions
 
-| Item              | Convention              | Example                    |
-|-------------------|-------------------------|----------------------------|
-| Feature folder    | `kebab-case`            | `user-profile/`            |
-| Screen component  | `PascalCase + Screen`   | `SettingsScreen.tsx`       |
-| Hook              | `camelCase + use`       | `useSettings.ts`           |
-| Store             | `camelCase + Store`     | `preferencesStore.ts`      |
-| Type file         | `camelCase`             | `preferences.ts`           |
-| Type barrel       | `types.ts`              | `types.ts` (re-exports)    |
-| Validator file    | `camelCase`             | `validator.ts`             |
-| Util file         | `camelCase`             | `storage.ts`               |
+| Item             | Convention            | Example                 |
+| ---------------- | --------------------- | ----------------------- |
+| Feature folder   | `kebab-case`          | `user-profile/`         |
+| Screen component | `PascalCase + Screen` | `SettingsScreen.tsx`    |
+| Hook             | `camelCase + use`     | `useSettings.ts`        |
+| Store            | `camelCase + Store`   | `preferencesStore.ts`   |
+| Type file        | `camelCase`           | `preferences.ts`        |
+| Type barrel      | `types.ts`            | `types.ts` (re-exports) |
+| Validator file   | `camelCase`           | `validator.ts`          |
+| Util file        | `camelCase`           | `storage.ts`            |
 
 ## API Integration (Generated Hooks)
 
@@ -189,6 +189,7 @@ See `packages/core/AGENTS.md` for the full codegen pipeline.
 ## Feature-Level AGENTS.md
 
 Every feature folder should contain its own `AGENTS.md` describing:
+
 - What the feature does
 - Its screens, hooks, and components
 - Dependencies on store/lib/api

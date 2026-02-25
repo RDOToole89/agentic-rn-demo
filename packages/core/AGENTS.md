@@ -14,13 +14,13 @@ imports from `apps/*`.
 
 ## Files
 
-| File / Folder | Contains |
-|---------------|----------|
-| `openapi.json` | OpenAPI 3.1 spec — the API contract (source of truth) |
-| `src/types.ts` | `Result<T, E>` type + `ok()` / `err()` constructors |
-| `src/fetcher.ts` | Custom fetch wrapper used by generated hooks |
+| File / Folder           | Contains                                                      |
+| ----------------------- | ------------------------------------------------------------- |
+| `openapi.json`          | OpenAPI 3.1 spec — the API contract (source of truth)         |
+| `src/types.ts`          | `Result<T, E>` type + `ok()` / `err()` constructors           |
+| `src/fetcher.ts`        | Custom fetch wrapper used by generated hooks                  |
 | `src/generated/models/` | Generated TypeScript interfaces (TeamMember, MoodEntry, etc.) |
-| `src/generated/hooks/` | Generated React Query hooks (useGetTeamMembers, etc.) |
+| `src/generated/hooks/`  | Generated React Query hooks (useGetTeamMembers, etc.)         |
 
 ## OpenAPI Codegen Pipeline
 
@@ -30,11 +30,13 @@ openapi.json  →  pnpm generate:api  →  src/generated/
 ```
 
 **To regenerate after spec changes:**
+
 ```bash
 pnpm generate:api
 ```
 
 **To pull spec from running FastAPI server:**
+
 ```bash
 curl http://localhost:8000/openapi.json > packages/core/openapi.json
 pnpm generate:api

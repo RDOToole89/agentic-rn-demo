@@ -13,12 +13,12 @@ Use **Zustand 5** as a thin state layer that delegates to domain use-cases.
 
 ## Alternatives Considered
 
-| Option | Pros | Cons |
-|--------|------|------|
-| Redux Toolkit | Industry standard, devtools, middleware | Heavy boilerplate, overkill for this scope |
-| React Context + useReducer | No dependency | Re-render issues, manual optimization needed |
-| Jotai | Atomic, minimal | Less common, harder for agents to pattern-match |
-| **Zustand** | Minimal API, no providers, selector-based | Less opinionated (pro and con) |
+| Option                     | Pros                                      | Cons                                            |
+| -------------------------- | ----------------------------------------- | ----------------------------------------------- |
+| Redux Toolkit              | Industry standard, devtools, middleware   | Heavy boilerplate, overkill for this scope      |
+| React Context + useReducer | No dependency                             | Re-render issues, manual optimization needed    |
+| Jotai                      | Atomic, minimal                           | Less common, harder for agents to pattern-match |
+| **Zustand**                | Minimal API, no providers, selector-based | Less opinionated (pro and con)                  |
 
 ## Store Design Principle
 
@@ -31,7 +31,7 @@ toggleDarkMode: async () => {
   const current = { username: get().username, darkMode: get().darkMode };
   const updated = await toggleDarkMode(asyncStorageService, current);
   set(updated);
-}
+};
 ```
 
 ## Consequences

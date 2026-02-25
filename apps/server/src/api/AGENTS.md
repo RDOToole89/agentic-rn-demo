@@ -24,11 +24,11 @@ These are available automatically — no extra configuration needed.
 All resource endpoints are versioned under `/api/v1/`. Infrastructure endpoints
 (health checks) are unversioned at the root.
 
-| Endpoint                            | Method   | Description              |
-|-------------------------------------|----------|--------------------------|
-| `/health`                           | GET      | Health check (unversioned)|
-| `/api/v1/preferences/{user_id}`     | GET      | Get or create preferences|
-| `/api/v1/preferences/{user_id}`     | PUT      | Update preferences       |
+| Endpoint                        | Method | Description                |
+| ------------------------------- | ------ | -------------------------- |
+| `/health`                       | GET    | Health check (unversioned) |
+| `/api/v1/preferences/{user_id}` | GET    | Get or create preferences  |
+| `/api/v1/preferences/{user_id}` | PUT    | Update preferences         |
 
 ## Files
 

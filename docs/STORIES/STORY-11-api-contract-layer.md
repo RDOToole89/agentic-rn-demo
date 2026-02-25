@@ -9,12 +9,14 @@ issue: 13
 # STORY-11: Type-Safe API Contract Layer (OpenAPI + Orval)
 
 ## Summary
+
 Set up an industry-standard OpenAPI code generation pipeline using **orval** to
 generate fully typed React Query hooks, TypeScript types, and a fetch client
 from the FastAPI backend's OpenAPI spec. Python Pydantic models are the single
 source of truth — TypeScript types are generated, never hand-written.
 
 ## Context
+
 FastAPI automatically generates an OpenAPI 3.1 spec from Pydantic models. This
 story uses **orval** to consume that spec and generate:
 
@@ -27,17 +29,20 @@ best fit for our stack (FastAPI + React Query + React Native). It eliminates
 manual type sync between Python and TypeScript entirely.
 
 **Pipeline:**
+
 ```
 Pydantic models (Python)  →  OpenAPI spec (JSON)  →  orval  →  TS types + React Query hooks
      source of truth            auto-generated          codegen        generated output
 ```
 
 ## Depends On
+
 - STORY-03 (FastAPI Backend) — we need the OpenAPI spec to generate from.
   However, we can bootstrap with a hand-written `openapi.json` spec and swap
   to the live server spec once STORY-03 lands.
 
 ## Unblocks
+
 - STORY-05 (Team Pulse Dashboard) — generated types used for mock data shape
 - STORY-09 (Connect frontend to API) — generated hooks replace mock queryFn
 
@@ -76,6 +81,7 @@ Until STORY-03 delivers the live FastAPI server, we commit a hand-written
 - `POST /api/v1/team/{id}/mood` → `MoodEntry`
 
 Once the FastAPI server exists, replace the hand-written spec with:
+
 ```bash
 curl http://localhost:8000/openapi.json > packages/core/openapi.json
 pnpm generate:api
@@ -136,19 +142,19 @@ packages/core/
 
 ## Files Touched
 
-| File | Action | Layer |
-|------|--------|-------|
-| `orval.config.ts` | Create | Config (root) |
-| `package.json` (root) | Modify | Config |
-| `packages/core/openapi.json` | Create | Core |
-| `packages/core/src/fetcher.ts` | Create | Core |
-| `packages/core/src/generated/` | Create (generated) | Core |
-| `packages/core/src/index.ts` | Modify | Core |
-| `packages/core/AGENTS.md` | Create | Docs |
-| `apps/client/package.json` | Modify | Config |
-| `apps/client/AGENTS.md` | Modify | Docs |
-| `AGENTS.md` | Modify | Docs |
-| `pnpm-lock.yaml` | Modify | Config |
+| File                           | Action             | Layer         |
+| ------------------------------ | ------------------ | ------------- |
+| `orval.config.ts`              | Create             | Config (root) |
+| `package.json` (root)          | Modify             | Config        |
+| `packages/core/openapi.json`   | Create             | Core          |
+| `packages/core/src/fetcher.ts` | Create             | Core          |
+| `packages/core/src/generated/` | Create (generated) | Core          |
+| `packages/core/src/index.ts`   | Modify             | Core          |
+| `packages/core/AGENTS.md`      | Create             | Docs          |
+| `apps/client/package.json`     | Modify             | Config        |
+| `apps/client/AGENTS.md`        | Modify             | Docs          |
+| `AGENTS.md`                    | Modify             | Docs          |
+| `pnpm-lock.yaml`               | Modify             | Config        |
 
 ## Constraints
 

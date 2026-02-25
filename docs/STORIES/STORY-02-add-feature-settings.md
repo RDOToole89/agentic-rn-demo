@@ -9,10 +9,12 @@ issue: 4
 # STORY-02: Add Settings Feature
 
 ## Summary
+
 Add a Settings screen where users can toggle dark mode and edit their username,
 with changes persisted to local storage.
 
 ## Context
+
 The app needs user-configurable preferences to demonstrate the full data flow:
 UI → hook → store → use-case → service → persistence. This feature exercises
 every layer of the architecture.
@@ -36,20 +38,20 @@ every layer of the architecture.
 
 ## Files Touched
 
-| File                                  | Action  | Layer      |
-|---------------------------------------|---------|------------|
-| `src/domain/entities/UserPreferences.ts` | Create | Domain     |
-| `src/domain/use-cases/preferences.ts`   | Create | Domain     |
-| `src/services/interfaces/IStorageService.ts` | Create | Services |
+| File                                          | Action | Layer    |
+| --------------------------------------------- | ------ | -------- |
+| `src/domain/entities/UserPreferences.ts`      | Create | Domain   |
+| `src/domain/use-cases/preferences.ts`         | Create | Domain   |
+| `src/services/interfaces/IStorageService.ts`  | Create | Services |
 | `src/services/storage/asyncStorageService.ts` | Create | Services |
-| `src/shared/store/preferencesStore.ts`   | Create | Shared     |
-| `src/features/settings/SettingsScreen.tsx` | Create | Feature  |
-| `src/features/settings/hooks/useSettings.ts` | Create | Feature |
-| `src/features/settings/AGENTS.md`       | Create | Feature    |
-| `src/theme/colors.ts`                   | Create | Theme      |
-| `src/theme/ThemeContext.tsx`             | Create | Theme      |
-| `app/settings.tsx`                       | Create | Routing    |
-| `app/_layout.tsx`                        | Modify | Routing    |
+| `src/shared/store/preferencesStore.ts`        | Create | Shared   |
+| `src/features/settings/SettingsScreen.tsx`    | Create | Feature  |
+| `src/features/settings/hooks/useSettings.ts`  | Create | Feature  |
+| `src/features/settings/AGENTS.md`             | Create | Feature  |
+| `src/theme/colors.ts`                         | Create | Theme    |
+| `src/theme/ThemeContext.tsx`                  | Create | Theme    |
+| `app/settings.tsx`                            | Create | Routing  |
+| `app/_layout.tsx`                             | Modify | Routing  |
 
 ## Out of Scope
 
@@ -61,6 +63,7 @@ every layer of the architecture.
 ## Testing Notes
 
 When tests are introduced, this feature should have:
+
 - Unit tests for `preferences.ts` use-case functions (mock IStorageService)
 - Component test for SettingsScreen (mock store)
 - Integration test for hydration flow

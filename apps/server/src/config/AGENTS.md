@@ -19,22 +19,22 @@ config/
 
 ## Environment Files
 
-| File                        | Committed? | Purpose                                 |
-|-----------------------------|------------|-----------------------------------------|
-| `apps/server/.env.example`  | Yes        | Template with all vars and documentation |
-| `apps/server/.env`          | No         | Local overrides (gitignored)             |
-| `apps/client/.env.example`  | Yes        | Client config template (API URL)         |
-| `apps/client/.env`          | No         | Client local overrides (gitignored)      |
+| File                       | Committed? | Purpose                                  |
+| -------------------------- | ---------- | ---------------------------------------- |
+| `apps/server/.env.example` | Yes        | Template with all vars and documentation |
+| `apps/server/.env`         | No         | Local overrides (gitignored)             |
+| `apps/client/.env.example` | Yes        | Client config template (API URL)         |
+| `apps/client/.env`         | No         | Client local overrides (gitignored)      |
 
 ## Server Settings
 
-| Field          | Type   | Default                  | Env Var          | Notes                       |
-|----------------|--------|--------------------------|------------------|-----------------------------|
-| `app_env`      | `str`  | `development`            | `APP_ENV`        | development / staging / production |
-| `app_host`     | `str`  | `0.0.0.0`               | `APP_HOST`       | Bind address                |
-| `app_port`     | `int`  | `8000`                   | `APP_PORT`       | Server port                 |
-| `database_url` | `str`  | `sqlite:///./demo.db`    | `DATABASE_URL`   | SQLAlchemy connection string |
-| `cors_origins` | `str`  | `http://localhost:8081,http://localhost:19006` | `CORS_ORIGINS` | Comma-separated origins or `*` |
+| Field          | Type  | Default                                        | Env Var        | Notes                              |
+| -------------- | ----- | ---------------------------------------------- | -------------- | ---------------------------------- |
+| `app_env`      | `str` | `development`                                  | `APP_ENV`      | development / staging / production |
+| `app_host`     | `str` | `0.0.0.0`                                      | `APP_HOST`     | Bind address                       |
+| `app_port`     | `int` | `8000`                                         | `APP_PORT`     | Server port                        |
+| `database_url` | `str` | `sqlite:///./demo.db`                          | `DATABASE_URL` | SQLAlchemy connection string       |
+| `cors_origins` | `str` | `http://localhost:8081,http://localhost:19006` | `CORS_ORIGINS` | Comma-separated origins or `*`     |
 
 ### CORS Origins
 
@@ -44,9 +44,9 @@ config/
 
 ## Client Settings
 
-| Env Var                | Default                  | Notes                                |
-|------------------------|--------------------------|--------------------------------------|
-| `EXPO_PUBLIC_API_URL`  | `http://localhost:8000`  | Backend API base URL (no trailing /) |
+| Env Var               | Default                 | Notes                                |
+| --------------------- | ----------------------- | ------------------------------------ |
+| `EXPO_PUBLIC_API_URL` | `http://localhost:8000` | Backend API base URL (no trailing /) |
 
 The `EXPO_PUBLIC_` prefix makes the variable available in client-side JavaScript
 via Expo's built-in dotenv support.
