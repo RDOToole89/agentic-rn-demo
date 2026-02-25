@@ -12,5 +12,10 @@
     "orval": "^8.5.0",
     "prettier": "^3.4.0",
     "typescript": "^5.6.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "lightningcss": "1.30.1"
+    }
   }
 }

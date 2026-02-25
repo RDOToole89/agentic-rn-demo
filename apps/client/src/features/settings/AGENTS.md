@@ -1,5 +1,7 @@
 # AGENTS.md — Feature: Settings
 
+Last updated: 2026-02-25
+
 ## Purpose
 The Settings feature allows users to update their preferences (username and
 dark mode). Changes persist to local storage via the Zustand store.
@@ -21,7 +23,12 @@ SettingsScreen
 
 ## Dependencies
 - `usePreferencesStore` (from `store/`) — read/write username and darkMode
-- `useTheme` (from `theme/`) — color tokens for styled rendering
+- `useRawColors` (from `theme/`) — raw color values for Switch trackColor
+- `@/tw` — NativeWind-enabled View, Text, TextInput components
+
+## Styling
+Uses NativeWind `className` props with semantic tokens. The `Switch` component
+uses `useRawColors()` for `trackColor` since it doesn't support `className`.
 
 ## Constraints
 - **Username debounce**: The hook waits 500ms before persisting username changes
