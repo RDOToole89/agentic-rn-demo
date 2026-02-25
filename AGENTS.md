@@ -6,14 +6,15 @@
 ## Repository Overview
 
 **agentic-rn-demo** is a pnpm monorepo containing a cross-platform Expo app
-(iOS, Android, Web) and shared packages. It demonstrates architecture-first
-development with AI-assisted workflows.
+(iOS, Android, Web), a FastAPI backend, and shared packages. It demonstrates
+architecture-first development with AI-assisted workflows.
 
 ## Structure
 
 ```
 agentic-rn-demo/
 ├── apps/client/       → Expo app — iOS, Android, Web (has its own AGENTS.md)
+├── apps/server/       → FastAPI backend — Python, hexagonal architecture (has its own AGENTS.md)
 ├── packages/ui/       → Shared UI components
 ├── packages/core/     → Shared types and utilities
 └── docs/              → Architecture docs, workflow guides, story specs
@@ -32,7 +33,9 @@ agentic-rn-demo/
 |------------------------------------|----------------------------------------------|
 | Understand the architecture        | `docs/ARCHITECTURE.md`                       |
 | Understand the workflow            | `docs/WORKFLOW.md`                           |
+| See the database schema            | `docs/ARCHITECTURE.md` → Database Schema     |
 | Work on the client app             | `apps/client/AGENTS.md`                      |
+| Work on the server API             | `apps/server/AGENTS.md`                      |
 | See a feature-level example        | `apps/client/src/features/settings/AGENTS.md`|
 | Find a story spec                  | `docs/STORIES/STORY-*.md`                    |
 
@@ -41,7 +44,7 @@ agentic-rn-demo/
 Format: `type(scope): description`
 
 - **type**: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`
-- **scope**: `client`, `ui`, `core`, `mono`, or feature name
+- **scope**: `client`, `server`, `ui`, `core`, `mono`, or feature name
 - **description**: imperative mood, lowercase, max 72 chars
 
 Examples:
@@ -57,6 +60,17 @@ docs(mono): update ARCHITECTURE.md with data flow
 - No `any` types — use `unknown` and narrow
 - Format with Prettier before committing
 - Every new feature needs a story spec in `docs/STORIES/`
+
+## Database Schema Documentation
+
+`docs/ARCHITECTURE.md` contains a **Database Schema** section with an ER diagram
+showing all tables, columns, types, and relationships. The database is currently
+SQLite (swappable to PostgreSQL via `DATABASE_URL`).
+
+**Rule — schema updates**: After any migration that adds, removes, or modifies
+tables, columns, or relationships, you **must** update the database ER diagram
+in `docs/ARCHITECTURE.md` in the same PR. The diagram must always reflect the
+current state of the database after migration.
 
 ## If You Are Unsure
 

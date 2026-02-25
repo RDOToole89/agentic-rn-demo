@@ -38,3 +38,12 @@ yarn-error.log*
 coverage/
 
 .context
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+*.egg-info/
+*.db
+.ruff_cache/

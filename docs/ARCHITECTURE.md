@@ -3,9 +3,9 @@
 ## Overview
 
 This app follows a **lightweight frontend architecture** targeting iOS, Android,
-and Web from a single codebase using Expo. The goal is clear boundaries,
-minimal boilerplate, and a codebase that both humans and AI agents can
-navigate predictably.
+and Web from a single codebase using Expo, backed by a **hexagonal FastAPI
+server**. The goal is clear boundaries, minimal boilerplate, and a codebase
+that both humans and AI agents can navigate predictably.
 
 > For the rationale behind each decision, see [docs/ADR/](./ADR/).
 
@@ -20,9 +20,15 @@ graph TB
             Router["app/<br/>Expo Router 6<br/><i>thin route wrappers</i>"]
             Features["src/features/<br/>Feature Modules<br/><i>screens + hooks + components</i>"]
             Store["src/store/<br/>Zustand Stores<br/><i>global state</i>"]
-            API["src/api/<br/>React Query<br/><i>async data fetching</i>"]
+            ClientAPI["src/api/<br/>React Query<br/><i>async data fetching</i>"]
             Lib["src/lib/<br/>Shared Code<br/><i>types, utils, hooks</i>"]
             Theme["src/theme/<br/>Color Tokens + Context"]
+        end
+        subgraph Server["apps/server — FastAPI (Python)"]
+            ServerAPI["src/api/<br/>HTTP Adapter<br/><i>routes, schemas, DI</i>"]
+            AppLayer["src/application/<br/>Use-Case Layer<br/><i>service orchestration</i>"]
+            ServerDomain["src/domain/<br/>Business Logic<br/><i>pure Python, zero imports</i>"]
+            Infra["src/infrastructure/<br/>DB Adapter<br/><i>SQLAlchemy, repos</i>"]
         end
         subgraph Packages["Shared Packages"]
             UI["packages/ui<br/>Shared Components"]
@@ -32,20 +38,61 @@ graph TB
 
     Router --> Features
     Features --> Store
-    Features --> API
+    Features --> ClientAPI
     Features --> Theme
     Store --> Lib
-    API --> Lib
+    ClientAPI --> Lib
     Theme --> Store
     Lib --> AsyncStorage[(AsyncStorage)]
 
+    ServerAPI --> AppLayer
+    AppLayer --> ServerDomain
+    AppLayer --> Infra
+    Infra --> SQLite[(SQLite)]
+
+    ClientAPI -.->|HTTP| ServerAPI
+
     style Store fill:#e8f5e9,stroke:#2e7d32
-    style API fill:#fff3e0,stroke:#ef6c00
+    style ServerDomain fill:#e8f5e9,stroke:#2e7d32
+    style ClientAPI fill:#fff3e0,stroke:#ef6c00
+    style Infra fill:#fff3e0,stroke:#ef6c00
     style Features fill:#e3f2fd,stroke:#1565c0
+    style ServerAPI fill:#e3f2fd,stroke:#1565c0
     style Router fill:#f3e5f5,stroke:#7b1fa2
 ```
 
 **Dependency Rule**: Arrows show allowed imports. Each layer may only import from layers below it. Never up.
+
+---
+
+## Database Schema
+
+Currently: **SQLite** (swappable to PostgreSQL or other databases via `DATABASE_URL`).
+
+> **Rule**: This diagram must be updated in the same PR as any migration that
+> changes tables, columns, or relationships. It must always reflect the current
+> state of the database.
+
+```mermaid
+erDiagram
+    user_preferences {
+        VARCHAR(100) user_id PK
+        VARCHAR(50) username "default: 'Guest'"
+        BOOLEAN dark_mode "default: false"
+        TIMESTAMP created_at "UTC"
+        TIMESTAMP updated_at "UTC"
+    }
+```
+
+### Column Reference
+
+| Table              | Column       | Type           | Constraints       | Notes                     |
+|--------------------|--------------|----------------|-------------------|---------------------------|
+| `user_preferences` | `user_id`    | `VARCHAR(100)` | PK                | Alphanumeric, hyphens, underscores |
+| `user_preferences` | `username`   | `VARCHAR(50)`  | NOT NULL           | Display name              |
+| `user_preferences` | `dark_mode`  | `BOOLEAN`      | NOT NULL           | UI preference             |
+| `user_preferences` | `created_at` | `TIMESTAMP`    | NOT NULL           | UTC, set on creation      |
+| `user_preferences` | `updated_at` | `TIMESTAMP`    | NOT NULL           | UTC, set on every write   |
 
 ---
 
