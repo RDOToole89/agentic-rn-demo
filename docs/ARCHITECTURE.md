@@ -2,10 +2,10 @@
 
 ## Overview
 
-This app follows a **layered architecture** with strict dependency rules.
-It targets iOS, Android, and Web from a single codebase using Expo.
-The goal is clear boundaries, testable logic, and a codebase that both humans
-and AI agents can navigate predictably.
+This app follows a **lightweight frontend architecture** targeting iOS, Android,
+and Web from a single codebase using Expo. The goal is clear boundaries,
+minimal boilerplate, and a codebase that both humans and AI agents can
+navigate predictably.
 
 > For the rationale behind each decision, see [docs/ADR/](./ADR/).
 
@@ -19,9 +19,9 @@ graph TB
         subgraph Client["apps/client — Expo SDK 54 (iOS · Android · Web)"]
             Router["app/<br/>Expo Router 6<br/><i>thin route wrappers</i>"]
             Features["src/features/<br/>Feature Modules<br/><i>screens + hooks + components</i>"]
-            Shared["src/shared/<br/>Cross-Feature State<br/><i>Zustand stores</i>"]
-            Domain["src/domain/<br/>Business Logic<br/><i>pure functions, zero I/O</i>"]
-            Services["src/services/<br/>External Adapters<br/><i>AsyncStorage, APIs</i>"]
+            Store["src/store/<br/>Zustand Stores<br/><i>global state</i>"]
+            API["src/api/<br/>React Query<br/><i>async data fetching</i>"]
+            Lib["src/lib/<br/>Shared Code<br/><i>types, utils, hooks</i>"]
             Theme["src/theme/<br/>Color Tokens + Context"]
         end
         subgraph Packages["Shared Packages"]
@@ -31,16 +31,16 @@ graph TB
     end
 
     Router --> Features
-    Features --> Shared
-    Features --> Domain
+    Features --> Store
+    Features --> API
     Features --> Theme
-    Shared --> Domain
-    Shared --> Services
-    Domain -.->|types only| Services
-    Services --> AsyncStorage[(AsyncStorage)]
+    Store --> Lib
+    API --> Lib
+    Theme --> Store
+    Lib --> AsyncStorage[(AsyncStorage)]
 
-    style Domain fill:#e8f5e9,stroke:#2e7d32
-    style Services fill:#fff3e0,stroke:#ef6c00
+    style Store fill:#e8f5e9,stroke:#2e7d32
+    style API fill:#fff3e0,stroke:#ef6c00
     style Features fill:#e3f2fd,stroke:#1565c0
     style Router fill:#f3e5f5,stroke:#7b1fa2
 ```
@@ -57,20 +57,17 @@ sequenceDiagram
     participant Screen as SettingsScreen
     participant Hook as useSettings
     participant Store as Zustand Store
-    participant UC as Use-Case
-    participant Svc as IStorageService
+    participant Utils as lib/utils/storage
     participant AS as AsyncStorage
 
     User->>Screen: Toggles dark mode
     Screen->>Hook: onToggleDarkMode()
     Hook->>Store: toggleDarkMode()
-    Store->>UC: toggleDarkMode(service, current)
-    UC->>UC: Create updated preferences
-    UC->>Svc: savePreferences(updated)
-    Svc->>AS: setItem(key, JSON)
-    AS-->>Svc: void
-    Svc-->>UC: void
-    UC-->>Store: updated preferences
+    Store->>Store: Create updated preferences
+    Store->>Utils: setItem(key, updated)
+    Utils->>AS: setItem(key, JSON)
+    AS-->>Utils: void
+    Utils-->>Store: void
     Store-->>Hook: State update triggers re-render
     Hook-->>Screen: New darkMode value
     Screen-->>User: UI reflects dark theme
@@ -136,11 +133,11 @@ flowchart TD
 ├─────────────────────────────────────────────┤
 │  src/features/     Feature Modules           │  ← Screens + hooks + UI
 ├─────────────────────────────────────────────┤
-│  src/shared/       Cross-Feature State       │  ← Zustand stores
+│  src/store/        Zustand Stores            │  ← Global state
+│  src/api/          React Query               │  ← Async data fetching
 ├─────────────────────────────────────────────┤
-│  src/domain/       Business Logic            │  ← Pure functions, zero I/O
-├─────────────────────────────────────────────┤
-│  src/services/     External Integrations     │  ← AsyncStorage, APIs
+│  src/lib/          Shared Code               │  ← Types, utils, hooks
+│  src/theme/        Theme                     │  ← Colors, context
 └─────────────────────────────────────────────┘
 ```
 
@@ -154,30 +151,33 @@ apps/client/
 │   └── settings.tsx              # → SettingsScreen
 │
 ├── src/
-│   ├── domain/                   # Pure business logic
-│   │   ├── entities/             # Data shapes (interfaces/types)
-│   │   │   └── UserPreferences.ts
-│   │   └── use-cases/            # Pure functions with injected deps
-│   │       └── preferences.ts
-│   │
-│   ├── services/                 # External system adapters
-│   │   ├── interfaces/           # Contracts (no implementations)
-│   │   │   └── IStorageService.ts
-│   │   └── storage/              # Concrete implementations
-│   │       └── asyncStorageService.ts
+│   ├── api/                      # React Query infrastructure
+│   │   ├── queryClient.ts        # QueryClient config
+│   │   ├── keys.ts               # Query key factory
+│   │   └── index.ts              # Barrel export
 │   │
 │   ├── features/                 # Feature modules
 │   │   ├── home/                 # Home screen feature
 │   │   │   ├── HomeScreen.tsx
-│   │   │   └── AGENTS.md         # Feature-level agent guide
+│   │   │   └── AGENTS.md
 │   │   └── settings/             # Settings screen feature
 │   │       ├── SettingsScreen.tsx
 │   │       ├── hooks/useSettings.ts
-│   │       └── AGENTS.md         # Feature-level agent guide
+│   │       └── AGENTS.md
 │   │
-│   ├── shared/                   # Cross-feature concerns
-│   │   └── store/
-│   │       └── preferencesStore.ts
+│   ├── lib/                      # Shared non-UI code
+│   │   ├── types/                # Shared type definitions
+│   │   │   ├── preferences.ts
+│   │   │   └── index.ts
+│   │   ├── utils/                # Utility functions
+│   │   │   ├── storage.ts        # AsyncStorage wrapper
+│   │   │   └── index.ts
+│   │   └── hooks/                # Shared hooks
+│   │       └── index.ts
+│   │
+│   ├── store/                    # Zustand stores
+│   │   ├── preferencesStore.ts
+│   │   └── index.ts
 │   │
 │   └── theme/                    # Visual theming
 │       ├── colors.ts             # Light/dark color tokens
@@ -199,9 +199,8 @@ packages/
 5. **Add a feature-level AGENTS.md** describing purpose, files, dependencies
 6. **Create a route file**: `app/{feature-name}.tsx` that re-exports the screen
 7. **If new data is needed**:
-   - Add entity in `domain/entities/`
-   - Add use-case in `domain/use-cases/`
-   - Add store or extend existing store in `shared/store/`
-8. **If external integration is needed**:
-   - Add interface in `services/interfaces/`
-   - Add implementation in `services/{provider}/`
+   - Add types in `lib/types/`
+   - Add or extend a Zustand store in `store/`
+8. **If API integration is needed**:
+   - Add query keys in `api/keys.ts`
+   - Add query/mutation hooks in the feature or `api/`

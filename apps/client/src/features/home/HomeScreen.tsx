@@ -1,7 +1,7 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../theme/ThemeContext';
-import { usePreferencesStore } from '../../shared/store/preferencesStore';
+import { usePreferencesStore } from '../../store/preferencesStore';
 
 export function HomeScreen() {
   const router = useRouter();

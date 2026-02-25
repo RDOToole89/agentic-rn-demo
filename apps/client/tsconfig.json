@@ -4,17 +4,17 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
+      "@/api/*": [
+        "./src/api/*"
+      ],
       "@/features/*": [
         "./src/features/*"
       ],
-      "@/domain/*": [
-        "./src/domain/*"
+      "@/lib/*": [
+        "./src/lib/*"
       ],
-      "@/services/*": [
-        "./src/services/*"
-      ],
-      "@/shared/*": [
-        "./src/shared/*"
+      "@/store/*": [
+        "./src/store/*"
       ],
       "@/theme/*": [
         "./src/theme/*"

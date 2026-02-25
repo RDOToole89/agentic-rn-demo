@@ -2,7 +2,7 @@
 
 ## Purpose
 The Settings feature allows users to update their preferences (username and
-dark mode). Changes persist to local storage via the domain use-case layer.
+dark mode). Changes persist to local storage via the Zustand store.
 
 ## Files
 | File                    | Role                                      |
@@ -15,26 +15,22 @@ dark mode). Changes persist to local storage via the domain use-case layer.
 SettingsScreen
   → useSettings hook
     → usePreferencesStore (Zustand)
-      → domain/use-cases/preferences.ts
-        → services/storage/asyncStorageService.ts
-          → AsyncStorage
+      → lib/utils/storage.ts
+        → AsyncStorage
 ```
 
 ## Dependencies
-- `usePreferencesStore` — read/write username and darkMode
-- `useTheme` — color tokens for styled rendering
-- `domain/use-cases/preferences.ts` — business logic (called by store)
+- `usePreferencesStore` (from `store/`) — read/write username and darkMode
+- `useTheme` (from `theme/`) — color tokens for styled rendering
 
 ## Constraints
 - **Username debounce**: The hook waits 500ms before persisting username changes
   to avoid writing on every keystroke
-- **No direct AsyncStorage access** — always goes through the service interface
 - The screen component contains **zero business logic** — all logic lives in the hook
 
 ## Extending This Feature
 To add a new preference (e.g., language, notifications):
-1. Add the field to `domain/entities/UserPreferences.ts`
-2. Add a use-case function in `domain/use-cases/preferences.ts`
-3. Add a store action in `shared/store/preferencesStore.ts`
-4. Add UI controls in `SettingsScreen.tsx`
-5. Wire through `useSettings` hook
+1. Add the field to `lib/types/preferences.ts` and update `DEFAULT_PREFERENCES`
+2. Add a store action in `store/preferencesStore.ts`
+3. Add UI controls in `SettingsScreen.tsx`
+4. Wire through `useSettings` hook

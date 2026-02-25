@@ -1,10 +1,6 @@
 import { useCallback, useState, useEffect } from 'react';
-import { usePreferencesStore } from '../../../shared/store/preferencesStore';
+import { usePreferencesStore } from '../../../store/preferencesStore';
 
-/**
- * Feature-level hook — encapsulates all Settings screen logic.
- * Debounces username writes to avoid excessive persistence calls.
- */
 export function useSettings() {
   const storeUsername = usePreferencesStore((s) => s.username);
   const darkMode = usePreferencesStore((s) => s.darkMode);

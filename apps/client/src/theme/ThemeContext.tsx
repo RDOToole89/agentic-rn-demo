@@ -1,6 +1,6 @@
 import { createContext, use, useMemo, type ReactNode } from 'react';
 import { type ColorTokens, lightColors, darkColors } from './colors';
-import { usePreferencesStore } from '../shared/store/preferencesStore';
+import { usePreferencesStore } from '../store/preferencesStore';
 
 interface ThemeContextValue {
   colors: ColorTokens;
