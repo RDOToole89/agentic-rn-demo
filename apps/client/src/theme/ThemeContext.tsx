@@ -7,6 +7,7 @@
  */
 
 import { useEffect } from 'react';
+import { Platform } from 'react-native';
 import { useColorScheme } from 'nativewind';
 import { usePreferencesStore } from '../store/preferencesStore';
 import { rawColors } from './tokens';
@@ -17,7 +18,14 @@ export function useThemeSync() {
   const isDark = usePreferencesStore((s) => s.darkMode);
 
   useEffect(() => {
-    setColorScheme(isDark ? 'dark' : 'light');
+    // On native, sync via Appearance API
+    if (Platform.OS !== 'web') {
+      setColorScheme(isDark ? 'dark' : 'light');
+    }
+    // On web, set color-scheme on <html> so light-dark() CSS responds
+    if (Platform.OS === 'web' && typeof document !== 'undefined') {
+      document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+    }
   }, [isDark, setColorScheme]);
 
   return { isDark, colorScheme };
