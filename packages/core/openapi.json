@@ -1,0 +1,268 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Agentic RN Demo API",
+    "version": "0.1.0",
+    "description": "FastAPI backend for the agentic-rn-demo monorepo. This spec is the single source of truth for frontend type generation via orval."
+  },
+  "servers": [
+    {
+      "url": "/api/v1",
+      "description": "API v1 base path"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "getHealth",
+        "tags": ["health"],
+        "summary": "Health check",
+        "responses": {
+          "200": {
+            "description": "Server is healthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/preferences/{userId}": {
+      "get": {
+        "operationId": "getPreferences",
+        "tags": ["preferences"],
+        "summary": "Get user preferences",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User preferences",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPreferences"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "updatePreferences",
+        "tags": ["preferences"],
+        "summary": "Update user preferences",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePreferencesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated preferences",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPreferences"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/team": {
+      "get": {
+        "operationId": "getTeamMembers",
+        "tags": ["team"],
+        "summary": "List all team members with current status and mood",
+        "responses": {
+          "200": {
+            "description": "List of team members",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TeamMember"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/team/{id}": {
+      "get": {
+        "operationId": "getTeamMemberById",
+        "tags": ["team"],
+        "summary": "Get a single team member with full mood history",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Team member detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamMember"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Team member not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/team/{id}/mood": {
+      "post": {
+        "operationId": "submitTeamMemberMood",
+        "tags": ["team"],
+        "summary": "Submit a mood update for a team member",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitMoodRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Mood entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MoodEntry"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HealthResponse": {
+        "type": "object",
+        "required": ["status"],
+        "properties": {
+          "status": { "type": "string", "example": "ok" }
+        }
+      },
+      "UserPreferences": {
+        "type": "object",
+        "required": ["username", "darkMode"],
+        "properties": {
+          "username": { "type": "string", "example": "Guest" },
+          "darkMode": { "type": "boolean", "example": false }
+        }
+      },
+      "UpdatePreferencesRequest": {
+        "type": "object",
+        "properties": {
+          "username": { "type": "string" },
+          "darkMode": { "type": "boolean" }
+        }
+      },
+      "TeamMember": {
+        "type": "object",
+        "required": ["id", "name", "role", "avatarUrl", "status", "currentMood", "moodHistory"],
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string", "example": "Alice Chen" },
+          "role": { "type": "string", "example": "Frontend Dev" },
+          "avatarUrl": { "type": "string", "nullable": true, "example": null },
+          "status": {
+            "type": "string",
+            "enum": ["active", "away", "offline"],
+            "example": "active"
+          },
+          "currentMood": { "$ref": "#/components/schemas/MoodEntry" },
+          "moodHistory": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/MoodEntry" }
+          }
+        }
+      },
+      "MoodEntry": {
+        "type": "object",
+        "required": ["emoji", "label", "timestamp"],
+        "properties": {
+          "emoji": { "type": "string", "example": "😊" },
+          "label": { "type": "string", "example": "happy" },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-02-25T10:30:00Z"
+          }
+        }
+      },
+      "SubmitMoodRequest": {
+        "type": "object",
+        "required": ["emoji", "label"],
+        "properties": {
+          "emoji": { "type": "string", "example": "😊" },
+          "label": { "type": "string", "example": "happy" }
+        }
+      },
+      "ApiError": {
+        "type": "object",
+        "required": ["detail", "statusCode"],
+        "properties": {
+          "detail": { "type": "string", "example": "Not found" },
+          "statusCode": { "type": "integer", "example": 404 }
+        }
+      }
+    }
+  }
+}

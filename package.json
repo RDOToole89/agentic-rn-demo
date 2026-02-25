@@ -5,9 +5,11 @@
     "dev": "pnpm -C apps/client start",
     "lint": "pnpm -r run lint",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
-    "typecheck": "pnpm -r run typecheck"
+    "typecheck": "pnpm -r run typecheck",
+    "generate:api": "orval"
   },
   "devDependencies": {
+    "orval": "^8.5.0",
     "prettier": "^3.4.0",
     "typescript": "^5.6.0"
   }

@@ -10,6 +10,7 @@
 - **Zustand 5** (state management)
 - **TanStack Query** (async data fetching)
 - **AsyncStorage** (local persistence)
+- **@agentic-rn/core** (generated API types + React Query hooks from OpenAPI)
 
 ## Architecture Layers
 
@@ -47,10 +48,10 @@ the implementation in `src/`.
 | Folder            | Contains                        | May Import From                    |
 |-------------------|---------------------------------|------------------------------------|
 | `app/`            | Route files (thin wrappers)     | `src/features/`                    |
-| `src/features/`   | Screens, hooks, components      | `store/`, `api/`, `lib/`, `theme/` |
+| `src/features/`   | Screens, hooks, components      | `store/`, `api/`, `lib/`, `theme/`, `@agentic-rn/core` |
 | `src/store/`      | Zustand stores                  | `lib/`                             |
-| `src/api/`        | QueryClient, key factories      | `lib/`                             |
-| `src/lib/`        | Types, utils, shared hooks      | External libs only                 |
+| `src/api/`        | QueryClient config              | `lib/`                             |
+| `src/lib/`        | Types, utils, shared hooks      | `@agentic-rn/core`, external libs  |
 | `src/theme/`      | Colors, ThemeContext             | `store/`                           |
 
 ## Decision Tree: Where Does New Code Go?
@@ -68,7 +69,9 @@ Is it a shared utility function?
   → src/lib/utils/
 
 Is it a new API endpoint / query?
-  → src/api/ (add key factory + hook)
+  → 1. Update OpenAPI spec in packages/core/openapi.json
+  → 2. Run `pnpm generate:api` to regenerate hooks + types
+  → 3. Use the generated hook from `@agentic-rn/core` in your feature
 
 Is it global state?
   → src/store/
@@ -89,6 +92,24 @@ Is it a style or theme change?
 | Type barrel       | `types.ts`              | `types.ts` (re-exports)    |
 | Validator file    | `camelCase`             | `validator.ts`             |
 | Util file         | `camelCase`             | `storage.ts`               |
+
+## API Integration (Generated Hooks)
+
+API types and React Query hooks are **generated** from the OpenAPI spec via orval.
+They live in `@agentic-rn/core` — never write API hooks by hand.
+
+```typescript
+import { useGetTeamMembers, useSubmitTeamMemberMood } from '@agentic-rn/core';
+
+// Queries — fully typed, auto-generated query keys
+const { data, isLoading } = useGetTeamMembers();
+
+// Mutations — typed request + response
+const mutation = useSubmitTeamMemberMood();
+mutation.mutate({ id: '123', data: { emoji: '😊', label: 'happy' } });
+```
+
+See `packages/core/AGENTS.md` for the full codegen pipeline.
 
 ## State Management
 
