@@ -5,15 +5,21 @@ set -euo pipefail
 #
 # Usage: .github/scripts/sync-stories.sh [--dry-run]
 #
-# Reads frontmatter from STORY-*.md files. For each story with `issue: null`,
-# creates a GitHub Issue, adds it to the project board, and updates the
-# frontmatter with the issue number.
+# Two-way sync:
+# 1. For each story with `issue: null`, creates a GitHub Issue, adds it to
+#    the project board, and updates the frontmatter with the issue number.
+# 2. For each story already synced, checks the board status. If the issue is
+#    in the "Done" column, archives the story file from the codebase (moves
+#    to docs/STORIES/.archive/). The issue stays on the board.
 
 REPO="RDOToole89/agentic-rn-demo"
 PROJECT_NUMBER=5
 PROJECT_OWNER="RDOToole89"
 STORIES_DIR="docs/STORIES"
+ARCHIVE_DIR="${STORIES_DIR}/.archive"
 DRY_RUN=false
+STATUS_FIELD_ID="PVTSSF_lAHOA7i1A84BO8Oqzg9fuec"
+DONE_OPTION_ID="98236657"
 
 [[ "${1:-}" == "--dry-run" ]] && DRY_RUN=true
 
@@ -36,11 +42,31 @@ parse_labels() {
   echo "$raw" | tr -d '[]' | tr ',' '\n' | sed 's/^ *//' | sed 's/ *$//'
 }
 
+# Get the board status for an issue by number
+get_board_status() {
+  local issue_number="$1"
+  gh project item-list "$PROJECT_NUMBER" \
+    --owner "$PROJECT_OWNER" \
+    --format json 2>/dev/null | \
+    python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+for item in data.get('items', []):
+    content = item.get('content', {})
+    url = content.get('url', '')
+    if url.endswith('/${issue_number}'):
+        print(item.get('status', ''))
+        sys.exit(0)
+print('')
+" 2>/dev/null
+}
+
 echo "=== Story → Issue Sync ==="
 echo ""
 
 synced=0
 skipped=0
+archived=0
 
 for story_file in ${STORIES_DIR}/STORY-*.md; do
   [[ "$(basename "$story_file")" == "_TEMPLATE.md" ]] && continue
@@ -54,10 +80,22 @@ for story_file in ${STORIES_DIR}/STORY-*.md; do
   echo "[$story_id] $title"
   echo "  status: $status | issue: ${issue:-null}"
 
-  # Skip if already synced
+  # If already synced, check if Done on board → archive locally
   if [[ "$issue" != "null" && -n "$issue" ]]; then
-    echo "  → Already synced to #$issue, skipping"
-    skipped=$((skipped + 1))
+    board_status=$(get_board_status "$issue")
+    if [[ "$board_status" == "Done" ]]; then
+      if $DRY_RUN; then
+        echo "  → [DRY RUN] Would archive $(basename "$story_file") (Done on board)"
+      else
+        mkdir -p "$ARCHIVE_DIR"
+        mv "$story_file" "$ARCHIVE_DIR/"
+        echo "  → Archived to ${ARCHIVE_DIR}/$(basename "$story_file") (Done on board)"
+        archived=$((archived + 1))
+      fi
+    else
+      echo "  → Already synced to #$issue (board: ${board_status:-unknown}), skipping"
+      skipped=$((skipped + 1))
+    fi
     echo ""
     continue
   fi
@@ -106,4 +144,4 @@ for story_file in ${STORIES_DIR}/STORY-*.md; do
   echo ""
 done
 
-echo "=== Done: $synced synced, $skipped skipped ==="
+echo "=== Done: $synced synced, $skipped skipped, $archived archived ==="
