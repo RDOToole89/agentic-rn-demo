@@ -1,5 +1,7 @@
 # AGENTS.md — Feature: Home
 
+Last updated: 2026-02-25
+
 ## Purpose
 The Home feature is the app's landing screen. It displays a greeting with the
 user's name, the current theme mode, and a button to navigate to Settings.
@@ -10,9 +12,15 @@ user's name, the current theme mode, and a button to navigate to Settings.
 | `HomeScreen.tsx`  | Main screen component         |
 
 ## Dependencies
-- `usePreferencesStore` (from `store/`) — reads `username`
-- `useTheme` (from `theme/`) — reads color tokens and dark mode flag
+- `usePreferencesStore` (from `store/`) — reads `username` and `darkMode`
+- `@/tw` — NativeWind-enabled View, Text, Pressable components
 - `expo-router` — navigation to `/settings`
+
+## Styling
+Uses NativeWind `className` props with semantic design tokens:
+- `bg-surface` for background (adapts to dark mode)
+- `text-text-primary` / `text-text-secondary` for text
+- `bg-accent` for the CTA button (Deloitte green)
 
 ## Constraints
 - This screen is **read-only** — it does not mutate state

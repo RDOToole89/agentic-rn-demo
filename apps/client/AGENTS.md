@@ -3,10 +3,13 @@
 > You are inside `apps/client/`. This is the Expo app (iOS, Android, Web).
 > For monorepo-wide rules, see the root `AGENTS.md`.
 
+Last updated: 2026-02-25
+
 ## Stack
 
 - **Expo SDK 54** / React Native 0.81 / React 19 / react-native-web
 - **Expo Router 6** (file-based routing)
+- **NativeWind v5** / Tailwind CSS v4 (utility-first styling via `className`)
 - **Zustand 5** (state management)
 - **TanStack Query** (async data fetching)
 - **AsyncStorage** (local persistence)
@@ -23,10 +26,64 @@ src/store/           Zustand stores (global state)
 src/api/             React Query client + key factories
   ↓ uses
 src/lib/             Shared types, utils, hooks
-src/theme/           Color tokens + ThemeContext
+src/theme/           Design tokens (tokens.ts) + theme sync (ThemeContext.tsx)
+src/tw/              NativeWind re-exports + cn() utility
 ```
 
 **Data flow**: `Screen → Hook → Store action → Storage util → AsyncStorage`
+
+## Styling (NativeWind v5 / Tailwind CSS v4)
+
+All styling uses NativeWind `className` props with Tailwind CSS v4 utilities.
+No `StyleSheet.create()` in new code.
+
+### Key files
+
+| File | Role |
+|------|------|
+| `src/global.css` | Design system: color scales, semantic tokens via `light-dark()`, `@theme` registration |
+| `src/theme/tokens.ts` | Brand hex constants for JS access (Switch trackColor, StatusBar) |
+| `src/theme/ThemeContext.tsx` | `useThemeSync()` — syncs Zustand darkMode → NativeWind colorScheme |
+| `src/tw/index.tsx` | Re-exports RN components + `cn()` utility for class merging |
+
+### How to style a component
+
+```tsx
+import { View, Text, cn } from '@/tw';
+
+// Semantic tokens adapt to dark mode automatically via light-dark()
+<View className="flex-1 bg-surface p-4">
+  <Text className="text-lg text-text-primary">Hello</Text>
+  <Text className={cn('text-sm', isActive && 'text-accent')}>Status</Text>
+</View>
+```
+
+### Design token classes
+
+| Class prefix | What it styles | Examples |
+|-------------|----------------|----------|
+| `bg-surface*` | Backgrounds | `bg-surface`, `bg-surface-elevated`, `bg-surface-sunken` |
+| `text-text-*` | Text colors | `text-text-primary`, `text-text-secondary` |
+| `bg-accent` | Brand green CTA | `bg-accent` |
+| `bg-primary-*` | Green scale | `bg-primary-500`, `bg-primary-100` |
+| `bg-secondary-*` | Blue scale | `bg-secondary-500` |
+| `border-border` | Borders | `border-border` |
+| `bg-card` | Card backgrounds | `bg-card` |
+
+### Dark mode
+
+Dark mode is automatic — `light-dark()` CSS function handles it. No `dark:` prefix
+needed for semantic tokens. Use `dark:` only for one-off overrides.
+
+### RN components without className support
+
+Some RN components (Switch, StatusBar) need raw color values:
+
+```tsx
+import { useRawColors } from '@/theme/ThemeContext';
+const colors = useRawColors();
+<Switch trackColor={{ false: colors.border, true: colors.accent }} />
+```
 
 ## Routing / Feature Boundary
 
@@ -48,11 +105,12 @@ the implementation in `src/`.
 | Folder            | Contains                        | May Import From                    |
 |-------------------|---------------------------------|------------------------------------|
 | `app/`            | Route files (thin wrappers)     | `src/features/`                    |
-| `src/features/`   | Screens, hooks, components      | `store/`, `api/`, `lib/`, `theme/`, `@agentic-rn/core` |
+| `src/features/`   | Screens, hooks, components      | `store/`, `api/`, `lib/`, `theme/`, `tw/`, `@agentic-rn/core` |
 | `src/store/`      | Zustand stores                  | `lib/`                             |
 | `src/api/`        | QueryClient config              | `lib/`                             |
 | `src/lib/`        | Types, utils, shared hooks      | `@agentic-rn/core`, external libs  |
-| `src/theme/`      | Colors, ThemeContext             | `store/`                           |
+| `src/theme/`      | Design tokens, theme sync       | `store/`, `nativewind`             |
+| `src/tw/`         | NativeWind re-exports, cn()     | `react-native`, `nativewind`, `clsx`, `tailwind-merge` |
 
 ## Decision Tree: Where Does New Code Go?
 
@@ -77,7 +135,12 @@ Is it global state?
   → src/store/
 
 Is it a style or theme change?
-  → src/theme/colors.ts or src/theme/ThemeContext.tsx
+  → Design tokens: src/global.css (@theme block)
+  → JS color access: src/theme/tokens.ts
+  → Never add inline hex values — add a token
+
+Is it a new reusable UI primitive?
+  → packages/ui (when created), or src/tw/ for wrappers
 ```
 
 ## Naming Conventions
