@@ -1,5 +1,7 @@
 # Architecture
 
+Last updated: 2026-02-26
+
 ## Overview
 
 This app follows a **lightweight frontend architecture** targeting iOS, Android,
@@ -22,7 +24,9 @@ graph TB
             Store["src/store/<br/>Zustand Stores<br/><i>global state</i>"]
             ClientAPI["src/api/<br/>React Query<br/><i>async data fetching</i>"]
             Lib["src/lib/<br/>Shared Code<br/><i>types, utils, hooks</i>"]
-            Theme["src/theme/<br/>Color Tokens + Context"]
+            Theme["src/theme/<br/>Design Tokens + NativeWind Sync"]
+            TW["src/tw/<br/>NativeWind Re-exports<br/><i>cn() utility</i>"]
+            CSS["src/global.css<br/>Tailwind CSS v4<br/><i>scales, semantic tokens, light-dark()</i>"]
         end
         subgraph Server["apps/server — FastAPI (Python)"]
             ServerAPI["src/api/<br/>HTTP Adapter<br/><i>routes, schemas, DI</i>"]
@@ -32,17 +36,19 @@ graph TB
         end
         subgraph Packages["Shared Packages"]
             UI["packages/ui<br/>Shared Components"]
-            Core["packages/core<br/>Shared Types"]
+            Core["packages/core<br/>OpenAPI Codegen<br/><i>generated hooks + types</i>"]
         end
     end
 
     Router --> Features
     Features --> Store
     Features --> ClientAPI
+    Features --> TW
     Features --> Theme
     Store --> Lib
     ClientAPI --> Lib
     Theme --> Store
+    TW --> CSS
     Lib --> AsyncStorage[(AsyncStorage)]
 
     ServerAPI --> AppLayer
@@ -59,6 +65,8 @@ graph TB
     style Features fill:#e3f2fd,stroke:#1565c0
     style ServerAPI fill:#e3f2fd,stroke:#1565c0
     style Router fill:#f3e5f5,stroke:#7b1fa2
+    style CSS fill:#fce4ec,stroke:#c62828
+    style TW fill:#fce4ec,stroke:#c62828
 ```
 
 **Dependency Rule**: Arrows show allowed imports. Each layer may only import from layers below it. Never up.
@@ -175,17 +183,19 @@ flowchart TD
 ## Layers
 
 ```
-┌─────────────────────────────────────────────┐
-│  app/              Routing (Expo Router)     │  ← Thin wrappers only
-├─────────────────────────────────────────────┤
-│  src/features/     Feature Modules           │  ← Screens + hooks + UI
-├─────────────────────────────────────────────┤
-│  src/store/        Zustand Stores            │  ← Global state
-│  src/api/          React Query               │  ← Async data fetching
-├─────────────────────────────────────────────┤
-│  src/lib/          Shared Code               │  ← Types, utils, hooks
-│  src/theme/        Theme                     │  ← Colors, context
-└─────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────┐
+│  app/              Routing (Expo Router)         │  ← Thin wrappers only
+├─────────────────────────────────────────────────┤
+│  src/features/     Feature Modules               │  ← Screens + hooks + UI
+├─────────────────────────────────────────────────┤
+│  src/store/        Zustand Stores                │  ← Global state
+│  src/api/          React Query                   │  ← Async data fetching
+├─────────────────────────────────────────────────┤
+│  src/lib/          Shared Code                   │  ← Types, utils, hooks
+│  src/theme/        Design Tokens + Theme Sync    │  ← tokens.ts, ThemeContext
+│  src/tw/           NativeWind Re-exports         │  ← cn(), styled components
+│  src/global.css    Tailwind CSS v4 Design System │  ← Scales, semantic tokens
+└─────────────────────────────────────────────────┘
 ```
 
 ## Folder Structure
@@ -193,7 +203,7 @@ flowchart TD
 ```
 apps/client/
 ├── app/                          # Route definitions (Expo Router)
-│   ├── _layout.tsx               # Root layout + providers
+│   ├── _layout.tsx               # Root layout + providers + global.css import
 │   ├── index.tsx                 # → HomeScreen
 │   └── settings.tsx              # → SettingsScreen
 │
@@ -226,14 +236,29 @@ apps/client/
 │   │   ├── preferencesStore.ts
 │   │   └── index.ts
 │   │
-│   └── theme/                    # Visual theming
-│       ├── colors.ts             # Light/dark color tokens
-│       └── ThemeContext.tsx       # React 19 Context provider
+│   ├── theme/                    # Design tokens + NativeWind bridge
+│   │   ├── tokens.ts             # Deloitte brand constants, scales, vars()
+│   │   └── ThemeContext.tsx       # useThemeSync() + useRawColors()
+│   │
+│   ├── tw/                       # NativeWind component layer
+│   │   └── index.tsx             # RN re-exports + cn() utility
+│   │
+│   └── global.css                # Tailwind CSS v4 design system
+│                                 # (scales, semantic tokens, light-dark())
 │
+├── metro.config.js               # withNativeWind() wrapper
+├── postcss.config.mjs            # @tailwindcss/postcss plugin
+├── nativewind-env.d.ts           # NativeWind type declarations
+└── tsconfig.json                 # Path aliases (@/tw, @/theme, etc.)
+
 packages/
-├── core/                         # Shared types & utilities
-│   └── src/types.ts              # Result<T, E> type
-└── ui/                           # Shared UI components
+├── core/                         # OpenAPI codegen (orval)
+│   ├── openapi.json              # API spec (source of truth)
+│   └── src/
+│       ├── generated/            # Auto-generated hooks + types
+│       ├── fetcher.ts            # Custom fetch wrapper
+│       └── index.ts              # Barrel export
+└── ui/                           # Shared UI components (future)
     └── src/Button.tsx            # Reusable Button component
 ```
 
@@ -249,5 +274,6 @@ packages/
    - Add types in `lib/types/`
    - Add or extend a Zustand store in `store/`
 8. **If API integration is needed**:
-   - Add query keys in `api/keys.ts`
-   - Add query/mutation hooks in the feature or `api/`
+   - Update OpenAPI spec in `packages/core/openapi.json`
+   - Run `pnpm generate:api` to regenerate hooks + types
+   - Use the generated hook from `@agentic-rn/core` in your feature
