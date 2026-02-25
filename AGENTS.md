@@ -16,16 +16,16 @@ agentic-rn-demo/
 ├── apps/client/       → Expo app — iOS, Android, Web (has its own AGENTS.md)
 ├── apps/server/       → FastAPI backend — Python, hexagonal architecture (has its own AGENTS.md)
 ├── packages/ui/       → Shared UI components
-├── packages/core/     → Shared types and utilities
+├── packages/core/     → Shared types, generated API client + hooks (has its own AGENTS.md)
 └── docs/              → Architecture docs, workflow guides, story specs
 ```
 
 ## Boundary Rules
 
-1. **Domain is pure** — `src/domain/` has zero framework imports. No React, no AsyncStorage, no Expo.
-2. **Services are interfaces** — UI and domain depend on `IStorageService`, never on `AsyncStorage` directly.
-3. **Features are self-contained** — Each feature folder owns its screen, hooks, and components.
-4. **Packages are leaf nodes** — `packages/*` never import from `apps/*`.
+1. **API types are generated** — `packages/core` generates TS types + React Query hooks from the OpenAPI spec. Never hand-write API types.
+2. **Features are self-contained** — each feature folder owns its screen, hooks, and components.
+3. **Packages are leaf nodes** — `packages/*` never import from `apps/*`.
+4. **No direct AsyncStorage in UI** — components use store actions, stores use `lib/utils/storage`.
 
 ## Navigation for Agents
 
@@ -36,6 +36,7 @@ agentic-rn-demo/
 | See the database schema            | `docs/ARCHITECTURE.md` → Database Schema     |
 | Work on the client app             | `apps/client/AGENTS.md`                      |
 | Work on the server API             | `apps/server/AGENTS.md`                      |
+| Work on shared types / API client  | `packages/core/AGENTS.md`                    |
 | See a feature-level example        | `apps/client/src/features/settings/AGENTS.md`|
 | Find a story spec                  | `docs/STORIES/STORY-*.md`                    |
 
