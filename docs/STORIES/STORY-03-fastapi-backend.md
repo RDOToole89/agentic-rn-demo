@@ -1,7 +1,7 @@
 ---
 id: STORY-03
 title: Implement FastAPI Backend with Hexagonal Architecture
-status: backlog
+status: done
 labels: [type:feat, scope:mono]
 issue: 5
 ---
@@ -64,18 +64,18 @@ apps/server/
 
 ## Acceptance Criteria
 
-- [ ] `apps/server/` exists as a new workspace in the monorepo
-- [ ] FastAPI app starts with `uvicorn src.api.main:app --reload`
-- [ ] `GET /health` returns `{ "status": "ok" }`
-- [ ] `GET /api/v1/preferences/{user_id}` returns user preferences
-- [ ] `PUT /api/v1/preferences/{user_id}` updates preferences
-- [ ] Domain layer has zero framework imports (no FastAPI, no SQLAlchemy)
-- [ ] Infrastructure uses SQLite for zero-config demo setup
-- [ ] Mapper translates between domain model and DB model
-- [ ] Repository abstracts all database access
-- [ ] Pydantic Settings loads config from `.env`
-- [ ] AGENTS.md exists at `apps/server/AGENTS.md`
-- [ ] Root AGENTS.md navigation table updated
+- [x] `apps/server/` exists as a new workspace in the monorepo
+- [x] FastAPI app starts with `uvicorn src.api.main:app --reload`
+- [x] `GET /health` returns `{ "status": "ok" }`
+- [x] `GET /api/v1/preferences/{user_id}` returns user preferences
+- [x] `PUT /api/v1/preferences/{user_id}` updates preferences
+- [x] Domain layer has zero framework imports (no FastAPI, no SQLAlchemy)
+- [x] Infrastructure uses SQLite for zero-config demo setup
+- [x] Mapper translates between domain model and DB model
+- [x] Repository abstracts all database access
+- [x] Pydantic Settings loads config from `.env`
+- [x] AGENTS.md exists at `apps/server/AGENTS.md`
+- [x] Root AGENTS.md navigation table updated
 
 ## Constraints
 
