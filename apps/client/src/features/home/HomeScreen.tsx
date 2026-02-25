@@ -1,28 +1,26 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable } from '@/tw';
 import { useRouter } from 'expo-router';
-import { useTheme } from '../../theme/ThemeContext';
 import { usePreferencesStore } from '../../store/preferencesStore';
 
 export function HomeScreen() {
   const router = useRouter();
-  const { colors, isDark } = useTheme();
   const username = usePreferencesStore((s) => s.username);
+  const isDark = usePreferencesStore((s) => s.darkMode);
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <View style={styles.content}>
-        <Text style={[styles.greeting, { color: colors.text }]}>
+    <View className="flex-1 items-center justify-center bg-surface">
+      <View className="items-center gap-3">
+        <Text className="text-3xl font-bold text-text-primary">
           Hello, {username}
         </Text>
-        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
+        <Text className="text-base text-text-secondary mb-6">
           Theme: {isDark ? 'Dark' : 'Light'} Mode
         </Text>
-
         <Pressable
-          style={[styles.button, { backgroundColor: colors.primary }]}
+          className="px-6 py-3.5 rounded-lg bg-accent"
           onPress={() => router.push('/settings')}
         >
-          <Text style={[styles.buttonText, { color: colors.primaryText }]}>
+          <Text className="text-base font-semibold text-white">
             Open Settings
           </Text>
         </Pressable>
@@ -30,32 +28,3 @@ export function HomeScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  content: {
-    alignItems: 'center',
-    gap: 12,
-  },
-  greeting: {
-    fontSize: 28,
-    fontWeight: '700',
-  },
-  subtitle: {
-    fontSize: 16,
-    marginBottom: 24,
-  },
-  button: {
-    paddingHorizontal: 24,
-    paddingVertical: 14,
-    borderRadius: 10,
-  },
-  buttonText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});
