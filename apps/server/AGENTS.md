@@ -97,7 +97,7 @@ UserPreferences (interface)  ↔   UserPreferences (dataclass)     ← domain
 
 1. **Domain is the source of truth** — both client and server domain models
    define the canonical shape. When a field is added or renamed, update both
-   `apps/client/src/domain/entities/UserPreferences.ts` and
+   `apps/client/src/lib/types/preferences.ts` and
    `apps/server/src/domain/models/user_preferences.py` in the same PR.
 2. **ORM mirrors domain** — `PreferencesModel` fields must match
    `UserPreferences` dataclass fields 1:1. The mapper will break at runtime

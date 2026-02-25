@@ -48,7 +48,7 @@ api/
 ## Main App (`main.py`)
 
 - Creates the `FastAPI` instance with title and version
-- Adds CORS middleware (allow all origins — demo only)
+- Adds CORS middleware (origins configurable via `CORS_ORIGINS` env var)
 - Uses `lifespan` context manager to call `create_tables()` on startup
 - Mounts all route routers
 
