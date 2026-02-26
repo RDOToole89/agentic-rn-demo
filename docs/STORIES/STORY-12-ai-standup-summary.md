@@ -3,7 +3,7 @@ id: STORY-12
 title: AI Standup Summary (Demo Feature)
 status: in-progress
 labels: [type:feat, scope:client]
-issue: null
+issue: 19
 ---
 
 # STORY-12: AI Standup Summary (Demo Feature)

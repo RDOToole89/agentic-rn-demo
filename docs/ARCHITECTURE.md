@@ -16,57 +16,72 @@ that both humans and AI agents can navigate predictably.
 ## System Architecture
 
 ```mermaid
-graph TB
-    subgraph Monorepo["agentic-rn-demo (pnpm workspaces)"]
-        subgraph Client["apps/client — Expo SDK 54 (iOS · Android · Web)"]
-            Router["app/<br/>Expo Router 6<br/><i>thin route wrappers</i>"]
-            Features["src/features/<br/>Feature Modules<br/><i>screens + hooks + components</i>"]
-            Store["src/store/<br/>Zustand Stores<br/><i>global state</i>"]
-            ClientAPI["src/api/<br/>React Query<br/><i>async data fetching</i>"]
-            Lib["src/lib/<br/>Shared Code<br/><i>types, utils, hooks</i>"]
-            Theme["src/theme/<br/>Design Tokens + NativeWind Sync"]
-            TW["src/tw/<br/>NativeWind Re-exports<br/><i>cn() utility</i>"]
-            CSS["src/global.css<br/>Tailwind CSS v4<br/><i>scales, semantic tokens, light-dark()</i>"]
+flowchart TD
+    subgraph Client["apps/client — Expo SDK 54 · iOS · Android · Web"]
+        direction TB
+        Router["<b>app/</b><br/>Expo Router 6<br/><i>thin route wrappers</i>"]
+
+        Features["<b>src/features/</b><br/>Feature Modules<br/><i>screens · hooks · components</i>"]
+
+        subgraph Data["Data Layer"]
+            direction LR
+            ClientAPI["<b>src/api/</b><br/>React Query<br/><i>query client · key factories</i>"]
+            Store["<b>src/store/</b><br/>Zustand<br/><i>global client state</i>"]
         end
-        subgraph Server["apps/server — FastAPI (Python)"]
-            ServerAPI["src/api/<br/>HTTP Adapter<br/><i>routes, schemas, DI</i>"]
-            AppLayer["src/application/<br/>Use-Case Layer<br/><i>service orchestration</i>"]
-            ServerDomain["src/domain/<br/>Business Logic<br/><i>pure Python, zero imports</i>"]
-            Infra["src/infrastructure/<br/>DB Adapter<br/><i>SQLAlchemy, repos</i>"]
+
+        subgraph Style["Style Layer"]
+            direction LR
+            Theme["<b>src/theme/</b><br/>Design Tokens<br/><i>NativeWind sync</i>"]
+            TW["<b>src/tw/ + global.css</b><br/>NativeWind + Tailwind v4<br/><i>cn() · semantic tokens · light-dark()</i>"]
         end
-        subgraph Packages["Shared Packages"]
-            UI["packages/ui<br/>Shared Components"]
-            Core["packages/core<br/>OpenAPI Codegen<br/><i>generated hooks + types</i>"]
-        end
+
+        Lib["<b>src/lib/</b><br/>Shared Code<br/><i>types · utils · hooks</i>"]
+
+        Router --> Features
+        Features --> Data
+        Features --> Style
+        Store --> Lib
+        ClientAPI --> Lib
     end
 
-    Router --> Features
-    Features --> Store
-    Features --> ClientAPI
-    Features --> TW
-    Features --> Theme
-    Store --> Lib
-    ClientAPI --> Lib
-    Theme --> Store
-    TW --> CSS
-    Lib --> AsyncStorage[(AsyncStorage)]
+    subgraph Server["apps/server — FastAPI · Python 3.12"]
+        direction TB
+        ServerAPI["<b>src/api/</b><br/>HTTP Adapter<br/><i>routes · schemas · DI</i>"]
+        AppLayer["<b>src/application/</b><br/>Use Cases<br/><i>service orchestration</i>"]
 
-    ServerAPI --> AppLayer
-    AppLayer --> ServerDomain
-    AppLayer --> Infra
-    Infra --> SQLite[(SQLite)]
+        subgraph Core_Server["Core"]
+            direction LR
+            ServerDomain["<b>src/domain/</b><br/>Business Logic<br/><i>pure Python</i>"]
+            Infra["<b>src/infrastructure/</b><br/>DB Adapter<br/><i>SQLAlchemy · repos</i>"]
+        end
 
-    ClientAPI -.->|HTTP| ServerAPI
+        ServerAPI --> AppLayer --> Core_Server
+    end
 
-    style Store fill:#e8f5e9,stroke:#2e7d32
-    style ServerDomain fill:#e8f5e9,stroke:#2e7d32
-    style ClientAPI fill:#fff3e0,stroke:#ef6c00
-    style Infra fill:#fff3e0,stroke:#ef6c00
-    style Features fill:#e3f2fd,stroke:#1565c0
-    style ServerAPI fill:#e3f2fd,stroke:#1565c0
-    style Router fill:#f3e5f5,stroke:#7b1fa2
-    style CSS fill:#fce4ec,stroke:#c62828
-    style TW fill:#fce4ec,stroke:#c62828
+    subgraph Packages["Shared Packages"]
+        direction LR
+        Core["<b>packages/core</b><br/>OpenAPI Codegen<br/><i>generated hooks + types</i>"]
+        UI["<b>packages/ui</b><br/>Shared Components"]
+    end
+
+    Lib --> AS[(AsyncStorage)]
+    Infra --> DB[(SQLite)]
+    ClientAPI -. "HTTP via customFetch" .-> ServerAPI
+    Core -. "types + hooks" .-> ClientAPI
+
+    style Router fill:#f3e5f5,stroke:#7b1fa2,color:#000
+    style Features fill:#e3f2fd,stroke:#1565c0,color:#000
+    style ClientAPI fill:#fff3e0,stroke:#ef6c00,color:#000
+    style Store fill:#e8f5e9,stroke:#2e7d32,color:#000
+    style Theme fill:#fce4ec,stroke:#c62828,color:#000
+    style TW fill:#fce4ec,stroke:#c62828,color:#000
+    style Lib fill:#f5f5f5,stroke:#616161,color:#000
+    style ServerAPI fill:#e3f2fd,stroke:#1565c0,color:#000
+    style AppLayer fill:#f5f5f5,stroke:#616161,color:#000
+    style ServerDomain fill:#e8f5e9,stroke:#2e7d32,color:#000
+    style Infra fill:#fff3e0,stroke:#ef6c00,color:#000
+    style Core fill:#e0f7fa,stroke:#00838f,color:#000
+    style UI fill:#e0f7fa,stroke:#00838f,color:#000
 ```
 
 **Dependency Rule**: Arrows show allowed imports. Each layer may only import from layers below it. Never up.
