@@ -27,9 +27,7 @@ export function NavigationCard({
       <Text className="text-3xl mr-4">{emoji}</Text>
       <View className="flex-1">
         <Text className="text-base font-bold text-text-primary">{title}</Text>
-        <Text className="text-sm text-text-secondary mt-0.5">
-          {description}
-        </Text>
+        <Text className="text-sm text-text-secondary mt-0.5">{description}</Text>
       </View>
       <Text className="text-xl text-text-muted">›</Text>
     </Pressable>

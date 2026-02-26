@@ -50,30 +50,22 @@ export function TeamSummaryCard({ members }: TeamSummaryCardProps) {
         <Text className="text-4xl">{vibe.emoji}</Text>
         <View>
           <Text className="text-sm text-text-secondary">Team Vibe</Text>
-          <Text className="text-xl font-bold text-text-primary">
-            {vibe.label}
-          </Text>
+          <Text className="text-xl font-bold text-text-primary">{vibe.label}</Text>
         </View>
       </View>
 
       <View className="flex-row gap-5">
         <View className="flex-row items-center gap-1.5">
           <StatusDot status="active" />
-          <Text className="text-sm text-text-secondary">
-            {activeCount} active
-          </Text>
+          <Text className="text-sm text-text-secondary">{activeCount} active</Text>
         </View>
         <View className="flex-row items-center gap-1.5">
           <StatusDot status="away" />
-          <Text className="text-sm text-text-secondary">
-            {awayCount} away
-          </Text>
+          <Text className="text-sm text-text-secondary">{awayCount} away</Text>
         </View>
         <View className="flex-row items-center gap-1.5">
           <StatusDot status="offline" />
-          <Text className="text-sm text-text-secondary">
-            {offlineCount} offline
-          </Text>
+          <Text className="text-sm text-text-secondary">{offlineCount} offline</Text>
         </View>
       </View>
     </View>

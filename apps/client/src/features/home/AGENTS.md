@@ -10,9 +10,9 @@ features (Team Pulse, Settings).
 
 ## Files
 
-| File | Role |
-|------|------|
-| `HomeScreen.tsx` | Main screen — greeting + navigation cards |
+| File                            | Role                                                  |
+| ------------------------------- | ----------------------------------------------------- |
+| `HomeScreen.tsx`                | Main screen — greeting + navigation cards             |
 | `components/NavigationCard.tsx` | Reusable card with emoji, title, description, chevron |
 
 ## Dependencies
@@ -24,6 +24,7 @@ features (Team Pulse, Settings).
 ## Styling
 
 Uses NativeWind `className` props with semantic design tokens:
+
 - `bg-surface` for screen background
 - `bg-card` for navigation cards
 - `text-accent` for username highlight
@@ -40,6 +41,7 @@ Uses NativeWind `className` props with semantic design tokens:
 ## Extending This Feature
 
 To add more navigation destinations:
+
 1. Add a new `NavigationCard` in `HomeScreen.tsx`
 2. Use an appropriate `accentClass` for visual distinction
 3. Wire `onPress` to the new route

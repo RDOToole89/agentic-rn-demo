@@ -10,15 +10,15 @@ cards with avatars, status dots, and mood badges.
 
 ## Files
 
-| File | Role |
-|------|------|
-| `PulseDashboard.tsx` | Main screen — FlatList with pull-to-refresh |
-| `hooks/useTeamMembers.ts` | React Query hook wrapping mock data |
-| `data/mockTeamMembers.ts` | 8 mock `TeamMember` records |
-| `components/Avatar.tsx` | Colored-initials avatar circle |
-| `components/StatusDot.tsx` | Small colored dot (active/away/offline) |
-| `components/MoodBadge.tsx` | Emoji + label badge |
-| `components/TeamMemberCard.tsx` | Single team member row |
+| File                             | Role                                         |
+| -------------------------------- | -------------------------------------------- |
+| `PulseDashboard.tsx`             | Main screen — FlatList with pull-to-refresh  |
+| `hooks/useTeamMembers.ts`        | React Query hook wrapping mock data          |
+| `data/mockTeamMembers.ts`        | 8 mock `TeamMember` records                  |
+| `components/Avatar.tsx`          | Colored-initials avatar circle               |
+| `components/StatusDot.tsx`       | Small colored dot (active/away/offline)      |
+| `components/MoodBadge.tsx`       | Emoji + label badge                          |
+| `components/TeamMemberCard.tsx`  | Single team member row                       |
 | `components/TeamSummaryCard.tsx` | Hero card with dominant mood + status counts |
 
 ## Data Flow

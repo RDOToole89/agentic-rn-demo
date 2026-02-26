@@ -15,11 +15,13 @@ export function HomeScreen() {
   const username = usePreferencesStore((s) => s.username);
 
   return (
-    <ScrollView className="flex-1 bg-surface" contentContainerStyle={{ paddingBottom: 32 }}>
+    <ScrollView
+      className="flex-1 bg-surface"
+      contentContainerStyle={{ paddingBottom: 32 }}
+    >
       <View className="px-5 pt-8 pb-6">
         <Text className="text-3xl font-bold text-text-primary">
-          {getGreeting()},{' '}
-          <Text className="text-accent">{username}</Text>
+          {getGreeting()}, <Text className="text-accent">{username}</Text>
         </Text>
         <Text className="text-base text-text-secondary mt-1">
           Here's what's happening with your team.
