@@ -18,13 +18,14 @@ This repo uses a **3-level AGENTS.md system** — each level adds detail without
 repeating the level above. Agents should read top-down, stopping when they have
 enough context for the task at hand.
 
-| Level | File | What it covers |
-| ----- | ---- | -------------- |
-| **Root** | `AGENTS.md` | Repo overview, workspace map, boundaries, commit conventions |
-| **App/Package** | `apps/client/AGENTS.md`, `apps/server/AGENTS.md` | Stack, folder responsibilities, decision tree, naming |
-| **Feature** | `src/features/*/AGENTS.md` | Feature-specific context, data flow, key files, gotchas |
+| Level           | File                                             | What it covers                                               |
+| --------------- | ------------------------------------------------ | ------------------------------------------------------------ |
+| **Root**        | `AGENTS.md`                                      | Repo overview, workspace map, boundaries, commit conventions |
+| **App/Package** | `apps/client/AGENTS.md`, `apps/server/AGENTS.md` | Stack, folder responsibilities, decision tree, naming        |
+| **Feature**     | `src/features/*/AGENTS.md`                       | Feature-specific context, data flow, key files, gotchas      |
 
 **Rules:**
+
 - Every app and package must have an `AGENTS.md`
 - Every non-trivial feature folder must have an `AGENTS.md`
 - Parent `AGENTS.md` must have a navigation table linking to children
@@ -92,8 +93,8 @@ When picking up a story from the project board, manage the full lifecycle:
 8. **PR** — Open a PR against `main`, link the issue (`Closes #N`)
 9. **Move to In Review** — Move the issue to **In Review** on the project board
 10. **Self-review** — Review your own PR: walk through the diff, check for
-   missed acceptance criteria, lint issues, architectural violations, and
-   documentation gaps. Post a summary comment on the PR with findings.
+    missed acceptance criteria, lint issues, architectural violations, and
+    documentation gaps. Post a summary comment on the PR with findings.
 11. **Request human review** — Report back to the user with a summary of
     what was implemented and the self-review results. Ask: _"Ready for your
     review — shall I walk you through the changes, or do you want to review
@@ -208,6 +209,7 @@ If an issue is in the **Done** column on the board, its story file moves from
   Target Python 3.12+ features (type statement, `|` union syntax, f-strings)
 - **Self-documenting code** — Names should make comments unnecessary. The code
   should read like prose. Examples:
+
   ```
   // Bad
   const d = users.filter(u => u.s === 'a');
@@ -223,12 +225,13 @@ If an issue is in the **Done** column on the board, its story file moves from
   // Good (Python)
   def validate_mood_entry(entry: MoodEntry) -> bool:
   ```
+
 - **Keep functions and components focused** — Follow SOLID principles sensibly.
   If a React component exceeds ~300 lines or a Python function exceeds ~50
-  lines, consider whether it's doing too many *unrelated* things. A 400-line
+  lines, consider whether it's doing too many _unrelated_ things. A 400-line
   component that handles one complex screen coherently is fine. A 200-line
   component that mixes form logic, API calls, and unrelated UI is not. When
-  suggesting a split, explain *why* — e.g. _"This component handles both the
+  suggesting a split, explain _why_ — e.g. _"This component handles both the
   form validation and the list rendering — extracting `MemberList` would make
   each piece testable independently."_ Don't break things up just to hit a line
   count. On the client, extract sub-components or custom hooks. On the server,
@@ -236,19 +239,19 @@ If an issue is in the **Done** column on the board, its story file moves from
 
 ## Naming Conventions
 
-| Item             | Convention            | Example                |
-| ---------------- | --------------------- | ---------------------- |
-| Feature folder   | `kebab-case`          | `user-profile/`        |
-| Screen component | `PascalCase + Screen` | `SettingsScreen.tsx`   |
-| Hook             | `camelCase + use`     | `useSettings.ts`       |
-| Store            | `camelCase + Store`   | `preferencesStore.ts`  |
-| Type file        | `camelCase`           | `preferences.ts`       |
-| Type barrel      | `types.ts`            | `types.ts` (re-exports)|
-| Validator file   | `camelCase`           | `validator.ts`         |
-| Util file        | `camelCase`           | `storage.ts`           |
-| UI component     | `PascalCase`          | `StatusDot.tsx`        |
-| Python module    | `snake_case`          | `preferences_repo.py`  |
-| Python class     | `PascalCase`          | `PreferencesService`   |
+| Item             | Convention            | Example                 |
+| ---------------- | --------------------- | ----------------------- |
+| Feature folder   | `kebab-case`          | `user-profile/`         |
+| Screen component | `PascalCase + Screen` | `SettingsScreen.tsx`    |
+| Hook             | `camelCase + use`     | `useSettings.ts`        |
+| Store            | `camelCase + Store`   | `preferencesStore.ts`   |
+| Type file        | `camelCase`           | `preferences.ts`        |
+| Type barrel      | `types.ts`            | `types.ts` (re-exports) |
+| Validator file   | `camelCase`           | `validator.ts`          |
+| Util file        | `camelCase`           | `storage.ts`            |
+| UI component     | `PascalCase`          | `StatusDot.tsx`         |
+| Python module    | `snake_case`          | `preferences_repo.py`   |
+| Python class     | `PascalCase`          | `PreferencesService`    |
 
 ## Error Handling
 

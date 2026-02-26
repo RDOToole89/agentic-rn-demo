@@ -9,16 +9,19 @@ issue: 9
 # STORY-07: Team Pulse — Member Detail Screen
 
 ## Summary
+
 Add a member detail screen with animated header, mood history timeline, and a
 "Send Kudos" button wired to a mock React Query mutation.
 
 ## Context
+
 The detail screen completes the Team Pulse feature's navigation flow. Users tap
 a card on the dashboard → see the member's full profile with mood history →
 can send kudos. This exercises dynamic routing, cache reads, mutations, and
 Reanimated entrance animations.
 
 ## Depends On
+
 - STORY-05 (Team Pulse — Dashboard with mock data)
 
 ## Acceptance Criteria
@@ -45,17 +48,17 @@ Reanimated entrance animations.
 
 ## Files Touched
 
-| File | Action | Layer |
-|------|--------|-------|
-| `src/features/pulse/MemberDetail.tsx` | Create | Feature |
-| `src/features/pulse/components/MoodHistory.tsx` | Create | Feature |
-| `src/features/pulse/hooks/useTeamMember.ts` | Create | Feature |
-| `src/features/pulse/hooks/useSubmitMood.ts` | Create | Feature |
-| `src/features/pulse/PulseDashboard.tsx` | Modify | Feature |
+| File                                               | Action | Layer   |
+| -------------------------------------------------- | ------ | ------- |
+| `src/features/pulse/MemberDetail.tsx`              | Create | Feature |
+| `src/features/pulse/components/MoodHistory.tsx`    | Create | Feature |
+| `src/features/pulse/hooks/useTeamMember.ts`        | Create | Feature |
+| `src/features/pulse/hooks/useSubmitMood.ts`        | Create | Feature |
+| `src/features/pulse/PulseDashboard.tsx`            | Modify | Feature |
 | `src/features/pulse/components/TeamMemberCard.tsx` | Modify | Feature |
-| `app/pulse/[id].tsx` | Create | Routing |
-| `app/_layout.tsx` | Modify | Routing |
-| `src/features/pulse/AGENTS.md` | Modify | Docs |
+| `app/pulse/[id].tsx`                               | Create | Routing |
+| `app/_layout.tsx`                                  | Modify | Routing |
+| `src/features/pulse/AGENTS.md`                     | Modify | Docs    |
 
 ## Out of Scope
 

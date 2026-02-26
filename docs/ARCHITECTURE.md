@@ -86,13 +86,13 @@ erDiagram
 
 ### Column Reference
 
-| Table              | Column       | Type           | Constraints       | Notes                     |
-|--------------------|--------------|----------------|-------------------|---------------------------|
-| `user_preferences` | `user_id`    | `VARCHAR(100)` | PK                | Alphanumeric, hyphens, underscores |
-| `user_preferences` | `username`   | `VARCHAR(50)`  | NOT NULL           | Display name              |
-| `user_preferences` | `dark_mode`  | `BOOLEAN`      | NOT NULL           | UI preference             |
-| `user_preferences` | `created_at` | `TIMESTAMP`    | NOT NULL           | UTC, set on creation      |
-| `user_preferences` | `updated_at` | `TIMESTAMP`    | NOT NULL           | UTC, set on every write   |
+| Table              | Column       | Type           | Constraints | Notes                              |
+| ------------------ | ------------ | -------------- | ----------- | ---------------------------------- |
+| `user_preferences` | `user_id`    | `VARCHAR(100)` | PK          | Alphanumeric, hyphens, underscores |
+| `user_preferences` | `username`   | `VARCHAR(50)`  | NOT NULL    | Display name                       |
+| `user_preferences` | `dark_mode`  | `BOOLEAN`      | NOT NULL    | UI preference                      |
+| `user_preferences` | `created_at` | `TIMESTAMP`    | NOT NULL    | UTC, set on creation               |
+| `user_preferences` | `updated_at` | `TIMESTAMP`    | NOT NULL    | UTC, set on every write            |
 
 ---
 

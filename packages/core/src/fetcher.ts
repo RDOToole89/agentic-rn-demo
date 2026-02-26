@@ -22,10 +22,7 @@ export class ApiError extends Error {
   }
 }
 
-export const customFetch = async <T>(
-  url: string,
-  options: RequestInit,
-): Promise<T> => {
+export const customFetch = async <T>(url: string, options: RequestInit): Promise<T> => {
   const baseUrl = getBaseUrl();
   const fullUrl = `${baseUrl}${url}`;
 

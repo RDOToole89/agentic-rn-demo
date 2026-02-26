@@ -38,13 +38,13 @@ domain/
 
 ### UserPreferences
 
-| Field        | Type       | Notes                        |
-|--------------|------------|------------------------------|
-| `user_id`    | `str`      | Primary identifier           |
-| `username`   | `str`      | Display name, default "Guest"|
-| `dark_mode`  | `bool`     | UI preference                |
-| `created_at` | `datetime` | UTC, set on creation         |
-| `updated_at` | `datetime` | UTC, set on every mutation   |
+| Field        | Type       | Notes                         |
+| ------------ | ---------- | ----------------------------- |
+| `user_id`    | `str`      | Primary identifier            |
+| `username`   | `str`      | Display name, default "Guest" |
+| `dark_mode`  | `bool`     | UI preference                 |
+| `created_at` | `datetime` | UTC, set on creation          |
+| `updated_at` | `datetime` | UTC, set on every mutation    |
 
 ## Services (`services/`)
 
@@ -54,10 +54,10 @@ domain/
 
 ### Validation Rules
 
-| Function            | Rules                                              |
-|---------------------|----------------------------------------------------|
-| `validate_username` | Non-empty after strip, max 50 chars                |
-| `validate_user_id`  | Alphanumeric + hyphens + underscores, max 100 chars|
+| Function            | Rules                                               |
+| ------------------- | --------------------------------------------------- |
+| `validate_username` | Non-empty after strip, max 50 chars                 |
+| `validate_user_id`  | Alphanumeric + hyphens + underscores, max 100 chars |
 
 ## Adding to This Layer
 

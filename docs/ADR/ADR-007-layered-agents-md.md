@@ -23,6 +23,7 @@ Total context for any task: **~1,100 tokens** across 3 files.
 ## What Each Level Contains
 
 ### Root (`/AGENTS.md`)
+
 - Repository overview
 - Monorepo structure
 - Boundary rules
@@ -30,6 +31,7 @@ Total context for any task: **~1,100 tokens** across 3 files.
 - Commit conventions
 
 ### App (`/apps/client/AGENTS.md`)
+
 - Tech stack versions
 - Architecture layers with dependency rules
 - Decision tree: "Where does new code go?"
@@ -37,6 +39,7 @@ Total context for any task: **~1,100 tokens** across 3 files.
 - React 19 patterns
 
 ### Feature (`/src/features/*/AGENTS.md`)
+
 - Feature purpose (1-2 sentences)
 - File table
 - Data flow diagram

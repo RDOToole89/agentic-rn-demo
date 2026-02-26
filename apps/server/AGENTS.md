@@ -5,13 +5,13 @@
 
 ## Stack
 
-| Layer          | Technology                        |
-|----------------|-----------------------------------|
-| Framework      | FastAPI                           |
-| ORM            | SQLAlchemy 2.x (DeclarativeBase)  |
-| Config         | pydantic-settings                 |
-| Database       | SQLite (dev), swappable via URL   |
-| Server         | Uvicorn                           |
+| Layer     | Technology                       |
+| --------- | -------------------------------- |
+| Framework | FastAPI                          |
+| ORM       | SQLAlchemy 2.x (DeclarativeBase) |
+| Config    | pydantic-settings                |
+| Database  | SQLite (dev), swappable via URL  |
+| Server    | Uvicorn                          |
 
 ## Architecture (Hexagonal)
 
@@ -40,12 +40,12 @@ and infrastructure.
 The server is the API backend for the Expo client app. Both sides share the
 same `UserPreferences` concept with mirrored domain models:
 
-| Field          | Client (TypeScript)       | Server (Python)          |
-|----------------|---------------------------|--------------------------|
-| username       | `username: string`        | `username: str`          |
-| dark mode      | `darkMode: boolean`       | `dark_mode: bool`        |
-| user ID        | _(not yet on client)_     | `user_id: str`           |
-| timestamps     | _(not yet on client)_     | `created_at`, `updated_at` |
+| Field      | Client (TypeScript)   | Server (Python)            |
+| ---------- | --------------------- | -------------------------- |
+| username   | `username: string`    | `username: str`            |
+| dark mode  | `darkMode: boolean`   | `dark_mode: bool`          |
+| user ID    | _(not yet on client)_ | `user_id: str`             |
+| timestamps | _(not yet on client)_ | `created_at`, `updated_at` |
 
 The server extends the client model with `user_id` (multi-user support) and
 timestamps. The API uses `snake_case` JSON fields.
@@ -71,11 +71,11 @@ server endpoints, enabling sync between devices.
 
 ### API Contract
 
-| Endpoint                          | Method | Request Body                          | Response                              |
-|-----------------------------------|--------|---------------------------------------|---------------------------------------|
-| `/health`                         | GET    | —                                     | `{"status": "ok"}`                    |
-| `/api/v1/preferences/{user_id}`   | GET    | —                                     | `PreferenceResponse` (full entity)    |
-| `/api/v1/preferences/{user_id}`   | PUT    | `{"username?", "dark_mode?"}`         | `PreferenceResponse` (updated entity) |
+| Endpoint                        | Method | Request Body                  | Response                              |
+| ------------------------------- | ------ | ----------------------------- | ------------------------------------- |
+| `/health`                       | GET    | —                             | `{"status": "ok"}`                    |
+| `/api/v1/preferences/{user_id}` | GET    | —                             | `PreferenceResponse` (full entity)    |
+| `/api/v1/preferences/{user_id}` | PUT    | `{"username?", "dark_mode?"}` | `PreferenceResponse` (updated entity) |
 
 Interactive docs: `GET /docs` (Swagger UI) or `GET /redoc` (ReDoc).
 
@@ -153,25 +153,25 @@ apps/server/
 
 ## Navigation for Agents
 
-| I need to...                        | Go to                                        |
-|-------------------------------------|----------------------------------------------|
-| Understand the domain entities      | `src/domain/AGENTS.md`                       |
-| Work on database / persistence      | `src/infrastructure/AGENTS.md`               |
-| Add or modify API endpoints         | `src/api/AGENTS.md`                          |
-| Add a use-case / service            | `src/application/AGENTS.md`                  |
-| Change app settings                 | `src/config/AGENTS.md`                       |
+| I need to...                   | Go to                          |
+| ------------------------------ | ------------------------------ |
+| Understand the domain entities | `src/domain/AGENTS.md`         |
+| Work on database / persistence | `src/infrastructure/AGENTS.md` |
+| Add or modify API endpoints    | `src/api/AGENTS.md`            |
+| Add a use-case / service       | `src/application/AGENTS.md`    |
+| Change app settings            | `src/config/AGENTS.md`         |
 
 ## Decision Tree
 
-| I need to...                        | Do this                                      |
-|-------------------------------------|----------------------------------------------|
-| Add a new entity                    | `domain/models/` — pure dataclass            |
-| Add validation rules                | `domain/services/` — pure functions           |
-| Add a new DB table                  | `infrastructure/database/models/`             |
-| Add a new repository                | `infrastructure/database/repositories/`       |
-| Add a new endpoint                  | `api/v1/routes/` + schema + dependency        |
-| Add a new use-case                  | `application/services/`                       |
-| Change DB config                    | `config/settings.py` + `.env`                 |
+| I need to...         | Do this                                 |
+| -------------------- | --------------------------------------- |
+| Add a new entity     | `domain/models/` — pure dataclass       |
+| Add validation rules | `domain/services/` — pure functions     |
+| Add a new DB table   | `infrastructure/database/models/`       |
+| Add a new repository | `infrastructure/database/repositories/` |
+| Add a new endpoint   | `api/v1/routes/` + schema + dependency  |
+| Add a new use-case   | `application/services/`                 |
+| Change DB config     | `config/settings.py` + `.env`           |
 
 ## Key Commands
 

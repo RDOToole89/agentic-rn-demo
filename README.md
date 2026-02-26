@@ -3,8 +3,8 @@
 A demonstration monorepo for **architecture-first development with AI-assisted
 workflows** using Expo (iOS, Android, Web).
 
-Built for a developer meetup talk: *"Architecture-First Development in the Age
-of Agents — Practical React Native workflows with AI"*
+Built for a developer meetup talk: _"Architecture-First Development in the Age
+of Agents — Practical React Native workflows with AI"_
 
 ## Quick Start
 
@@ -38,19 +38,19 @@ agentic-rn-demo/
 
 ## Documentation
 
-| Document                  | Purpose                                    |
-|---------------------------|--------------------------------------------|
-| `AGENTS.md`               | AI agent entry point (root level)          |
-| `apps/client/AGENTS.md`   | App-level architecture guide               |
-| `docs/ARCHITECTURE.md`    | Folder structure and data flow             |
-| `docs/WORKFLOW.md`        | Development process and PR checklist       |
-| `docs/STORIES/`           | Feature specs with acceptance criteria     |
+| Document                | Purpose                                |
+| ----------------------- | -------------------------------------- |
+| `AGENTS.md`             | AI agent entry point (root level)      |
+| `apps/client/AGENTS.md` | App-level architecture guide           |
+| `docs/ARCHITECTURE.md`  | Folder structure and data flow         |
+| `docs/WORKFLOW.md`      | Development process and PR checklist   |
+| `docs/STORIES/`         | Feature specs with acceptance criteria |
 
 ## Scripts
 
-| Command          | Description                    |
-|------------------|--------------------------------|
-| `pnpm dev`       | Start Expo dev server          |
-| `pnpm lint`      | Lint all packages              |
-| `pnpm format`    | Format with Prettier           |
-| `pnpm typecheck` | TypeScript check all packages  |
+| Command          | Description                   |
+| ---------------- | ----------------------------- |
+| `pnpm dev`       | Start Expo dev server         |
+| `pnpm lint`      | Lint all packages             |
+| `pnpm format`    | Format with Prettier          |
+| `pnpm typecheck` | TypeScript check all packages |

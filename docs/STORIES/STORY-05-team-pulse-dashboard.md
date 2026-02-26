@@ -9,16 +9,19 @@ issue: 7
 # STORY-05: Team Pulse — Dashboard with Mock Data
 
 ## Summary
+
 Create the Team Pulse feature scaffold with a dashboard screen showing team
 member cards in a FlatList, powered by mock data through React Query hooks.
 
 ## Context
+
 The Team Pulse feature is the centrepiece of the Deloitte demo. This story
 builds the static foundation — feature folder, types, mock data, and NativeWind-
 styled components — so that STORY-06 (animations) and STORY-07 (detail screen)
 can layer on top without touching the data or layout plumbing.
 
 ## Depends On
+
 - STORY-04 (NativeWind v5 + Design System) — all styling uses `className`
 
 ## Acceptance Criteria
@@ -69,20 +72,20 @@ interface MoodEntry {
 
 ## Files Touched
 
-| File | Action | Layer |
-|------|--------|-------|
-| `src/features/pulse/AGENTS.md` | Create | Docs |
-| `src/features/pulse/PulseDashboard.tsx` | Create | Feature |
+| File                                               | Action | Layer   |
+| -------------------------------------------------- | ------ | ------- |
+| `src/features/pulse/AGENTS.md`                     | Create | Docs    |
+| `src/features/pulse/PulseDashboard.tsx`            | Create | Feature |
 | `src/features/pulse/components/TeamMemberCard.tsx` | Create | Feature |
-| `src/features/pulse/components/StatusDot.tsx` | Create | Feature |
-| `src/features/pulse/components/MoodBadge.tsx` | Create | Feature |
-| `src/features/pulse/hooks/useTeamMembers.ts` | Create | Feature |
-| `src/lib/types/team.ts` | Create | Lib |
-| `src/lib/types/index.ts` | Modify | Lib |
-| `src/api/keys.ts` | Modify | API |
-| `app/pulse/index.tsx` | Create | Routing |
-| `app/_layout.tsx` | Modify | Routing |
-| `src/features/home/HomeScreen.tsx` | Modify | Feature |
+| `src/features/pulse/components/StatusDot.tsx`      | Create | Feature |
+| `src/features/pulse/components/MoodBadge.tsx`      | Create | Feature |
+| `src/features/pulse/hooks/useTeamMembers.ts`       | Create | Feature |
+| `src/lib/types/team.ts`                            | Create | Lib     |
+| `src/lib/types/index.ts`                           | Modify | Lib     |
+| `src/api/keys.ts`                                  | Modify | API     |
+| `app/pulse/index.tsx`                              | Create | Routing |
+| `app/_layout.tsx`                                  | Modify | Routing |
+| `src/features/home/HomeScreen.tsx`                 | Modify | Feature |
 
 ## Out of Scope
 

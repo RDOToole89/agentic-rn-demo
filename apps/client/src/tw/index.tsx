@@ -6,7 +6,6 @@
  *
  * 1. A single import point for styled components (`import { View, Text } from '@/tw'`)
  * 2. The `cn()` utility for conditional/merged class names
- * 3. `cssInterop` re-export for wrapping third-party components
  *
  * Usage:
  *   import { View, Text, cn } from '@/tw';
@@ -25,8 +24,6 @@ export {
   FlatList,
   Image,
 } from 'react-native';
-
-export { cssInterop } from 'nativewind';
 
 /** Merge Tailwind classes with conflict resolution. */
 export function cn(...inputs: ClassValue[]): string {

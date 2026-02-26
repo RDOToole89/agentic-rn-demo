@@ -1,0 +1,22 @@
+# Lefthook git hooks configuration
+# Docs: https://github.com/evilmartians/lefthook
+
+commit-msg:
+  commands:
+    validate-message:
+      run: bash .github/scripts/validate-commit-msg.sh {1}
+
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      run: pnpm lint
+    typecheck:
+      run: pnpm typecheck
+    format-check:
+      run: pnpm exec prettier --check "**/*.{ts,tsx,json,md}"
+
+pre-push:
+  commands:
+    validate-branch:
+      run: bash .github/scripts/validate-branch-name.sh

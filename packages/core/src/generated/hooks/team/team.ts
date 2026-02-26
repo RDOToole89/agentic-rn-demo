@@ -5,10 +5,7 @@
  * FastAPI backend for the agentic-rn-demo monorepo. This spec is the single source of truth for frontend type generation via orval.
  * OpenAPI spec version: 0.1.0
  */
-import {
-  useMutation,
-  useQuery
-} from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -16,283 +13,277 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult
+  UseQueryResult,
 } from '@tanstack/react-query';
 
-import type {
-  ApiError,
-  MoodEntry,
-  SubmitMoodRequest,
-  TeamMember
-} from '../../models';
+import type { ApiError, MoodEntry, SubmitMoodRequest, TeamMember } from '../../models';
 
 import { customFetch } from '../../../fetcher';
 
-
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
 
 /**
  * @summary List all team members with current status and mood
  */
 export type getTeamMembersResponse200 = {
-  data: TeamMember[]
-  status: 200
-}
+  data: TeamMember[];
+  status: 200;
+};
 
-export type getTeamMembersResponseSuccess = (getTeamMembersResponse200) & {
+export type getTeamMembersResponseSuccess = getTeamMembersResponse200 & {
   headers: Headers;
 };
-;
-
-export type getTeamMembersResponse = (getTeamMembersResponseSuccess)
+export type getTeamMembersResponse = getTeamMembersResponseSuccess;
 
 export const getGetTeamMembersUrl = () => {
+  return `/team`;
+};
 
-
-  
-
-  return `/team`
-}
-
-export const getTeamMembers = async ( options?: RequestInit): Promise<getTeamMembersResponse> => {
-  
-  return customFetch<getTeamMembersResponse>(getGetTeamMembersUrl(),
-  {      
+export const getTeamMembers = async (
+  options?: RequestInit,
+): Promise<getTeamMembersResponse> => {
+  return customFetch<getTeamMembersResponse>(getGetTeamMembersUrl(), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-);}
-  
-
-
-
+    method: 'GET',
+  });
+};
 
 export const getGetTeamMembersQueryKey = () => {
-    return [
-    `/team`
-    ] as const;
-    }
+  return [`/team`] as const;
+};
 
-    
-export const getGetTeamMembersQueryOptions = <TData = Awaited<ReturnType<typeof getTeamMembers>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getTeamMembers>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
-) => {
+export const getGetTeamMembersQueryOptions = <
+  TData = Awaited<ReturnType<typeof getTeamMembers>>,
+  TError = unknown,
+>(options?: {
+  query?: UseQueryOptions<Awaited<ReturnType<typeof getTeamMembers>>, TError, TData>;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+  const queryKey = queryOptions?.queryKey ?? getGetTeamMembersQueryKey();
 
-  const queryKey =  queryOptions?.queryKey ?? getGetTeamMembersQueryKey();
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getTeamMembers>>> = ({
+    signal,
+  }) => getTeamMembers({ signal, ...requestOptions });
 
-  
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getTeamMembers>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getTeamMembers>>> = ({ signal }) => getTeamMembers({ signal, ...requestOptions });
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getTeamMembers>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type GetTeamMembersQueryResult = NonNullable<Awaited<ReturnType<typeof getTeamMembers>>>
-export type GetTeamMembersQueryError = unknown
-
+export type GetTeamMembersQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getTeamMembers>>
+>;
+export type GetTeamMembersQueryError = unknown;
 
 /**
  * @summary List all team members with current status and mood
  */
 
-export function useGetTeamMembers<TData = Awaited<ReturnType<typeof getTeamMembers>>, TError = unknown>(
-  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getTeamMembers>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+export function useGetTeamMembers<
+  TData = Awaited<ReturnType<typeof getTeamMembers>>,
+  TError = unknown,
+>(options?: {
+  query?: UseQueryOptions<Awaited<ReturnType<typeof getTeamMembers>>, TError, TData>;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetTeamMembersQueryOptions(options);
 
-  const queryOptions = getGetTeamMembersQueryOptions(options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
-
-
-
 
 /**
  * @summary Get a single team member with full mood history
  */
 export type getTeamMemberByIdResponse200 = {
-  data: TeamMember
-  status: 200
-}
+  data: TeamMember;
+  status: 200;
+};
 
 export type getTeamMemberByIdResponse404 = {
-  data: ApiError
-  status: 404
-}
-
-export type getTeamMemberByIdResponseSuccess = (getTeamMemberByIdResponse200) & {
-  headers: Headers;
-};
-export type getTeamMemberByIdResponseError = (getTeamMemberByIdResponse404) & {
-  headers: Headers;
+  data: ApiError;
+  status: 404;
 };
 
-export type getTeamMemberByIdResponse = (getTeamMemberByIdResponseSuccess | getTeamMemberByIdResponseError)
+export type getTeamMemberByIdResponseSuccess = getTeamMemberByIdResponse200 & {
+  headers: Headers;
+};
+export type getTeamMemberByIdResponseError = getTeamMemberByIdResponse404 & {
+  headers: Headers;
+};
 
-export const getGetTeamMemberByIdUrl = (id: string,) => {
+export type getTeamMemberByIdResponse =
+  | getTeamMemberByIdResponseSuccess
+  | getTeamMemberByIdResponseError;
 
+export const getGetTeamMemberByIdUrl = (id: string) => {
+  return `/team/${id}`;
+};
 
-  
-
-  return `/team/${id}`
-}
-
-export const getTeamMemberById = async (id: string, options?: RequestInit): Promise<getTeamMemberByIdResponse> => {
-  
-  return customFetch<getTeamMemberByIdResponse>(getGetTeamMemberByIdUrl(id),
-  {      
+export const getTeamMemberById = async (
+  id: string,
+  options?: RequestInit,
+): Promise<getTeamMemberByIdResponse> => {
+  return customFetch<getTeamMemberByIdResponse>(getGetTeamMemberByIdUrl(id), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-);}
-  
+    method: 'GET',
+  });
+};
 
+export const getGetTeamMemberByIdQueryKey = (id: string) => {
+  return [`/team/${id}`] as const;
+};
 
-
-
-export const getGetTeamMemberByIdQueryKey = (id: string,) => {
-    return [
-    `/team/${id}`
-    ] as const;
-    }
-
-    
-export const getGetTeamMemberByIdQueryOptions = <TData = Awaited<ReturnType<typeof getTeamMemberById>>, TError = ApiError>(id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getTeamMemberById>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+export const getGetTeamMemberByIdQueryOptions = <
+  TData = Awaited<ReturnType<typeof getTeamMemberById>>,
+  TError = ApiError,
+>(
+  id: string,
+  options?: {
+    query?: UseQueryOptions<Awaited<ReturnType<typeof getTeamMemberById>>, TError, TData>;
+    request?: SecondParameter<typeof customFetch>;
+  },
 ) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+  const queryKey = queryOptions?.queryKey ?? getGetTeamMemberByIdQueryKey(id);
 
-  const queryKey =  queryOptions?.queryKey ?? getGetTeamMemberByIdQueryKey(id);
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getTeamMemberById>>> = ({
+    signal,
+  }) => getTeamMemberById(id, { signal, ...requestOptions });
 
-  
+  return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getTeamMemberById>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getTeamMemberById>>> = ({ signal }) => getTeamMemberById(id, { signal, ...requestOptions });
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getTeamMemberById>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type GetTeamMemberByIdQueryResult = NonNullable<Awaited<ReturnType<typeof getTeamMemberById>>>
-export type GetTeamMemberByIdQueryError = ApiError
-
+export type GetTeamMemberByIdQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getTeamMemberById>>
+>;
+export type GetTeamMemberByIdQueryError = ApiError;
 
 /**
  * @summary Get a single team member with full mood history
  */
 
-export function useGetTeamMemberById<TData = Awaited<ReturnType<typeof getTeamMemberById>>, TError = ApiError>(
- id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getTeamMemberById>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+export function useGetTeamMemberById<
+  TData = Awaited<ReturnType<typeof getTeamMemberById>>,
+  TError = ApiError,
+>(
+  id: string,
+  options?: {
+    query?: UseQueryOptions<Awaited<ReturnType<typeof getTeamMemberById>>, TError, TData>;
+    request?: SecondParameter<typeof customFetch>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetTeamMemberByIdQueryOptions(id, options);
 
-  const queryOptions = getGetTeamMemberByIdQueryOptions(id,options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
-
-
-
 
 /**
  * @summary Submit a mood update for a team member
  */
 export type submitTeamMemberMoodResponse201 = {
-  data: MoodEntry
-  status: 201
-}
+  data: MoodEntry;
+  status: 201;
+};
 
-export type submitTeamMemberMoodResponseSuccess = (submitTeamMemberMoodResponse201) & {
+export type submitTeamMemberMoodResponseSuccess = submitTeamMemberMoodResponse201 & {
   headers: Headers;
 };
-;
+export type submitTeamMemberMoodResponse = submitTeamMemberMoodResponseSuccess;
 
-export type submitTeamMemberMoodResponse = (submitTeamMemberMoodResponseSuccess)
+export const getSubmitTeamMemberMoodUrl = (id: string) => {
+  return `/team/${id}/mood`;
+};
 
-export const getSubmitTeamMemberMoodUrl = (id: string,) => {
-
-
-  
-
-  return `/team/${id}/mood`
-}
-
-export const submitTeamMemberMood = async (id: string,
-    submitMoodRequest: SubmitMoodRequest, options?: RequestInit): Promise<submitTeamMemberMoodResponse> => {
-  
-  return customFetch<submitTeamMemberMoodResponse>(getSubmitTeamMemberMoodUrl(id),
-  {      
+export const submitTeamMemberMood = async (
+  id: string,
+  submitMoodRequest: SubmitMoodRequest,
+  options?: RequestInit,
+): Promise<submitTeamMemberMoodResponse> => {
+  return customFetch<submitTeamMemberMoodResponse>(getSubmitTeamMemberMoodUrl(id), {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      submitMoodRequest,)
-  }
-);}
-  
+    body: JSON.stringify(submitMoodRequest),
+  });
+};
 
+export const getSubmitTeamMemberMoodMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof submitTeamMemberMood>>,
+    TError,
+    { id: string; data: SubmitMoodRequest },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof submitTeamMemberMood>>,
+  TError,
+  { id: string; data: SubmitMoodRequest },
+  TContext
+> => {
+  const mutationKey = ['submitTeamMemberMood'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
 
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof submitTeamMemberMood>>,
+    { id: string; data: SubmitMoodRequest }
+  > = (props) => {
+    const { id, data } = props ?? {};
 
-export const getSubmitTeamMemberMoodMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof submitTeamMemberMood>>, TError,{id: string;data: SubmitMoodRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof submitTeamMemberMood>>, TError,{id: string;data: SubmitMoodRequest}, TContext> => {
+    return submitTeamMemberMood(id, data, requestOptions);
+  };
 
-const mutationKey = ['submitTeamMemberMood'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  return { mutationFn, ...mutationOptions };
+};
 
-      
+export type SubmitTeamMemberMoodMutationResult = NonNullable<
+  Awaited<ReturnType<typeof submitTeamMemberMood>>
+>;
+export type SubmitTeamMemberMoodMutationBody = SubmitMoodRequest;
+export type SubmitTeamMemberMoodMutationError = unknown;
 
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof submitTeamMemberMood>>, {id: string;data: SubmitMoodRequest}> = (props) => {
-          const {id,data} = props ?? {};
-
-          return  submitTeamMemberMood(id,data,requestOptions)
-        }
-
-
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type SubmitTeamMemberMoodMutationResult = NonNullable<Awaited<ReturnType<typeof submitTeamMemberMood>>>
-    export type SubmitTeamMemberMoodMutationBody = SubmitMoodRequest
-    export type SubmitTeamMemberMoodMutationError = unknown
-
-    /**
+/**
  * @summary Submit a mood update for a team member
  */
-export const useSubmitTeamMemberMood = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof submitTeamMemberMood>>, TError,{id: string;data: SubmitMoodRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof submitTeamMemberMood>>,
-        TError,
-        {id: string;data: SubmitMoodRequest},
-        TContext
-      > => {
-      return useMutation(getSubmitTeamMemberMoodMutationOptions(options));
-    }
-    
+export const useSubmitTeamMemberMood = <TError = unknown, TContext = unknown>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof submitTeamMemberMood>>,
+    TError,
+    { id: string; data: SubmitMoodRequest },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof submitTeamMemberMood>>,
+  TError,
+  { id: string; data: SubmitMoodRequest },
+  TContext
+> => {
+  return useMutation(getSubmitTeamMemberMoodMutationOptions(options));
+};
