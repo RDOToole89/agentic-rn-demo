@@ -1,10 +1,10 @@
-import { ActivityIndicator } from 'react-native';
-import { View, FlatList } from '@/tw';
-import type { TeamMember } from '@agentic-rn/core';
+import { ActivityIndicator, RefreshControl } from 'react-native';
+import { View, ScrollView, Text } from '@/tw';
 import { useRawColors } from '../../theme/ThemeContext';
 import { useTeamMembers } from './hooks/useTeamMembers';
 import { TeamSummaryCard } from './components/TeamSummaryCard';
 import { TeamMemberCard } from './components/TeamMemberCard';
+import { MoodPicker } from './components/MoodPicker';
 
 export function PulseDashboard() {
   const { members, isLoading, isRefetching, refetch } = useTeamMembers();
@@ -19,15 +19,30 @@ export function PulseDashboard() {
   }
 
   return (
-    <FlatList<TeamMember>
+    <ScrollView
       className="flex-1 bg-surface"
       contentContainerStyle={{ paddingTop: 16, paddingBottom: 32 }}
-      data={members}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => <TeamMemberCard member={item} />}
-      ListHeaderComponent={<TeamSummaryCard members={members} />}
-      refreshing={isRefetching}
-      onRefresh={refetch}
-    />
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefetching}
+          onRefresh={refetch}
+          tintColor={colors.accent}
+        />
+      }
+    >
+      <TeamSummaryCard members={members} />
+
+      <Text className="text-xs font-semibold text-text-secondary uppercase tracking-wider mx-4 mb-2">
+        Your Mood
+      </Text>
+      <MoodPicker />
+
+      <Text className="text-xs font-semibold text-text-secondary uppercase tracking-wider mx-4 mb-2">
+        Team Members
+      </Text>
+      {members.map((member) => (
+        <TeamMemberCard key={member.id} member={member} />
+      ))}
+    </ScrollView>
   );
 }

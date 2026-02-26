@@ -1,6 +1,7 @@
 import { View, Text } from '@/tw';
 import type { TeamMember, TeamMemberStatus } from '@agentic-rn/core';
 import { StatusDot } from './StatusDot';
+import { MoodDistribution } from './MoodDistribution';
 
 interface TeamSummaryCardProps {
   members: TeamMember[];
@@ -46,14 +47,21 @@ export function TeamSummaryCard({ members }: TeamSummaryCardProps) {
 
   return (
     <View className="mx-4 mb-5 p-5 rounded-2xl bg-card shadow-md border-l-4 border-accent">
+      {/* Team vibe header */}
       <View className="flex-row items-center gap-3 mb-4">
-        <Text className="text-4xl">{vibe.emoji}</Text>
+        <Text className="text-5xl">{vibe.emoji}</Text>
         <View>
           <Text className="text-sm text-text-secondary">Team Vibe</Text>
-          <Text className="text-xl font-bold text-text-primary">{vibe.label}</Text>
+          <Text className="text-2xl font-bold text-text-primary">{vibe.label}</Text>
         </View>
       </View>
 
+      {/* Mood distribution bar */}
+      <View className="mb-4">
+        <MoodDistribution members={members} />
+      </View>
+
+      {/* Status counts */}
       <View className="flex-row gap-5">
         <View className="flex-row items-center gap-1.5">
           <StatusDot status="active" />

@@ -5,31 +5,39 @@ Last updated: 2026-02-26
 ## Purpose
 
 The Pulse feature is the Team Pulse dashboard — the centrepiece of the app. It
-shows a summary of team mood ("Team Vibe") and a scrollable list of team member
-cards with avatars, status dots, and mood badges.
+shows a summary of team mood ("Team Vibe"), a mood submission picker, and an
+interactive list of team member cards with avatars, status dots, mood badges,
+and expandable mood history timelines.
 
 ## Files
 
-| File                             | Role                                         |
-| -------------------------------- | -------------------------------------------- |
-| `PulseDashboard.tsx`             | Main screen — FlatList with pull-to-refresh  |
-| `hooks/useTeamMembers.ts`        | React Query hook wrapping mock data          |
-| `data/mockTeamMembers.ts`        | 8 mock `TeamMember` records                  |
-| `components/Avatar.tsx`          | Colored-initials avatar circle               |
-| `components/StatusDot.tsx`       | Small colored dot (active/away/offline)      |
-| `components/MoodBadge.tsx`       | Emoji + label badge                          |
-| `components/TeamMemberCard.tsx`  | Single team member row                       |
-| `components/TeamSummaryCard.tsx` | Hero card with dominant mood + status counts |
+| File                              | Role                                                |
+| --------------------------------- | --------------------------------------------------- |
+| `PulseDashboard.tsx`              | Main screen — ScrollView with pull-to-refresh       |
+| `hooks/useTeamMembers.ts`         | React Query hook wrapping mock data                 |
+| `hooks/useMoodSubmit.ts`          | Local state hook for mood submission + confirmation |
+| `data/mockTeamMembers.ts`         | 8 mock `TeamMember` records with mood history       |
+| `utils/formatTime.ts`             | `formatRelativeTime()` — "5m ago", "Yesterday"      |
+| `components/Avatar.tsx`           | Colored-initials avatar circle                      |
+| `components/StatusDot.tsx`        | Small colored dot (active/away/offline)             |
+| `components/MoodBadge.tsx`        | Emoji + label badge                                 |
+| `components/TeamMemberCard.tsx`   | Expandable card with mood timeline                  |
+| `components/TeamSummaryCard.tsx`  | Hero card with vibe + distribution + status counts  |
+| `components/MoodDistribution.tsx` | Horizontal stacked bar of mood percentages          |
+| `components/MoodPicker.tsx`       | Emoji mood submission card                          |
 
 ## Data Flow
 
 ```
 mockTeamMembers.ts → useTeamMembers (React Query) → PulseDashboard
                                                       ├── TeamSummaryCard
-                                                      └── TeamMemberCard[]
+                                                      │     └── MoodDistribution
+                                                      ├── MoodPicker (useMoodSubmit)
+                                                      └── TeamMemberCard[] (expandable)
                                                             ├── Avatar
                                                             ├── StatusDot
-                                                            └── MoodBadge
+                                                            ├── MoodBadge
+                                                            └── [expanded] mood timeline
 ```
 
 ## Dependencies
@@ -39,6 +47,7 @@ mockTeamMembers.ts → useTeamMembers (React Query) → PulseDashboard
 - `@/tw` — NativeWind components + `cn()` utility
 - `queryKeys.team.all` — from `src/api/keys.ts`
 - `useRawColors()` — for `ActivityIndicator` color (doesn't support className)
+- `LayoutAnimation` — expand/collapse animation (built-in RN API)
 
 ## Route
 
@@ -49,11 +58,26 @@ mockTeamMembers.ts → useTeamMembers (React Query) → PulseDashboard
 - Mock data only — no real API calls yet (future story)
 - 800ms simulated delay makes loading/refresh states visible in demos
 - Avatar colors are deterministic (hash of name) — same name always gets same color
-- `FlatList` uses inline `contentContainerStyle` (NativeWind className caveat)
+- Uses `ScrollView` + `.map()` instead of `FlatList` — FlatList doesn't work on web with NativeWind v5
+- `react-native-reanimated` is installed but **not configured** (no babel plugin) — using `LayoutAnimation` instead
+- Mood submission is local state only (mock — no API persistence)
+
+## Mood → Color Mapping
+
+Used by `MoodDistribution` and `TeamMemberCard` left border:
+
+| Mood     | Color   |
+| -------- | ------- |
+| Happy    | #86BC25 |
+| Fired Up | #E6A817 |
+| Neutral  | #A8A8A0 |
+| Thinking | #00A1DE |
+| Tired    | #6A88C2 |
+| Stressed | #D42828 |
 
 ## Future Stories
 
 - Replace mock data with real API endpoint
-- Add mood submission (tap to change your own mood)
+- Persist mood submission to backend
 - Mood history charts per team member
 - Filter/sort by status or mood
