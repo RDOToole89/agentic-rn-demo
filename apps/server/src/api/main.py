@@ -4,14 +4,20 @@ from collections.abc import AsyncGenerator
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.api.v1.routes import health, preferences
+from src.api.v1.routes import health, preferences, team
 from src.config.settings import settings
-from src.infrastructure.database.connection import create_tables
+from src.infrastructure.database.connection import SessionLocal, create_tables
+from src.seeds.team_seed import seed_team_data
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncGenerator[None, None]:
     create_tables()
+    db = SessionLocal()
+    try:
+        seed_team_data(db)
+    finally:
+        db.close()
     yield
 
 
@@ -27,3 +33,4 @@ app.add_middleware(
 
 app.include_router(health.router)
 app.include_router(preferences.router)
+app.include_router(team.router)

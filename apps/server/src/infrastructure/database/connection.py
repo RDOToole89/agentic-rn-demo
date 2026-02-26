@@ -17,7 +17,9 @@ class Base(DeclarativeBase):
 
 
 def create_tables() -> None:
-    # Import model so ORM registers it with Base before creating tables
+    # Import models so ORM registers them with Base before creating tables
+    import src.infrastructure.database.models.mood_entry_model  # noqa: F401
     import src.infrastructure.database.models.preferences_model  # noqa: F401
+    import src.infrastructure.database.models.team_member_model  # noqa: F401
 
     Base.metadata.create_all(bind=engine)

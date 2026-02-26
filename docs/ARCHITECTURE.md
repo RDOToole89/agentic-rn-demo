@@ -105,17 +105,45 @@ erDiagram
         TIMESTAMP created_at "UTC"
         TIMESTAMP updated_at "UTC"
     }
+
+    team_members {
+        VARCHAR(36) id PK
+        VARCHAR(100) name
+        VARCHAR(100) role
+        VARCHAR(500) avatar_url "nullable"
+        VARCHAR(20) status "active|away|offline"
+    }
+
+    mood_entries {
+        VARCHAR(36) id PK
+        VARCHAR(36) member_id FK
+        VARCHAR(10) emoji
+        VARCHAR(50) label
+        TIMESTAMP timestamp "UTC"
+    }
+
+    team_members ||--o{ mood_entries : "has many"
 ```
 
 ### Column Reference
 
-| Table              | Column       | Type           | Constraints | Notes                              |
-| ------------------ | ------------ | -------------- | ----------- | ---------------------------------- |
-| `user_preferences` | `user_id`    | `VARCHAR(100)` | PK          | Alphanumeric, hyphens, underscores |
-| `user_preferences` | `username`   | `VARCHAR(50)`  | NOT NULL    | Display name                       |
-| `user_preferences` | `dark_mode`  | `BOOLEAN`      | NOT NULL    | UI preference                      |
-| `user_preferences` | `created_at` | `TIMESTAMP`    | NOT NULL    | UTC, set on creation               |
-| `user_preferences` | `updated_at` | `TIMESTAMP`    | NOT NULL    | UTC, set on every write            |
+| Table              | Column       | Type           | Constraints      | Notes                              |
+| ------------------ | ------------ | -------------- | ---------------- | ---------------------------------- |
+| `user_preferences` | `user_id`    | `VARCHAR(100)` | PK               | Alphanumeric, hyphens, underscores |
+| `user_preferences` | `username`   | `VARCHAR(50)`  | NOT NULL         | Display name                       |
+| `user_preferences` | `dark_mode`  | `BOOLEAN`      | NOT NULL         | UI preference                      |
+| `user_preferences` | `created_at` | `TIMESTAMP`    | NOT NULL         | UTC, set on creation               |
+| `user_preferences` | `updated_at` | `TIMESTAMP`    | NOT NULL         | UTC, set on every write            |
+| `team_members`     | `id`         | `VARCHAR(36)`  | PK               | Stable UUID                        |
+| `team_members`     | `name`       | `VARCHAR(100)` | NOT NULL         | Display name                       |
+| `team_members`     | `role`       | `VARCHAR(100)` | NOT NULL         | Job title                          |
+| `team_members`     | `avatar_url` | `VARCHAR(500)` | NULLABLE         | Profile image URL                  |
+| `team_members`     | `status`     | `VARCHAR(20)`  | NOT NULL         | `active`, `away`, or `offline`     |
+| `mood_entries`     | `id`         | `VARCHAR(36)`  | PK               | UUID                               |
+| `mood_entries`     | `member_id`  | `VARCHAR(36)`  | FK, NOT NULL, IX | References `team_members.id`       |
+| `mood_entries`     | `emoji`      | `VARCHAR(10)`  | NOT NULL         | Emoji character(s)                 |
+| `mood_entries`     | `label`      | `VARCHAR(50)`  | NOT NULL         | Human-readable mood label          |
+| `mood_entries`     | `timestamp`  | `TIMESTAMP`    | NOT NULL         | UTC, when mood was submitted       |
 
 ---
 
@@ -220,6 +248,7 @@ apps/client/
 ├── app/                          # Route definitions (Expo Router)
 │   ├── _layout.tsx               # Root layout + providers + global.css import
 │   ├── index.tsx                 # → HomeScreen
+│   ├── pulse/index.tsx           # → PulseDashboard
 │   └── settings.tsx              # → SettingsScreen
 │
 ├── src/
@@ -229,8 +258,18 @@ apps/client/
 │   │   └── index.ts              # Barrel export
 │   │
 │   ├── features/                 # Feature modules
-│   │   ├── home/                 # Home screen feature
+│   │   ├── home/                 # Home dashboard feature
 │   │   │   ├── HomeScreen.tsx
+│   │   │   ├── components/       # NavigationCard, TeamPulseWidget, ActivityFeed
+│   │   │   └── AGENTS.md
+│   │   ├── pulse/                # Team Pulse dashboard feature
+│   │   │   ├── PulseDashboard.tsx
+│   │   │   ├── components/       # Avatar, StatusDot, MoodBadge, MoodPicker,
+│   │   │   │                     # TeamMemberCard, TeamSummaryCard, MoodDistribution,
+│   │   │   │                     # StandupCard
+│   │   │   ├── hooks/            # useTeamMembers, useMoodSubmit, useStandupGenerator
+│   │   │   ├── data/             # mockTeamMembers.ts
+│   │   │   ├── utils/            # formatTime.ts, generateStandup.ts
 │   │   │   └── AGENTS.md
 │   │   └── settings/             # Settings screen feature
 │   │       ├── SettingsScreen.tsx
@@ -248,7 +287,8 @@ apps/client/
 │   │       └── index.ts
 │   │
 │   ├── store/                    # Zustand stores
-│   │   ├── preferencesStore.ts
+│   │   ├── preferencesStore.ts   # username, darkMode (persisted)
+│   │   ├── appStore.ts           # isReady, hasOnboarded
 │   │   └── index.ts
 │   │
 │   ├── theme/                    # Design tokens + NativeWind bridge

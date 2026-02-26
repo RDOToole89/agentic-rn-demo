@@ -71,11 +71,18 @@ server endpoints, enabling sync between devices.
 
 ### API Contract
 
-| Endpoint                        | Method | Request Body                  | Response                              |
-| ------------------------------- | ------ | ----------------------------- | ------------------------------------- |
-| `/health`                       | GET    | —                             | `{"status": "ok"}`                    |
-| `/api/v1/preferences/{user_id}` | GET    | —                             | `PreferenceResponse` (full entity)    |
-| `/api/v1/preferences/{user_id}` | PUT    | `{"username?", "dark_mode?"}` | `PreferenceResponse` (updated entity) |
+| Endpoint                        | Method | Request Body                  | Response                               |
+| ------------------------------- | ------ | ----------------------------- | -------------------------------------- |
+| `/health`                       | GET    | —                             | `{"status": "ok"}`                     |
+| `/api/v1/preferences/{user_id}` | GET    | —                             | `PreferenceResponse` (full entity)     |
+| `/api/v1/preferences/{user_id}` | PUT    | `{"username?", "dark_mode?"}` | `PreferenceResponse` (updated entity)  |
+| `/api/v1/team`                  | GET    | —                             | `list[TeamMemberResponse]` (camelCase) |
+| `/api/v1/team/{id}`             | GET    | —                             | `TeamMemberResponse` (camelCase)       |
+| `/api/v1/team/{id}/mood`        | POST   | `{"emoji", "label"}`          | `MoodEntryResponse` (201)              |
+
+**Team Pulse endpoints** use `alias_generator=to_camel` for camelCase JSON keys
+(`avatarUrl`, `currentMood`, `moodHistory`). `currentMood` is computed from the
+most recent entry in `moodHistory`.
 
 Interactive docs: `GET /docs` (Swagger UI) or `GET /redoc` (ReDoc).
 
@@ -122,33 +129,45 @@ apps/server/
 ├── AGENTS.md
 └── src/
     ├── api/
-    │   ├── main.py                      # FastAPI app, CORS, lifespan
+    │   ├── main.py                      # FastAPI app, CORS, lifespan, seed
     │   └── v1/
     │       ├── dependencies.py          # DI chain: db → repo → service
     │       ├── schemas/
-    │       │   └── preference_schemas.py
+    │       │   ├── preference_schemas.py
+    │       │   └── team_schemas.py      # TeamMemberResponse, MoodEntryResponse (camelCase)
     │       └── routes/
     │           ├── health.py            # GET /health
-    │           └── preferences.py       # GET/PUT /api/v1/preferences/{user_id}
+    │           ├── preferences.py       # GET/PUT /api/v1/preferences/{user_id}
+    │           └── team.py              # GET/POST /api/v1/team endpoints
     ├── application/
     │   └── services/
-    │       └── preferences_service.py   # Use-case orchestrator
+    │       ├── preferences_service.py   # Use-case orchestrator
+    │       └── team_service.py          # Team member + mood orchestration
     ├── config/
     │   └── settings.py                  # Pydantic BaseSettings
     ├── domain/
     │   ├── models/
+    │   │   ├── mood_entry.py            # MoodEntry dataclass + factory
+    │   │   ├── team_member.py           # TeamMember dataclass + current_mood property
     │   │   └── user_preferences.py      # Dataclass entity + factory
     │   └── services/
+    │       ├── team_validation.py       # member_id, emoji, label, status validation
     │       └── validation.py            # Username/user-id validation
-    └── infrastructure/
-        └── database/
-            ├── connection.py            # Engine, SessionLocal, Base
-            ├── mappers/
-            │   └── preferences_mapper.py
-            ├── models/
-            │   └── preferences_model.py # SQLAlchemy ORM model
-            └── repositories/
-                └── preferences_repo.py  # get_by_user_id, save, delete
+    ├── infrastructure/
+    │   └── database/
+    │       ├── connection.py            # Engine, SessionLocal, Base
+    │       ├── mappers/
+    │       │   ├── preferences_mapper.py
+    │       │   └── team_mapper.py       # Domain ↔ ORM for TeamMember + MoodEntry
+    │       ├── models/
+    │       │   ├── mood_entry_model.py  # SQLAlchemy: mood_entries table (FK → team_members)
+    │       │   ├── preferences_model.py # SQLAlchemy ORM model
+    │       │   └── team_member_model.py # SQLAlchemy: team_members table + relationship
+    │       └── repositories/
+    │           ├── preferences_repo.py  # get_by_user_id, save, delete
+    │           └── team_repo.py         # get_all, get_by_id, add_mood_entry, save_member
+    └── seeds/
+        └── team_seed.py                 # 8 demo team members (idempotent)
 ```
 
 ## Navigation for Agents
