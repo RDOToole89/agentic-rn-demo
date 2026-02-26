@@ -1,0 +1,107 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+    '../../packages/ui/src/**/*.{ts,tsx}',
+  ],
+  presets: [require('nativewind/preset')],
+  theme: {
+    extend: {
+      colors: {
+        // Primary scale (green)
+        primary: {
+          50: '#F4F9E6',
+          100: '#E5F2C4',
+          200: '#D0E89E',
+          300: '#B8DC73',
+          400: '#9FD04D',
+          500: '#86BC25',
+          600: '#6FA01E',
+          700: '#578018',
+          800: '#405F12',
+          900: '#2B3F0D',
+        },
+        // Secondary scale (blue)
+        secondary: {
+          50: '#E6EAF5',
+          100: '#C0CCE6',
+          200: '#95AAD4',
+          300: '#6A88C2',
+          400: '#4A6DB5',
+          500: '#002776',
+          600: '#002063',
+          700: '#001950',
+          800: '#00123D',
+          900: '#000C2A',
+        },
+        // Accent scale (cyan)
+        accent: {
+          DEFAULT: 'var(--color-accent)',
+          50: '#E0F4FC',
+          100: '#B3E4F7',
+          200: '#80D3F1',
+          300: '#4DC2EB',
+          400: '#26B5E7',
+          500: '#00A1DE',
+          600: '#0088BC',
+          700: '#006E97',
+          800: '#005573',
+          900: '#003B4F',
+        },
+        // Neutral scale (warm gray)
+        neutral: {
+          50: '#FAFAF8',
+          100: '#F5F5F0',
+          200: '#E8E8E2',
+          300: '#D4D4CC',
+          400: '#A8A8A0',
+          500: '#787870',
+          600: '#5C5C54',
+          700: '#434340',
+          800: '#2E2E2C',
+          900: '#1A1A18',
+        },
+        // Semantic tokens (reference CSS variables for light-dark() support)
+        surface: {
+          DEFAULT: 'var(--color-surface)',
+          elevated: 'var(--color-surface-elevated)',
+          sunken: 'var(--color-surface-sunken)',
+        },
+        'text-primary': 'var(--color-text-primary)',
+        'text-secondary': 'var(--color-text-secondary)',
+        'text-muted': 'var(--color-text-muted)',
+        'accent-secondary': 'var(--color-accent-secondary)',
+        border: 'var(--color-border)',
+        card: 'var(--color-card)',
+        input: 'var(--color-input)',
+        success: 'var(--color-success)',
+        error: 'var(--color-error)',
+        warning: 'var(--color-warning)',
+      },
+      borderRadius: {
+        xs: '2px',
+        sm: '4px',
+        md: '8px',
+        lg: '12px',
+        xl: '16px',
+        full: '9999px',
+      },
+      fontSize: {
+        xs: ['12px', { lineHeight: '16px' }],
+        sm: ['14px', { lineHeight: '20px' }],
+        base: ['16px', { lineHeight: '24px' }],
+        lg: ['18px', { lineHeight: '28px' }],
+        xl: ['20px', { lineHeight: '28px' }],
+        '2xl': ['24px', { lineHeight: '32px' }],
+        '3xl': ['28px', { lineHeight: '36px' }],
+      },
+      boxShadow: {
+        sm: '0 1px 2px rgba(0, 0, 0, 0.05)',
+        md: '0 4px 6px rgba(0, 0, 0, 0.07)',
+        lg: '0 10px 15px rgba(0, 0, 0, 0.1)',
+      },
+    },
+  },
+  plugins: [],
+};

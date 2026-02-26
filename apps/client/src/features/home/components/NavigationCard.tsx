@@ -6,6 +6,7 @@ interface NavigationCardProps {
   title: string;
   description: string;
   accentClass?: string;
+  compact?: boolean;
   onPress: () => void;
 }
 
@@ -14,8 +15,27 @@ export function NavigationCard({
   title,
   description,
   accentClass = 'border-accent',
+  compact = false,
   onPress,
 }: NavigationCardProps) {
+  if (compact) {
+    return (
+      <Pressable
+        className={cn(
+          'flex-1 items-center p-4 rounded-xl bg-card shadow-sm border-t-4',
+          accentClass,
+        )}
+        onPress={onPress}
+      >
+        <Text className="text-2xl mb-2">{emoji}</Text>
+        <Text className="text-sm font-bold text-text-primary">{title}</Text>
+        <Text className="text-xs text-text-secondary mt-0.5 text-center">
+          {description}
+        </Text>
+      </Pressable>
+    );
+  }
+
   return (
     <Pressable
       className={cn(
