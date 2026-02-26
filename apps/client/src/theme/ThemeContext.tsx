@@ -7,7 +7,7 @@
  */
 
 import { useEffect } from 'react';
-import { Appearance, useColorScheme } from 'react-native';
+import { Appearance, Platform, useColorScheme } from 'react-native';
 import { usePreferencesStore } from '../store/preferencesStore';
 import { rawColors } from './tokens';
 
@@ -18,6 +18,9 @@ export function useThemeSync() {
 
   useEffect(() => {
     Appearance.setColorScheme?.(isDark ? 'dark' : 'light');
+    if (Platform.OS === 'web' && typeof document !== 'undefined') {
+      document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+    }
   }, [isDark]);
 
   return { isDark, colorScheme };
