@@ -29,9 +29,9 @@ to GitHub Issues and a Project Board via a CLI script.
 ---
 id: STORY-03
 title: Add Notifications Feature
-status: backlog        # backlog | ready | in-progress | done
+status: backlog # backlog | ready | in-progress | done
 labels: [type:feat, scope:client]
-issue: null            # becomes issue number after sync
+issue: null # becomes issue number after sync
 ---
 ```
 
@@ -42,6 +42,7 @@ Backlog → Ready → In progress → In review → Done
 ## Agent Workflow
 
 When an AI agent picks up a story:
+
 1. Read the story spec (acceptance criteria, constraints)
 2. Read the relevant AGENTS.md files (root → app → feature)
 3. Implement against the spec

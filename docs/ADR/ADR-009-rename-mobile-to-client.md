@@ -26,12 +26,12 @@ all references across the monorepo:
 
 ## Alternatives Considered
 
-| Name | Pros | Cons |
-|------|------|------|
-| `apps/mobile` (keep) | No churn | Inaccurate — implies mobile-only |
-| `apps/app` | Short | Tautological, vague |
-| `apps/client` | Accurate, platform-agnostic, pairs with `apps/server` | Minor rename churn |
-| `apps/frontend` | Common in web projects | Less idiomatic for React Native ecosystems |
+| Name                 | Pros                                                  | Cons                                       |
+| -------------------- | ----------------------------------------------------- | ------------------------------------------ |
+| `apps/mobile` (keep) | No churn                                              | Inaccurate — implies mobile-only           |
+| `apps/app`           | Short                                                 | Tautological, vague                        |
+| `apps/client`        | Accurate, platform-agnostic, pairs with `apps/server` | Minor rename churn                         |
+| `apps/frontend`      | Common in web projects                                | Less idiomatic for React Native ecosystems |
 
 ## Scope of Change
 

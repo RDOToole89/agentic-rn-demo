@@ -9,11 +9,13 @@ issue: 5
 # STORY-03: Implement FastAPI Backend with Hexagonal Architecture
 
 ## Summary
+
 Add a lightweight FastAPI backend (`apps/server`) demonstrating hexagonal
 architecture (ports & adapters) as the API layer for the client app. This is
 a demo-weight implementation — just enough structure to teach the pattern.
 
 ## Context
+
 The demo needs a backend to show full-stack architecture-first development.
 The hexagonal pattern mirrors the client's layered approach: domain is pure,
 infrastructure is swappable, and boundaries are strict. Based on the pattern
@@ -88,14 +90,14 @@ apps/server/
 
 ## Key Patterns to Demonstrate
 
-| Pattern | Where | Why |
-|---------|-------|-----|
-| Hexagonal architecture | Folder structure | Swappable adapters, testable core |
-| Repository pattern | `infrastructure/database/repositories/` | Abstract DB access |
-| Mapper pattern | `infrastructure/database/mappers/` | Domain <-> DB translation |
-| Dependency injection | `api/v1/dependencies.py` | FastAPI `Depends()` |
-| Pydantic Settings | `config/settings.py` | Type-safe config from env |
-| Domain purity | `domain/` has no framework imports | Testable, portable logic |
+| Pattern                | Where                                   | Why                               |
+| ---------------------- | --------------------------------------- | --------------------------------- |
+| Hexagonal architecture | Folder structure                        | Swappable adapters, testable core |
+| Repository pattern     | `infrastructure/database/repositories/` | Abstract DB access                |
+| Mapper pattern         | `infrastructure/database/mappers/`      | Domain <-> DB translation         |
+| Dependency injection   | `api/v1/dependencies.py`                | FastAPI `Depends()`               |
+| Pydantic Settings      | `config/settings.py`                    | Type-safe config from env         |
+| Domain purity          | `domain/` has no framework imports      | Testable, portable logic          |
 
 ## Out of Scope
 

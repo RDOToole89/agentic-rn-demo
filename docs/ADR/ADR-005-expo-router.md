@@ -21,10 +21,10 @@ export default SettingsScreen;
 
 ## Alternatives Considered
 
-| Option | Pros | Cons |
-|--------|------|------|
-| React Navigation (direct) | Explicit, well-documented | Manual route config, more boilerplate |
-| **Expo Router 6** | File-based, automatic deep linking, typed routes | Convention-driven, less explicit |
+| Option                    | Pros                                             | Cons                                  |
+| ------------------------- | ------------------------------------------------ | ------------------------------------- |
+| React Navigation (direct) | Explicit, well-documented                        | Manual route config, more boilerplate |
+| **Expo Router 6**         | File-based, automatic deep linking, typed routes | Convention-driven, less explicit      |
 
 ## Route Architecture
 

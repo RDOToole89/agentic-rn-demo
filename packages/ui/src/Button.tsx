@@ -8,29 +8,15 @@ interface ButtonProps {
   style?: ViewStyle;
 }
 
-export function Button({
-  label,
-  onPress,
-  variant = 'primary',
-  style,
-}: ButtonProps) {
+export function Button({ label, onPress, variant = 'primary', style }: ButtonProps) {
   const isPrimary = variant === 'primary';
 
   return (
     <Pressable
-      style={[
-        styles.base,
-        isPrimary ? styles.primary : styles.secondary,
-        style,
-      ]}
+      style={[styles.base, isPrimary ? styles.primary : styles.secondary, style]}
       onPress={onPress}
     >
-      <Text
-        style={[
-          styles.label,
-          { color: isPrimary ? '#FFFFFF' : '#2563EB' },
-        ]}
-      >
+      <Text style={[styles.label, { color: isPrimary ? '#FFFFFF' : '#2563EB' }]}>
         {label}
       </Text>
     </Pressable>

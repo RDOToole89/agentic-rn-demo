@@ -9,17 +9,20 @@ issue: 11
 # STORY-09: Team Pulse — Connect Frontend to Live API
 
 ## Summary
+
 Replace mock `queryFn` implementations with real `fetch()` calls to the FastAPI
 backend, add environment config for the API base URL, and implement loading
 skeletons, error states, and optimistic updates.
 
 ## Context
+
 This is the capstone story that connects the frontend (STORY-05/06/07) to the
 backend (STORY-08), demonstrating the full agentic development loop. The
 frontend mock data hooks are replaced with real API calls, showing how the
 architecture's clean boundaries make this swap straightforward.
 
 ## Depends On
+
 - STORY-05 (Team Pulse — Dashboard with mock data)
 - STORY-08 (Backend — Team Pulse API endpoints)
 
@@ -47,17 +50,17 @@ architecture's clean boundaries make this swap straightforward.
 
 ## Files Touched
 
-| File | Action | Layer |
-|------|--------|-------|
-| `src/features/pulse/hooks/useTeamMembers.ts` | Modify | Feature |
-| `src/features/pulse/hooks/useTeamMember.ts` | Modify | Feature |
-| `src/features/pulse/hooks/useSubmitMood.ts` | Modify | Feature |
+| File                                                       | Action | Layer   |
+| ---------------------------------------------------------- | ------ | ------- |
+| `src/features/pulse/hooks/useTeamMembers.ts`               | Modify | Feature |
+| `src/features/pulse/hooks/useTeamMember.ts`                | Modify | Feature |
+| `src/features/pulse/hooks/useSubmitMood.ts`                | Modify | Feature |
 | `src/features/pulse/components/TeamMemberCardSkeleton.tsx` | Create | Feature |
-| `src/features/pulse/components/ErrorState.tsx` | Create | Feature |
-| `src/features/pulse/PulseDashboard.tsx` | Modify | Feature |
-| `src/features/pulse/MemberDetail.tsx` | Modify | Feature |
-| `src/lib/utils/api.ts` | Create | Lib |
-| `src/features/pulse/AGENTS.md` | Modify | Docs |
+| `src/features/pulse/components/ErrorState.tsx`             | Create | Feature |
+| `src/features/pulse/PulseDashboard.tsx`                    | Modify | Feature |
+| `src/features/pulse/MemberDetail.tsx`                      | Modify | Feature |
+| `src/lib/utils/api.ts`                                     | Create | Lib     |
+| `src/features/pulse/AGENTS.md`                             | Modify | Docs    |
 
 ## Out of Scope
 
@@ -70,6 +73,7 @@ architecture's clean boundaries make this swap straightforward.
 ## Demo Notes
 
 This story shows the power of the architecture-first approach:
+
 - Swapping mock → real API only touches hook internals
 - Components don't change at all — they consume the same React Query data
 - The AGENTS.md boundary rules guided the AI to make minimal, correct changes

@@ -27,9 +27,9 @@
 
 ## Stores
 
-| Store               | Purpose                            |
-|---------------------|------------------------------------|
-| `appStore.ts`       | Global app lifecycle state         |
+| Store                 | Purpose                                      |
+| --------------------- | -------------------------------------------- |
+| `appStore.ts`         | Global app lifecycle state                   |
 | `preferencesStore.ts` | User preferences (persisted to AsyncStorage) |
 
 ## Conventions

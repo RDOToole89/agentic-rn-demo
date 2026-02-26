@@ -4,21 +4,21 @@ Get up and running in under 5 minutes.
 
 ## Prerequisites
 
-| Tool | Version | Check |
-|------|---------|-------|
-| Node.js | LTS (22.x) | `node -v` |
-| pnpm | 9.x+ | `pnpm -v` |
-| Git | 2.x+ | `git -v` |
-| GitHub CLI | 2.x+ | `gh --version` |
-| Expo Go app | Latest | Install on your phone or use iOS Simulator |
+| Tool        | Version    | Check                                      |
+| ----------- | ---------- | ------------------------------------------ |
+| Node.js     | LTS (22.x) | `node -v`                                  |
+| pnpm        | 9.x+       | `pnpm -v`                                  |
+| Git         | 2.x+       | `git -v`                                   |
+| GitHub CLI  | 2.x+       | `gh --version`                             |
+| Expo Go app | Latest     | Install on your phone or use iOS Simulator |
 
 ### Optional
 
-| Tool | Purpose |
-|------|---------|
-| Xcode | iOS Simulator (macOS only) |
-| Android Studio | Android Emulator |
-| VS Code | Recommended editor (see `.vscode/` config) |
+| Tool           | Purpose                                    |
+| -------------- | ------------------------------------------ |
+| Xcode          | iOS Simulator (macOS only)                 |
+| Android Studio | Android Emulator                           |
+| VS Code        | Recommended editor (see `.vscode/` config) |
 
 ---
 
@@ -37,6 +37,7 @@ pnpm dev
 ```
 
 This starts the Expo dev server. Then:
+
 - Press **i** to open in iOS Simulator
 - Press **a** to open in Android Emulator
 - Press **w** to open in web browser
@@ -48,36 +49,36 @@ This starts the Expo dev server. Then:
 
 Run from the monorepo root:
 
-| Command | What it does |
-|---------|-------------|
-| `pnpm dev` | Start Expo dev server |
-| `pnpm lint` | Lint all packages |
-| `pnpm format` | Format with Prettier |
+| Command          | What it does                  |
+| ---------------- | ----------------------------- |
+| `pnpm dev`       | Start Expo dev server         |
+| `pnpm lint`      | Lint all packages             |
+| `pnpm format`    | Format with Prettier          |
 | `pnpm typecheck` | TypeScript check all packages |
 
 Run from `apps/client/`:
 
-| Command | What it does |
-|---------|-------------|
-| `pnpm start` | Start Expo dev server |
-| `pnpm ios` | Build and run on iOS |
+| Command        | What it does             |
+| -------------- | ------------------------ |
+| `pnpm start`   | Start Expo dev server    |
+| `pnpm ios`     | Build and run on iOS     |
 | `pnpm android` | Build and run on Android |
-| `pnpm web` | Start for web browser |
+| `pnpm web`     | Start for web browser    |
 
 ---
 
 ## Tech Stack
 
-| Layer | Technology | Version |
-|-------|-----------|---------|
-| Framework | Expo SDK | 54.0.33 |
-| Language | TypeScript | 5.9.2 |
-| UI | React Native | 0.81.5 |
-| React | React | 19.1.0 |
-| Routing | Expo Router | 6.0.23 |
-| State | Zustand | 5.x |
-| Persistence | AsyncStorage | 2.2.0 |
-| Animations | Reanimated | 4.1.6 |
+| Layer       | Technology   | Version |
+| ----------- | ------------ | ------- |
+| Framework   | Expo SDK     | 54.0.33 |
+| Language    | TypeScript   | 5.9.2   |
+| UI          | React Native | 0.81.5  |
+| React       | React        | 19.1.0  |
+| Routing     | Expo Router  | 6.0.23  |
+| State       | Zustand      | 5.x     |
+| Persistence | AsyncStorage | 2.2.0   |
+| Animations  | Reanimated   | 4.1.6   |
 
 ---
 
@@ -165,13 +166,13 @@ gh issue view 3 --repo RDOToole89/agentic-rn-demo
 
 This repo is designed for AI-assisted development. The key files:
 
-| File | When to Read |
-|------|-------------|
-| `AGENTS.md` (root) | Before any work — understand the repo |
-| `apps/client/AGENTS.md` | Before app changes — know the layers |
-| `src/features/*/AGENTS.md` | Before feature changes — know the constraints |
-| `docs/STORIES/STORY-XX.md` | Before implementing — know the acceptance criteria |
-| `docs/ADR/` | When questioning a decision — understand the rationale |
+| File                       | When to Read                                           |
+| -------------------------- | ------------------------------------------------------ |
+| `AGENTS.md` (root)         | Before any work — understand the repo                  |
+| `apps/client/AGENTS.md`    | Before app changes — know the layers                   |
+| `src/features/*/AGENTS.md` | Before feature changes — know the constraints          |
+| `docs/STORIES/STORY-XX.md` | Before implementing — know the acceptance criteria     |
+| `docs/ADR/`                | When questioning a decision — understand the rationale |
 
 ### Agent Workflow
 
@@ -191,12 +192,13 @@ This repo is designed for AI-assisted development. The key files:
 type(scope): description
 ```
 
-| Part | Values |
-|------|--------|
-| **type** | `feat`, `fix`, `refactor`, `docs`, `test`, `chore` |
-| **scope** | `client`, `ui`, `core`, `mono` |
+| Part      | Values                                             |
+| --------- | -------------------------------------------------- |
+| **type**  | `feat`, `fix`, `refactor`, `docs`, `test`, `chore` |
+| **scope** | `client`, `ui`, `core`, `mono`                     |
 
 Examples:
+
 ```
 feat(client): add notifications feature
 fix(client): debounce username persistence
@@ -208,17 +210,17 @@ chore(mono): configure lefthook pre-commit hooks
 
 ## Labels
 
-| Label | Color | Meaning |
-|-------|-------|---------|
-| `type:feat` | Green | New feature |
-| `type:fix` | Red | Bug fix |
-| `type:refactor` | Yellow | Code improvement |
-| `type:docs` | Blue | Documentation |
-| `type:chore` | Purple | Maintenance |
-| `scope:client` | Light blue | Changes in apps/client |
-| `scope:ui` | Light blue | Changes in packages/ui |
-| `scope:core` | Light blue | Changes in packages/core |
-| `scope:mono` | Light blue | Monorepo-level changes |
+| Label           | Color      | Meaning                  |
+| --------------- | ---------- | ------------------------ |
+| `type:feat`     | Green      | New feature              |
+| `type:fix`      | Red        | Bug fix                  |
+| `type:refactor` | Yellow     | Code improvement         |
+| `type:docs`     | Blue       | Documentation            |
+| `type:chore`    | Purple     | Maintenance              |
+| `scope:client`  | Light blue | Changes in apps/client   |
+| `scope:ui`      | Light blue | Changes in packages/ui   |
+| `scope:core`    | Light blue | Changes in packages/core |
+| `scope:mono`    | Light blue | Monorepo-level changes   |
 
 ---
 

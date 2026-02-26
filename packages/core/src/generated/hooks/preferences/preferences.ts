@@ -5,10 +5,7 @@
  * FastAPI backend for the agentic-rn-demo monorepo. This spec is the single source of truth for frontend type generation via orval.
  * OpenAPI spec version: 0.1.0
  */
-import {
-  useMutation,
-  useQuery
-} from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -16,188 +13,189 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult
+  UseQueryResult,
 } from '@tanstack/react-query';
 
-import type {
-  UpdatePreferencesRequest,
-  UserPreferences
-} from '../../models';
+import type { UpdatePreferencesRequest, UserPreferences } from '../../models';
 
 import { customFetch } from '../../../fetcher';
 
-
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
 
 /**
  * @summary Get user preferences
  */
 export type getPreferencesResponse200 = {
-  data: UserPreferences
-  status: 200
-}
+  data: UserPreferences;
+  status: 200;
+};
 
-export type getPreferencesResponseSuccess = (getPreferencesResponse200) & {
+export type getPreferencesResponseSuccess = getPreferencesResponse200 & {
   headers: Headers;
 };
-;
+export type getPreferencesResponse = getPreferencesResponseSuccess;
 
-export type getPreferencesResponse = (getPreferencesResponseSuccess)
+export const getGetPreferencesUrl = (userId: string) => {
+  return `/preferences/${userId}`;
+};
 
-export const getGetPreferencesUrl = (userId: string,) => {
-
-
-  
-
-  return `/preferences/${userId}`
-}
-
-export const getPreferences = async (userId: string, options?: RequestInit): Promise<getPreferencesResponse> => {
-  
-  return customFetch<getPreferencesResponse>(getGetPreferencesUrl(userId),
-  {      
+export const getPreferences = async (
+  userId: string,
+  options?: RequestInit,
+): Promise<getPreferencesResponse> => {
+  return customFetch<getPreferencesResponse>(getGetPreferencesUrl(userId), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-);}
-  
+    method: 'GET',
+  });
+};
 
+export const getGetPreferencesQueryKey = (userId: string) => {
+  return [`/preferences/${userId}`] as const;
+};
 
-
-
-export const getGetPreferencesQueryKey = (userId: string,) => {
-    return [
-    `/preferences/${userId}`
-    ] as const;
-    }
-
-    
-export const getGetPreferencesQueryOptions = <TData = Awaited<ReturnType<typeof getPreferences>>, TError = unknown>(userId: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getPreferences>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+export const getGetPreferencesQueryOptions = <
+  TData = Awaited<ReturnType<typeof getPreferences>>,
+  TError = unknown,
+>(
+  userId: string,
+  options?: {
+    query?: UseQueryOptions<Awaited<ReturnType<typeof getPreferences>>, TError, TData>;
+    request?: SecondParameter<typeof customFetch>;
+  },
 ) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+  const queryKey = queryOptions?.queryKey ?? getGetPreferencesQueryKey(userId);
 
-  const queryKey =  queryOptions?.queryKey ?? getGetPreferencesQueryKey(userId);
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getPreferences>>> = ({
+    signal,
+  }) => getPreferences(userId, { signal, ...requestOptions });
 
-  
+  return { queryKey, queryFn, enabled: !!userId, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getPreferences>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getPreferences>>> = ({ signal }) => getPreferences(userId, { signal, ...requestOptions });
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(userId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getPreferences>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type GetPreferencesQueryResult = NonNullable<Awaited<ReturnType<typeof getPreferences>>>
-export type GetPreferencesQueryError = unknown
-
+export type GetPreferencesQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getPreferences>>
+>;
+export type GetPreferencesQueryError = unknown;
 
 /**
  * @summary Get user preferences
  */
 
-export function useGetPreferences<TData = Awaited<ReturnType<typeof getPreferences>>, TError = unknown>(
- userId: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getPreferences>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+export function useGetPreferences<
+  TData = Awaited<ReturnType<typeof getPreferences>>,
+  TError = unknown,
+>(
+  userId: string,
+  options?: {
+    query?: UseQueryOptions<Awaited<ReturnType<typeof getPreferences>>, TError, TData>;
+    request?: SecondParameter<typeof customFetch>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetPreferencesQueryOptions(userId, options);
 
-  const queryOptions = getGetPreferencesQueryOptions(userId,options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
-
-
-
 
 /**
  * @summary Update user preferences
  */
 export type updatePreferencesResponse200 = {
-  data: UserPreferences
-  status: 200
-}
+  data: UserPreferences;
+  status: 200;
+};
 
-export type updatePreferencesResponseSuccess = (updatePreferencesResponse200) & {
+export type updatePreferencesResponseSuccess = updatePreferencesResponse200 & {
   headers: Headers;
 };
-;
+export type updatePreferencesResponse = updatePreferencesResponseSuccess;
 
-export type updatePreferencesResponse = (updatePreferencesResponseSuccess)
+export const getUpdatePreferencesUrl = (userId: string) => {
+  return `/preferences/${userId}`;
+};
 
-export const getUpdatePreferencesUrl = (userId: string,) => {
-
-
-  
-
-  return `/preferences/${userId}`
-}
-
-export const updatePreferences = async (userId: string,
-    updatePreferencesRequest: UpdatePreferencesRequest, options?: RequestInit): Promise<updatePreferencesResponse> => {
-  
-  return customFetch<updatePreferencesResponse>(getUpdatePreferencesUrl(userId),
-  {      
+export const updatePreferences = async (
+  userId: string,
+  updatePreferencesRequest: UpdatePreferencesRequest,
+  options?: RequestInit,
+): Promise<updatePreferencesResponse> => {
+  return customFetch<updatePreferencesResponse>(getUpdatePreferencesUrl(userId), {
     ...options,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      updatePreferencesRequest,)
-  }
-);}
-  
+    body: JSON.stringify(updatePreferencesRequest),
+  });
+};
 
+export const getUpdatePreferencesMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof updatePreferences>>,
+    TError,
+    { userId: string; data: UpdatePreferencesRequest },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof updatePreferences>>,
+  TError,
+  { userId: string; data: UpdatePreferencesRequest },
+  TContext
+> => {
+  const mutationKey = ['updatePreferences'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
 
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof updatePreferences>>,
+    { userId: string; data: UpdatePreferencesRequest }
+  > = (props) => {
+    const { userId, data } = props ?? {};
 
-export const getUpdatePreferencesMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updatePreferences>>, TError,{userId: string;data: UpdatePreferencesRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof updatePreferences>>, TError,{userId: string;data: UpdatePreferencesRequest}, TContext> => {
+    return updatePreferences(userId, data, requestOptions);
+  };
 
-const mutationKey = ['updatePreferences'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  return { mutationFn, ...mutationOptions };
+};
 
-      
+export type UpdatePreferencesMutationResult = NonNullable<
+  Awaited<ReturnType<typeof updatePreferences>>
+>;
+export type UpdatePreferencesMutationBody = UpdatePreferencesRequest;
+export type UpdatePreferencesMutationError = unknown;
 
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updatePreferences>>, {userId: string;data: UpdatePreferencesRequest}> = (props) => {
-          const {userId,data} = props ?? {};
-
-          return  updatePreferences(userId,data,requestOptions)
-        }
-
-
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type UpdatePreferencesMutationResult = NonNullable<Awaited<ReturnType<typeof updatePreferences>>>
-    export type UpdatePreferencesMutationBody = UpdatePreferencesRequest
-    export type UpdatePreferencesMutationError = unknown
-
-    /**
+/**
  * @summary Update user preferences
  */
-export const useUpdatePreferences = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updatePreferences>>, TError,{userId: string;data: UpdatePreferencesRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof updatePreferences>>,
-        TError,
-        {userId: string;data: UpdatePreferencesRequest},
-        TContext
-      > => {
-      return useMutation(getUpdatePreferencesMutationOptions(options));
-    }
-    
+export const useUpdatePreferences = <TError = unknown, TContext = unknown>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof updatePreferences>>,
+    TError,
+    { userId: string; data: UpdatePreferencesRequest },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof updatePreferences>>,
+  TError,
+  { userId: string; data: UpdatePreferencesRequest },
+  TContext
+> => {
+  return useMutation(getUpdatePreferencesMutationOptions(options));
+};

@@ -216,7 +216,15 @@
       },
       "TeamMember": {
         "type": "object",
-        "required": ["id", "name", "role", "avatarUrl", "status", "currentMood", "moodHistory"],
+        "required": [
+          "id",
+          "name",
+          "role",
+          "avatarUrl",
+          "status",
+          "currentMood",
+          "moodHistory"
+        ],
         "properties": {
           "id": { "type": "string", "format": "uuid" },
           "name": { "type": "string", "example": "Alice Chen" },

@@ -14,11 +14,11 @@ Use **pnpm workspaces** without a build orchestrator (no Nx, no Turborepo).
 
 ## Alternatives Considered
 
-| Tool | Pros | Cons |
-|------|------|------|
-| Nx | Task caching, dependency graph, generators | Heavy config, steep learning curve, overkill for 1 app |
-| Turborepo | Simple caching, fast pipelines | Extra dependency, config overhead for a small project |
-| Yarn workspaces | Mature, well-known | pnpm is faster, stricter dependency resolution |
+| Tool            | Pros                                       | Cons                                                   |
+| --------------- | ------------------------------------------ | ------------------------------------------------------ |
+| Nx              | Task caching, dependency graph, generators | Heavy config, steep learning curve, overkill for 1 app |
+| Turborepo       | Simple caching, fast pipelines             | Extra dependency, config overhead for a small project  |
+| Yarn workspaces | Mature, well-known                         | pnpm is faster, stricter dependency resolution         |
 
 ## Consequences
 

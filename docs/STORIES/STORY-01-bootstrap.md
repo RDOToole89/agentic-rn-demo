@@ -9,10 +9,12 @@ issue: 3
 # STORY-01: Bootstrap Monorepo
 
 ## Summary
+
 Set up the initial monorepo structure with a working cross-platform Expo app,
 shared packages, layered architecture, and documentation.
 
 ## Context
+
 We need a clean, professional starting point for demonstrating
 architecture-first development with AI-assisted workflows. The repo must be
 minimal but realistic — not a toy, not overengineered.

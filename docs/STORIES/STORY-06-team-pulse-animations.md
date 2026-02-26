@@ -9,16 +9,19 @@ issue: 8
 # STORY-06: Team Pulse — Reanimated Animations
 
 ## Summary
+
 Add polished Reanimated animations to the Pulse dashboard: staggered card
 entrance, press-to-scale feedback, and a pulsing status dot indicator.
 
 ## Context
+
 This is the **live demo story** for the Deloitte presentation. It is designed to
 be visually impressive, self-contained, and quick for AI to implement (~5 min).
 All data and layout are already in place from STORY-05; this story only adds
 animation wrappers and gesture feedback.
 
 ## Depends On
+
 - STORY-05 (Team Pulse — Dashboard with mock data)
 
 ## Acceptance Criteria
@@ -45,22 +48,22 @@ animation wrappers and gesture feedback.
 
 ## Animation Specs
 
-| Element | Animation | Duration | Easing |
-|---------|-----------|----------|--------|
-| Card entrance | FadeInUp + stagger | 300ms + 100ms/index | spring (damping 15) |
-| Card press | Scale 1 → 0.97 → 1 | 150ms | withSpring |
-| StatusDot pulse | Opacity 1 → 0.3 → 1 | 1500ms loop | withTiming (easeInOut) |
+| Element         | Animation           | Duration            | Easing                 |
+| --------------- | ------------------- | ------------------- | ---------------------- |
+| Card entrance   | FadeInUp + stagger  | 300ms + 100ms/index | spring (damping 15)    |
+| Card press      | Scale 1 → 0.97 → 1  | 150ms               | withSpring             |
+| StatusDot pulse | Opacity 1 → 0.3 → 1 | 1500ms loop         | withTiming (easeInOut) |
 
 ## Files Touched
 
-| File | Action | Layer |
-|------|--------|-------|
-| `package.json` | Modify | Config |
-| `babel.config.js` | Modify | Config |
-| `src/features/pulse/PulseDashboard.tsx` | Modify | Feature |
+| File                                               | Action | Layer   |
+| -------------------------------------------------- | ------ | ------- |
+| `package.json`                                     | Modify | Config  |
+| `babel.config.js`                                  | Modify | Config  |
+| `src/features/pulse/PulseDashboard.tsx`            | Modify | Feature |
 | `src/features/pulse/components/TeamMemberCard.tsx` | Modify | Feature |
-| `src/features/pulse/components/StatusDot.tsx` | Modify | Feature |
-| `src/features/pulse/components/AnimatedCard.tsx` | Create | Feature |
+| `src/features/pulse/components/StatusDot.tsx`      | Modify | Feature |
+| `src/features/pulse/components/AnimatedCard.tsx`   | Create | Feature |
 
 ## Out of Scope
 

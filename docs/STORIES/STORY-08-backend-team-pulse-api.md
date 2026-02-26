@@ -9,16 +9,19 @@ issue: 10
 # STORY-08: Backend — Team Pulse API Endpoints
 
 ## Summary
+
 Add Team Pulse API endpoints to the FastAPI backend: list team members, get
 member detail with mood history, and submit mood updates. Includes domain
 entities, repository pattern, and seed data.
 
 ## Context
+
 The frontend Team Pulse feature (STORY-05/06/07) uses mock data. This story
 provides the real backend endpoints so the full-stack connection (STORY-09) can
 replace mocks with live API calls, completing the demo's end-to-end flow.
 
 ## Depends On
+
 - STORY-03 (FastAPI Backend with Hexagonal Architecture)
 
 ## Acceptance Criteria
@@ -73,26 +76,27 @@ apps/server/src/
 ## Seed Data
 
 6-8 team members with varied statuses and moods:
+
 - Mix of `active`, `away`, `offline` statuses
 - Moods: happy, focused, stressed, energized, creative, tired
 - Roles: Frontend Dev, Backend Dev, Designer, PM, QA, DevOps
 
 ## Files Touched
 
-| File | Action | Layer |
-|------|--------|-------|
-| `apps/server/src/api/v1/routes/team.py` | Create | API |
-| `apps/server/src/api/v1/schemas/team_schemas.py` | Create | API |
-| `apps/server/src/application/services/team_service.py` | Create | Application |
-| `apps/server/src/domain/models/team_member.py` | Create | Domain |
-| `apps/server/src/domain/models/mood_entry.py` | Create | Domain |
+| File                                                                  | Action | Layer          |
+| --------------------------------------------------------------------- | ------ | -------------- |
+| `apps/server/src/api/v1/routes/team.py`                               | Create | API            |
+| `apps/server/src/api/v1/schemas/team_schemas.py`                      | Create | API            |
+| `apps/server/src/application/services/team_service.py`                | Create | Application    |
+| `apps/server/src/domain/models/team_member.py`                        | Create | Domain         |
+| `apps/server/src/domain/models/mood_entry.py`                         | Create | Domain         |
 | `apps/server/src/infrastructure/database/models/team_member_model.py` | Create | Infrastructure |
-| `apps/server/src/infrastructure/database/models/mood_entry_model.py` | Create | Infrastructure |
-| `apps/server/src/infrastructure/database/repositories/team_repo.py` | Create | Infrastructure |
-| `apps/server/src/infrastructure/database/mappers/team_mapper.py` | Create | Infrastructure |
-| `apps/server/src/seeds/team_seed.py` | Create | Infrastructure |
-| `apps/server/src/api/main.py` | Modify | API |
-| `apps/server/AGENTS.md` | Modify | Docs |
+| `apps/server/src/infrastructure/database/models/mood_entry_model.py`  | Create | Infrastructure |
+| `apps/server/src/infrastructure/database/repositories/team_repo.py`   | Create | Infrastructure |
+| `apps/server/src/infrastructure/database/mappers/team_mapper.py`      | Create | Infrastructure |
+| `apps/server/src/seeds/team_seed.py`                                  | Create | Infrastructure |
+| `apps/server/src/api/main.py`                                         | Modify | API            |
+| `apps/server/AGENTS.md`                                               | Modify | Docs           |
 
 ## Out of Scope
 

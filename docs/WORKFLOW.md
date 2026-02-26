@@ -23,6 +23,7 @@ files before writing a single line of code.
 Every feature or change gets a story spec in `docs/STORIES/`.
 
 A story spec contains:
+
 - **Title** and one-line summary
 - **Context** — why are we building this?
 - **Acceptance Criteria** — what does "done" look like?
@@ -48,7 +49,7 @@ Story Spec (docs/STORIES/)
 ### Recommended Labels
 
 | Label           | Meaning                              |
-|-----------------|--------------------------------------|
+| --------------- | ------------------------------------ |
 | `type:feat`     | New feature                          |
 | `type:fix`      | Bug fix                              |
 | `type:refactor` | Code improvement, no behavior change |

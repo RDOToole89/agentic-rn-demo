@@ -5,8 +5,7 @@ import { useSettings } from './hooks/useSettings';
 
 export function SettingsScreen() {
   const colors = useRawColors();
-  const { username, darkMode, onUsernameChange, onToggleDarkMode } =
-    useSettings();
+  const { username, darkMode, onUsernameChange, onToggleDarkMode } = useSettings();
 
   return (
     <View className="flex-1 p-5 gap-4 bg-surface">

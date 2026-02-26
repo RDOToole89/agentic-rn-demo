@@ -29,16 +29,16 @@ agentic-rn-demo/
 
 ## Navigation for Agents
 
-| I need to...                       | Go to                                        |
-|------------------------------------|----------------------------------------------|
-| Understand the architecture        | `docs/ARCHITECTURE.md`                       |
-| Understand the workflow            | `docs/WORKFLOW.md`                           |
-| See the database schema            | `docs/ARCHITECTURE.md` → Database Schema     |
-| Work on the client app             | `apps/client/AGENTS.md`                      |
-| Work on the server API             | `apps/server/AGENTS.md`                      |
-| Work on shared types / API client  | `packages/core/AGENTS.md`                    |
-| See a feature-level example        | `apps/client/src/features/settings/AGENTS.md`|
-| Find a story spec                  | `docs/STORIES/STORY-*.md`                    |
+| I need to...                      | Go to                                         |
+| --------------------------------- | --------------------------------------------- |
+| Understand the architecture       | `docs/ARCHITECTURE.md`                        |
+| Understand the workflow           | `docs/WORKFLOW.md`                            |
+| See the database schema           | `docs/ARCHITECTURE.md` → Database Schema      |
+| Work on the client app            | `apps/client/AGENTS.md`                       |
+| Work on the server API            | `apps/server/AGENTS.md`                       |
+| Work on shared types / API client | `packages/core/AGENTS.md`                     |
+| See a feature-level example       | `apps/client/src/features/settings/AGENTS.md` |
+| Find a story spec                 | `docs/STORIES/STORY-*.md`                     |
 
 ## Commit Conventions
 
@@ -49,6 +49,7 @@ Format: `type(scope): description`
 - **description**: imperative mood, lowercase, max 72 chars
 
 Examples:
+
 ```
 feat(client): add dark mode toggle to settings
 fix(core): handle null in Result type
@@ -61,6 +62,23 @@ docs(mono): update ARCHITECTURE.md with data flow
 - No `any` types — use `unknown` and narrow
 - Format with Prettier before committing
 - Every new feature needs a story spec in `docs/STORIES/`
+
+## Git Hooks (Lefthook)
+
+[Lefthook](https://github.com/evilmartians/lefthook) enforces conventions at
+the git level. Hooks run automatically — both humans and AI agents must pass
+the same gates.
+
+| Hook         | What it checks                                                              |
+| ------------ | --------------------------------------------------------------------------- | ---------- |
+| `commit-msg` | Message format: `type(scope): description`, max 72 chars, no AI attribution |
+| `pre-commit` | `pnpm lint`, `pnpm typecheck`, `pnpm format --check` (parallel)             |
+| `pre-push`   | Branch name matches `type/STORY-NN-slug` or `chore                          | docs/slug` |
+
+Validation scripts live in `.github/scripts/`. Config is in `lefthook.yml`.
+
+**Never use `--no-verify`** to bypass hooks. If a hook fails, fix the
+underlying issue.
 
 ## Database Schema Documentation
 

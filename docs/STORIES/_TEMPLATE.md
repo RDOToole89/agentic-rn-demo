@@ -9,9 +9,11 @@ issue: null
 # STORY-XX: <Short title>
 
 ## Summary
+
 One or two sentences describing what this story delivers.
 
 ## Context
+
 Why are we building this? What problem does it solve?
 
 ## Acceptance Criteria
@@ -27,8 +29,8 @@ Why are we building this? What problem does it solve?
 
 ## Files Touched
 
-| File | Action | Layer |
-|------|--------|-------|
+| File              | Action        | Layer              |
+| ----------------- | ------------- | ------------------ |
 | `path/to/file.ts` | Create/Modify | Domain/Feature/etc |
 
 ## Out of Scope

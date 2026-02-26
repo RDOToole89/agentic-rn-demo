@@ -11,6 +11,7 @@ that mirrors these principles in Python while being independently swappable
 at every layer.
 
 Key requirements:
+
 - Domain logic must be pure Python with zero framework imports
 - Database should be swappable (SQLite for dev, PostgreSQL for prod) without
   touching business logic
@@ -50,15 +51,18 @@ the canary for schema drift.
 ## Alternatives Considered
 
 ### Flat FastAPI structure (routes + models + db)
+
 Simpler, fewer files. Rejected because it doesn't demonstrate the architectural
 pattern we're teaching, and domain logic becomes entangled with framework code.
 
 ### Django with apps
+
 Full-featured, batteries-included. Rejected because the ORM is tightly coupled
 to the framework (domain can't be pure), and it's heavier than needed for a
 demo backend.
 
 ### Clean Architecture (Uncle Bob)
+
 Very similar to hexagonal but adds more layers (entities, use-cases, interface
 adapters, frameworks). Rejected as over-engineered for a single-entity demo —
 hexagonal gives the same boundary guarantees with less boilerplate.
