@@ -25,6 +25,7 @@ function InnerLayout() {
         }}
       >
         <Stack.Screen name="index" options={{ title: 'Home' }} />
+        <Stack.Screen name="pulse/index" options={{ title: 'Team Pulse' }} />
         <Stack.Screen name="settings" options={{ title: 'Settings' }} />
       </Stack>
     </View>
