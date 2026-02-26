@@ -6,7 +6,6 @@
  *
  * 1. A single import point for styled components (`import { View, Text } from '@/tw'`)
  * 2. The `cn()` utility for conditional/merged class names
- * 3. `cssInterop` re-export for wrapping third-party components
  *
  * Usage:
  *   import { View, Text, cn } from '@/tw';

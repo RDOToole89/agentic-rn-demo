@@ -7,18 +7,18 @@
  */
 
 import { useEffect } from 'react';
-import { useColorScheme } from 'nativewind';
+import { Appearance, useColorScheme } from 'react-native';
 import { usePreferencesStore } from '../store/preferencesStore';
 import { rawColors } from './tokens';
 
 /** Sync Zustand darkMode → NativeWind colorScheme. Call once in root layout. */
 export function useThemeSync() {
-  const { setColorScheme, colorScheme } = useColorScheme();
+  const colorScheme = useColorScheme();
   const isDark = usePreferencesStore((s) => s.darkMode);
 
   useEffect(() => {
-    setColorScheme(isDark ? 'dark' : 'light');
-  }, [isDark, setColorScheme]);
+    Appearance.setColorScheme?.(isDark ? 'dark' : 'light');
+  }, [isDark]);
 
   return { isDark, colorScheme };
 }

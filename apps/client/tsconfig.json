@@ -13,5 +13,5 @@
       "@/tw/*": ["./src/tw/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx", "nativewind-env.d.ts"]
 }
