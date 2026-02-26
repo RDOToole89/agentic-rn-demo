@@ -5,6 +5,7 @@ import { useTeamMembers } from './hooks/useTeamMembers';
 import { TeamSummaryCard } from './components/TeamSummaryCard';
 import { TeamMemberCard } from './components/TeamMemberCard';
 import { MoodPicker } from './components/MoodPicker';
+import { StandupCard } from './components/StandupCard';
 
 export function PulseDashboard() {
   const { members, isLoading, isRefetching, refetch } = useTeamMembers();
@@ -36,6 +37,11 @@ export function PulseDashboard() {
         Your Mood
       </Text>
       <MoodPicker />
+
+      <Text className="text-xs font-semibold text-text-secondary uppercase tracking-wider mx-4 mb-2">
+        AI Standup
+      </Text>
+      <StandupCard members={members} />
 
       <Text className="text-xs font-semibold text-text-secondary uppercase tracking-wider mx-4 mb-2">
         Team Members

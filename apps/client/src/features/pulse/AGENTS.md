@@ -16,8 +16,10 @@ and expandable mood history timelines.
 | `PulseDashboard.tsx`              | Main screen — ScrollView with pull-to-refresh       |
 | `hooks/useTeamMembers.ts`         | React Query hook wrapping mock data                 |
 | `hooks/useMoodSubmit.ts`          | Local state hook for mood submission + confirmation |
+| `hooks/useStandupGenerator.ts`    | Hook for AI standup generation with loading state   |
 | `data/mockTeamMembers.ts`         | 8 mock `TeamMember` records with mood history       |
 | `utils/formatTime.ts`             | `formatRelativeTime()` — "5m ago", "Yesterday"      |
+| `utils/generateStandup.ts`        | Pure function — mood analysis + 5 template variants |
 | `components/Avatar.tsx`           | Colored-initials avatar circle                      |
 | `components/StatusDot.tsx`        | Small colored dot (active/away/offline)             |
 | `components/MoodBadge.tsx`        | Emoji + label badge                                 |
@@ -25,6 +27,7 @@ and expandable mood history timelines.
 | `components/TeamSummaryCard.tsx`  | Hero card with vibe + distribution + status counts  |
 | `components/MoodDistribution.tsx` | Horizontal stacked bar of mood percentages          |
 | `components/MoodPicker.tsx`       | Emoji mood submission card                          |
+| `components/StandupCard.tsx`      | AI standup card — idle/loading/summary states       |
 
 ## Data Flow
 
@@ -33,6 +36,8 @@ mockTeamMembers.ts → useTeamMembers (React Query) → PulseDashboard
                                                       ├── TeamSummaryCard
                                                       │     └── MoodDistribution
                                                       ├── MoodPicker (useMoodSubmit)
+                                                      ├── StandupCard (useStandupGenerator)
+                                                      │     └── generateStandup (pure fn)
                                                       └── TeamMemberCard[] (expandable)
                                                             ├── Avatar
                                                             ├── StatusDot
