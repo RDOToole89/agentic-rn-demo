@@ -1,4 +1,4 @@
-# AGENTS.md — Config Layer
+Last updated: 2026-02-26
 
 > Application settings via Pydantic BaseSettings.
 > Parent: [apps/server/AGENTS.md](../../AGENTS.md)

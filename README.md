@@ -1,4 +1,4 @@
-# agentic-rn-demo
+Last updated: 2026-02-28
 
 A full-stack monorepo demonstrating **architecture-first development with
 AI-assisted workflows** — built with Expo (iOS, Android, Web) and FastAPI.

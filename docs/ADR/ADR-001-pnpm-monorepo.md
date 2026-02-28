@@ -1,4 +1,4 @@
-# ADR-001: pnpm Monorepo over Nx/Turborepo
+Last updated: 2026-02-26
 
 **Status**: Accepted
 

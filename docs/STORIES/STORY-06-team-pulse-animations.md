@@ -4,6 +4,7 @@ title: Team Pulse — Reanimated Animations
 status: backlog
 labels: [type:feat, scope:client]
 issue: 8
+last_updated: 2026-02-26
 ---
 
 # STORY-06: Team Pulse — Reanimated Animations

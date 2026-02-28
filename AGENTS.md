@@ -1,4 +1,4 @@
-# AGENTS.md — Root (Monorepo)
+Last updated: 2026-02-26
 
 > This file is the **entry point** for any AI agent working in this repository.
 > Read this first. Then navigate to the relevant app or package for deeper context.

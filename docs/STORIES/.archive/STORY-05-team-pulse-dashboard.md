@@ -4,6 +4,7 @@ title: Team Pulse — Dashboard with Mock Data
 status: backlog
 labels: [type:feat, scope:client]
 issue: 7
+last_updated: 2026-02-26
 ---
 
 # STORY-05: Team Pulse — Dashboard with Mock Data

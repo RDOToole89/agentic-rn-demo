@@ -4,6 +4,7 @@ title: Team Pulse — Connect Frontend to Live API
 status: backlog
 labels: [type:feat, scope:client]
 issue: 11
+last_updated: 2026-02-26
 ---
 
 # STORY-09: Team Pulse — Connect Frontend to Live API

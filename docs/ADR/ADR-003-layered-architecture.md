@@ -1,4 +1,4 @@
-# ADR-003: Layered Architecture with Strict Boundaries
+Last updated: 2026-02-26
 
 **Status**: Accepted
 

@@ -1,4 +1,4 @@
-# AGENTS.md — Server (FastAPI)
+Last updated: 2026-02-26
 
 > App-level agent guide for the Python backend.
 > Parent: [root AGENTS.md](../../AGENTS.md)

@@ -1,4 +1,4 @@
-# ADR-009: Rename `apps/mobile` to `apps/client`
+Last updated: 2026-02-26
 
 **Status**: Accepted
 

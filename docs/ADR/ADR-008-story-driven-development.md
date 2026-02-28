@@ -1,4 +1,4 @@
-# ADR-008: Story-Driven Development with Board Sync
+Last updated: 2026-02-26
 
 **Status**: Accepted
 

@@ -4,6 +4,7 @@ title: Add Lefthook Git Hooks for Commit & Branch Enforcement
 status: backlog
 labels: [type:chore, scope:mono]
 issue: 12
+last_updated: 2026-02-26
 ---
 
 # STORY-10: Add Lefthook Git Hooks for Commit & Branch Enforcement

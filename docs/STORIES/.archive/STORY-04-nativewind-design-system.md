@@ -4,6 +4,7 @@ title: Add NativeWind v5 + Design System
 status: backlog
 labels: [type:feat, scope:client]
 issue: 6
+last_updated: 2026-02-26
 ---
 
 # STORY-04: Add NativeWind v5 + Design System

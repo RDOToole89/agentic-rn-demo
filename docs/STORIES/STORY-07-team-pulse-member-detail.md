@@ -4,6 +4,7 @@ title: Team Pulse — Member Detail Screen
 status: backlog
 labels: [type:feat, scope:client]
 issue: 9
+last_updated: 2026-02-26
 ---
 
 # STORY-07: Team Pulse — Member Detail Screen

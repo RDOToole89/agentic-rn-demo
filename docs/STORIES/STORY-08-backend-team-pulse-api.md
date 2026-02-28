@@ -4,6 +4,7 @@ title: Backend — Team Pulse API Endpoints
 status: backlog
 labels: [type:feat, scope:mono]
 issue: 10
+last_updated: 2026-02-26
 ---
 
 # STORY-08: Backend — Team Pulse API Endpoints

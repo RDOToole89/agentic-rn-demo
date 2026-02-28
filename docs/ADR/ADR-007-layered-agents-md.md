@@ -1,4 +1,4 @@
-# ADR-007: Layered AGENTS.md Progressive Disclosure
+Last updated: 2026-02-26
 
 **Status**: Accepted
 

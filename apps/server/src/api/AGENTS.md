@@ -1,4 +1,4 @@
-# AGENTS.md — API Layer
+Last updated: 2026-02-26
 
 > HTTP adapter. FastAPI routes, Pydantic schemas, dependency injection.
 > Parent: [apps/server/AGENTS.md](../../AGENTS.md)

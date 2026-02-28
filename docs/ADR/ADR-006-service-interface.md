@@ -1,4 +1,4 @@
-# ADR-006: AsyncStorage Behind Service Interface
+Last updated: 2026-02-11
 
 **Status**: Accepted
 

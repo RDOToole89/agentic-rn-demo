@@ -1,4 +1,4 @@
-# Workflow: Architecture-First Development
+Last updated: 2026-02-26
 
 ## The Loop
 

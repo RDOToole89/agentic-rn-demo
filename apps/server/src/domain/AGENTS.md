@@ -1,4 +1,4 @@
-# AGENTS.md — Domain Layer
+Last updated: 2026-02-26
 
 > Pure business logic. Zero framework imports.
 > Parent: [apps/server/AGENTS.md](../../AGENTS.md)

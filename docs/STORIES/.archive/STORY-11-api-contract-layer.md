@@ -4,6 +4,7 @@ title: Type-Safe API Contract Layer (OpenAPI + Orval)
 status: backlog
 labels: [type:feat, scope:core]
 issue: 13
+last_updated: 2026-02-26
 ---
 
 # STORY-11: Type-Safe API Contract Layer (OpenAPI + Orval)

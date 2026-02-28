@@ -4,6 +4,7 @@ title: Team & Member Management
 status: backlog
 labels: [type:feat, scope:client, scope:server]
 issue: 20
+last_updated: 2026-02-26
 ---
 
 # STORY-13: Team & Member Management

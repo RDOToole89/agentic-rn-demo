@@ -1,4 +1,4 @@
-# AGENTS.md — Infrastructure Layer
+Last updated: 2026-02-25
 
 > Database adapter. Translates between domain entities and SQLAlchemy ORM.
 > Parent: [apps/server/AGENTS.md](../../AGENTS.md)

@@ -1,4 +1,4 @@
-# ADR-010: Hexagonal Architecture for FastAPI Backend
+Last updated: 2026-02-26
 
 **Status**: Accepted
 

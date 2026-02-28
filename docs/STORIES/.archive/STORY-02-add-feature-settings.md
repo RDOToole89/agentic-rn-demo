@@ -4,6 +4,7 @@ title: Add Settings Feature
 status: done
 labels: [type:feat, scope:client]
 issue: 4
+last_updated: 2026-02-26
 ---
 
 # STORY-02: Add Settings Feature

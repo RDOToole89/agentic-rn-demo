@@ -1,4 +1,4 @@
-# ADR-004: Zustand over Redux/Context for State Management
+Last updated: 2026-02-26
 
 **Status**: Accepted
 

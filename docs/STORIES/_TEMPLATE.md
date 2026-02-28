@@ -4,6 +4,7 @@ title: <Short title>
 status: backlog
 labels: [type:feat, scope:client]
 issue: null
+last_updated: 2026-02-26
 ---
 
 # STORY-XX: <Short title>

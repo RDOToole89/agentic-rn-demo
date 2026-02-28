@@ -1,4 +1,4 @@
-# AGENTS.md — Application Layer
+Last updated: 2026-02-26
 
 > Use-case orchestration. Thin services that wire domain + infrastructure.
 > Parent: [apps/server/AGENTS.md](../../AGENTS.md)

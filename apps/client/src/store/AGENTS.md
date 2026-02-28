@@ -1,4 +1,4 @@
-# AGENTS.md — Store (`src/store/`)
+Last updated: 2026-02-26
 
 > Zustand stores for **client-only app state**. Never put server data here.
 

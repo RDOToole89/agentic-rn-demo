@@ -4,6 +4,7 @@ title: Bootstrap Monorepo
 status: done
 labels: [type:feat, scope:mono]
 issue: 3
+last_updated: 2026-02-26
 ---
 
 # STORY-01: Bootstrap Monorepo

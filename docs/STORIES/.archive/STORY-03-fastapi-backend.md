@@ -4,6 +4,7 @@ title: Implement FastAPI Backend with Hexagonal Architecture
 status: done
 labels: [type:feat, scope:mono]
 issue: 5
+last_updated: 2026-02-26
 ---
 
 # STORY-03: Implement FastAPI Backend with Hexagonal Architecture

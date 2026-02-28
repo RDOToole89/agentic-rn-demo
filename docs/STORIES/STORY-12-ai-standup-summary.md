@@ -4,6 +4,7 @@ title: AI Standup Summary (Demo Feature)
 status: in-progress
 labels: [type:feat, scope:client]
 issue: 19
+last_updated: 2026-02-26
 ---
 
 # STORY-12: AI Standup Summary (Demo Feature)

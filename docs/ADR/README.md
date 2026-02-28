@@ -1,4 +1,4 @@
-# Architecture Decision Records
+Last updated: 2026-02-26
 
 ADRs document the key technical decisions made in this project, including
 context, alternatives considered, and rationale.

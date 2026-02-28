@@ -1,4 +1,4 @@
-# Developer Startup Guide
+Last updated: 2026-02-26
 
 Get up and running in under 5 minutes.
 

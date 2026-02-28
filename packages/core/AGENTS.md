@@ -1,4 +1,4 @@
-# AGENTS.md — Package: core
+Last updated: 2026-02-26
 
 ## Purpose
 
